@@ -1,0 +1,22 @@
+{% extends "base.html"  %}
+{% block content %}
+
+<div style="text-align: center;" xmlns="http://www.w3.org/1999/html">
+    [ 회원가입 ]
+    <p>
+    Id : <input type="text" name="signId" size="20"/>
+        <br>
+    Id Confirm : <input type="text" name="signIdCf" size="20"/>
+        <br>
+        <input type="button" value="ID 중복 확인"/>
+        <br>
+    Pw : <input type="password" name="signPw" size="20"/>
+        <br>
+    Pw Confirm : <input type="password" name="signPwCf" size="20"/>
+        <br>
+        <input type="button" value="회원가입"/>
+        <br>
+    </p>
+</div>
+
+{% endblock %}

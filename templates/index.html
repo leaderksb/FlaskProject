@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for linkname, link in linkDataHtml.items() %}
+
+<p><a href="{{ link }}">{{ linkname }}</a></p>
+
+{% endfor %}
+{% endblock %}
