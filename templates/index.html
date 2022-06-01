@@ -3,7 +3,9 @@
 
 {% for linkname, link in linkDataHtml.items() %}
 
+<form action="/" method="post">
 <p><a href="{{ link }}">{{ linkname }}</a></p>
+</form>
 
 {% endfor %}
 {% endblock %}

@@ -1,13 +1,13 @@
 {% extends "base.html"  %}
 {% block content %}
 
-<form action="" method="post">
+<form action="/login/" method="post">
 <div style="text-align: center;" xmlns="http://www.w3.org/1999/html">
     [ 이미지 로고 ]
     <p>
-    Id : <input type="text" name="loginId" size="20"/>
+    ID : <input type="text" name="loginIdGive" id="loginIdGive" size="20"/>
         <br>
-    Pw : <input type="password" name="loginPw" size="20"/>
+    PW : <input type="password" name="loginPwGive" id="loginPwGive" size="20"/>
         <br>
         <input type="submit" value="로그인"/>
         <br>

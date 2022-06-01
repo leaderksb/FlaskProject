@@ -1,22 +1,55 @@
 {% extends "base.html"  %}
 {% block content %}
 
+<!--<form action="/signup/" method="post" id="signupForm">-->
+<form action="/signup/" method="post">
 <div style="text-align: center;" xmlns="http://www.w3.org/1999/html">
+
     [ 회원가입 ]
     <p>
-    Id : <input type="text" name="signId" size="20"/>
+    Name : <input type="text" name="signupNameGive" id="signupNameGive" size="20"/>
         <br>
-    Id Confirm : <input type="text" name="signIdCf" size="20"/>
+    ID : <input type="text" name="signupIdGive" size="20"/>
         <br>
-        <input type="button" value="ID 중복 확인"/>
+        <input type="submit" value="ID 중복 확인"/>
         <br>
-    Pw : <input type="password" name="signPw" size="20"/>
+    PW : <input type="password" name="signupPw" size="20"/>
         <br>
-    Pw Confirm : <input type="password" name="signPwCf" size="20"/>
+    PW Confirm : <input type="password" name="signupPwCf" size="20"/>
         <br>
-        <input type="button" value="회원가입"/>
+    Phone Number : <input type="tel" name="signupPhoneGive" size="20"/>
+        <br>
+    Gender :<input type="radio" name="signupGenderGive" value="남성" checked/>남성
+            <input type="radio" name="signupGenderGive" value="여성"/>여성
+        <br>
+    Age :
+    <select id="signupAgeGive" name="signupAgeGive">
+        <option value="Teens">Teens</option>
+        <option value="Twenties">Twenties</option>
+        <option value="Thirties">Thirties</option>
+        <option value="Forties">Forties</option>
+        <option value="Fifties">Fifties</option>
+        <option value="Sixties">Sixties</option>
+        <option value="Seventies">Seventies</option>
+        <option value="Eighties">Eighties</option>
+        <option value="Nineties">Nineties</option>
+    </select>
+        <br>
+    <input type="submit" value="회원가입"/>
         <br>
     </p>
 </div>
+</form>
+
+<!--<script>-->
+<!--    let sf = document.getElementById("signupForm");-->
+<!--    sf.addEventListener("submit"), function (e){-->
+<!--        let msgEle = document.getElementById("signupNameGive");-->
+<!--        if(msgEle.value.length == 0){  // 입력 값이 없는 경우-->
+<!--            alert("모든 값을 입력해 주세요.")-->
+<!--            e.preventDefault();  // 이벤트 중단-->
+<!--        }-->
+<!--    };-->
+<!--</script>-->
 
 {% endblock %}

@@ -1,0 +1,49 @@
+-- cmd 창에서 MongoDB 접속
+mongo
+
+-- db 버전 확인
+mongod --version
+
+-- 현재 db
+db
+
+-- 데이터베이스 로그아웃
+db.logout()
+
+-- db 목록 출력
+show dbs
+
+-- 데이터베이스로 이동
+use [ 데이터베이스명 ]
+use test
+use information
+
+-- 테이블 조회 show tables
+
+-- 데이터 추가
+db.[ 테이블명 ].insert({"power": "권한", "name": "이름", "id": "아이디", "pw": "비밀번호", "phone": "전화번호", "gender": "성별", "age": "몇십대"});
+
+db.information.insert({"power": "manager", "name": "김수빈", "id": "kimsubin", "pw": "kimsubin", "phone": "01073676013", "gender": "여", "age": "20"});
+db.information.insert({"power": "staff", "name": "직원", "id": "staff", "pw": "staff", "phone": "01012345678", "gender":"남", "age": "30"});
+db.information.insert({"power": "customer", "name": "고객", "id": "customer", "pw": "customer", "phone": "01050505050", "gender": "남", "age": "20"});
+
+informationDB.information.insert_one( {"power": "customer", "name": "name", "id": "id", "pw": "pw", "phone": "phone", "gender": "gender", "age": "age"} )
+
+-- 테이블 데이터 조회
+db.[ 테이블명 ].find()
+db.information.find()
+
+db.information.find(
+{"id":"아이디", "pw":"비밀번호"}
+)
+
+-- 테이블 자체를 삭제
+db.[ 테이블명 ].drop()
+
+-- 테이블 데이터 전체 삭제
+db.[ 테이블명 ].remove()
+
+-- 조건에 맞는 데이터 삭제
+db.[ 테이블명 ].remove(
+	{"":""}
+)
