@@ -72,17 +72,27 @@ def login():
             print(mariaDB.login(loginIdReceive, loginPwReceive))
             # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
             if mariaDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
-                # return render_template('customer.html')
-                return '/customer/<main>/'
+                return """
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/main/";</script>
+                """
+                # return '/customer/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
-                return '/staff/<main>/'
+                return """
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/main/";</script>
+                """
+                # return '/staff/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultManager":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultManager":
-                return '/manager/<main>/'
+                return """
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/main/";</script>
+                """
+                # return '/manager/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "error":
-            elif mariaDB.login(loginIdReceive, loginPwReceive) == "error":
-                return '/error/<main>/'
+            elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultNone":
+                return """
+                <script type="text/javascript"> alert("ID 또는 PW가 존재하지 않습니다. 회원가입해 주세요."); document.location.href="/signup/";</script>
+                """
 
     return render_template('login.html')
 
@@ -141,11 +151,9 @@ def signup():
             # elif mongoDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
             elif mariaDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
                 print("존재하지 않는 ID라면")
-                
-                ###############  여기에 나머지 다른 텍스트 필드 값들이 있는지 확인 코드 추가  ###############
 
                 print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                # mongoDB.signup(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 return """
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
@@ -156,15 +164,39 @@ def signup():
     return render_template('signup.html')
     # return '/signup/'
 
-@app.route('/manager/<main>/', methods=['GET','POST'])
-def manager(main):
-    print('/manager/<main>/')
-    return '/manager/<main>/'
+@app.route('/manager/main/', methods=['GET','POST'])  # 관리자 메인
+def managerMain():
+    print('/manager/main/')
+    return render_template('managerMain.html')
+    # return '/manager/main/'
 
-@app.route('/staff/<main>/', methods=['GET','POST'])
-def requester(main):
-    print('/staff/<main>/')
-    return '/staff/<main>/'
+@app.route('/manager/product/register/', methods=['GET','POST'])  # 상품 등록
+def managerProductRegister():
+    print('/manager/product/register/')
+    return render_template('managerProductRegister.html')
+    # return '/manager/product/register/'
+
+@app.route('/manager/power/confer/', methods=['GET','POST'])  # 권한 부여
+def managerPowerConfer():
+    print('/manager/power/confer/')
+    return render_template('managerPowerConfer.html')
+    # return '/manager/product/register/'
+
+@app.route('/staff/main/', methods=['GET','POST'])
+def staff():
+    print('/staff/main/')
+    return render_template('staff.html')
+    # return '/staff/main/'
+
+@app.route('/customer/main/', methods=['GET','POST'])
+def customer():
+    print('/customer/main/')
+    return render_template('customer.html')
+
+@app.route('/error/', methods=['GET','POST'])
+def error():
+    print('/error/')
+    return render_template('error.html')
 
 # app.run(port=5001, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
 app.run(debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.

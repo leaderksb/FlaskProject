@@ -36,6 +36,7 @@ create table information(
 
 -- 회원정보 삽입
 insert into information values ('manager', 'kimsubin', 'kimsubin', 'kimsubin', '01073676013', 'Female', 'Twenties');
+insert into information values ('staff', 'staff', 'staff', 'staff', '01011111111', 'Male', 'Twenties');
 
 -- 회원정보 조회
 select * from information

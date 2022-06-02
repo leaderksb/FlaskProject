@@ -1,5 +1,24 @@
 import pymysql
 
+def informationSelect():
+    # # DB 연동
+    # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
+    # # DB 생성
+    # informationDB = conn['information']
+    # global idChkDictionary
+    # x = informationDB.information.count_documents( {"id":id} )
+
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select * from information;")
+            rs = curs.fetchall()
+            print(rs)
+    finally:
+        conn.close()
+
+informationSelect()
+
 def idChk(id):
     # # DB 연동
     # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
@@ -40,8 +59,11 @@ def login(id, pw):
         elif resultManager == 1:
             return "resultManager"
         else:
-            return "error"
+            return "resultNone"
         print("resultCustomer :", resultCustomer, "resultStaff :", resultStaff, "resultManager :", resultManager)
+    except Exception as e:
+        print("Error :", e)
+        return e
     finally:
         conn.close()  # DB 종료
 

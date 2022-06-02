@@ -18,7 +18,8 @@ use [ 데이터베이스명 ]
 use test
 use information
 
--- 테이블 조회 show tables
+-- 테이블 조회
+show tables
 
 -- 데이터 추가
 db.[ 테이블명 ].insert({"power": "권한", "name": "이름", "id": "아이디", "pw": "비밀번호", "phone": "전화번호", "gender": "성별", "age": "몇십대"});

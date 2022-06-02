@@ -1,5 +1,4 @@
 from flask import *
-from flask_pymongo import PyMongo
 from pymongo import MongoClient
 
 #idChkDictionary = {}  # ID : 해당 ID가 존재하면 1 존재하지 않으면 0
@@ -50,7 +49,7 @@ def login(id, pw):
     # )
     # return x
 
-def signup(name, id, pw, phone, gender, age):
+def signupInsert(name, id, pw, phone, gender, age):
     # DB 연동
     # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
     # # DB 생성
