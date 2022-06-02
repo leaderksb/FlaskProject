@@ -1,0 +1,43 @@
+-- cmd에서 MariaDB 접속
+mysql -uroot -p
+[ pw 입력 ]
+
+-- 데이터베이스 확인
+show databases;
+
+-- 데이터베이스 내에 테이블 조회
+show tables;
+
+-- 데이터베이스 접속
+use [ 데이터베이스 사용자명 ];
+use intern;
+
+-- 경고문 발생시 경고내용 보기
+show warnings\g
+
+-- 데이터베이스 생성
+create database [ 데이터베이스명 ];
+create database intern;
+
+-- 데이터베이스 삭제
+drop database 이름;
+
+-- information 테이블 생성
+-- id를 기본키로 중복 비허용
+create table information(
+	power varchar(50),
+	name varchar(50) not null,
+	id varchar(50),
+	pw varchar(50) not null,
+	phone varchar(50) not null,
+	gender varchar(50) not null,
+	age varchar(50) not null,
+	primary key (id) );
+
+-- 회원정보 삽입
+insert into information values ('manager', 'kimsubin', 'kimsubin', 'kimsubin', '01073676013', 'Female', 'Twenties');
+
+-- 회원정보 조회
+select * from information
+	where id = "id"
+	and pw = "pw";

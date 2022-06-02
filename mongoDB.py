@@ -8,9 +8,9 @@ from pymongo import MongoClient
 conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
 # DB 생성
 informationDB = conn['information']
-# # collections 생성
+# collections 생성
 # collect = db.information
-#
+# 값 출력
 # result = collect.find()
 # for docs in result :
 #     print(docs)
@@ -19,15 +19,7 @@ informationDB = conn['information']
 #     print(docs)
 
 def idChk(id):
-    # # DB 연동
-    # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
-    # # DB 생성
-    # informationDB = conn['information']
-    # global idChkDictionary
     x = informationDB.information.count_documents( {"id":id} )  # 조회된 값 개수
-    # idChkDictionary.update(id, x)
-    # DB 종료
-    # conn.close()
     return x
 
 def login(id, pw):
@@ -67,12 +59,6 @@ def signup(name, id, pw, phone, gender, age):
     informationDB.information.insert_one( {"power": "customer", "name": name, "id": id, "pw": pw, "phone": phone, "gender": gender, "age": age} )
     # DB 종료
     # conn.close(se)
-
-print(idChk("kimsubin"))
-# print(informationDB.information.count_documents( {"id": ""} ))
-# print(type(db.information.find(
-#          {"id": id}
-#      )))
 
 def closeDB():
     conn.close()

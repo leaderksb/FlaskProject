@@ -7,20 +7,21 @@
 
     [ 회원가입 ]
     <p>
+<!--    Name : <input type="text" name="signupNameGive" id="signupNameGive" size="20" onkeyup='saveValue(this);'/>-->
     Name : <input type="text" name="signupNameGive" id="signupNameGive" size="20"/>
         <br>
     ID : <input type="text" name="signupIdGive" size="20"/>
         <br>
         <input type="submit" value="ID 중복 확인"/>
         <br>
-    PW : <input type="password" name="signupPw" size="20"/>
+    PW : <input type="password" name="signupPwGive" id="signupPwGive" size="20"/>
         <br>
-    PW Confirm : <input type="password" name="signupPwCf" size="20"/>
+    PW Confirm : <input type="password" name="signupPwCfGive" id="signupPwCfGive" size="20"/>
         <br>
     Phone Number : <input type="tel" name="signupPhoneGive" size="20"/>
         <br>
-    Gender :<input type="radio" name="signupGenderGive" value="남성" checked/>남성
-            <input type="radio" name="signupGenderGive" value="여성"/>여성
+    Gender :<input type="radio" name="signupGenderGive" value="Male" checked/>Male
+            <input type="radio" name="signupGenderGive" value="Female"/>Female
         <br>
     Age :
     <select id="signupAgeGive" name="signupAgeGive">
@@ -50,6 +51,23 @@
 <!--            e.preventDefault();  // 이벤트 중단-->
 <!--        }-->
 <!--    };-->
+<!---->
+<!--/* input에 입력된 값 로컬스토리지에 저장하기 */-->
+<!--function saveValue(e){-->
+<!--    var id = e.id;-->
+<!--    var val = e.value;-->
+<!--    localStorage.setItem(id, val);-->
+<!--    }-->
+
+<!--/* 로컬스토리지에 저장된 값으로 input 채우기 */-->
+<!--function getSavedValue(v){-->
+<!--    if(!localStorage.getItem(v)){-->
+<!--        // 사용자가 입력하지 않았다면 defualt 값을 반환-->
+<!--        return v.value;-->
+<!--    }-->
+<!--    return localStorage.getItem(v);-->
+<!--}-->
 <!--</script>-->
+
 
 {% endblock %}
