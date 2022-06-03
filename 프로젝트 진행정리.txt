@@ -1,3 +1,4 @@
 2022.05.31 프로젝트 구상. templates 구성. Routing.
 2022.06.01 MongoDB 연동. Bootstrap 적용. 회원가입 기능 구현. 로그인 기능 구현.
 2022.06.02 MariaDB 연동. MongoDB에서 MariaDB 변경. 회원가입 비밀번호 일치 확인 기능 구현. Bootstrap 링크. managerMain 구현.
+2022.06.03 managerProductRegister 구현.

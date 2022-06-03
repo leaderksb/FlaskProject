@@ -10,7 +10,31 @@
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/manager/product/register/">상품 등록</a>
 
-      [ 상품 등록 기능 구현 ]
+    [ 상품 등록 기능 구현 ]
+    <br>
+    Product Name : <input type="text" name="productNameGive" size="20"/>
+    <br>
+    Product ID : <input type="text" name="productIdGive" size="20"/>
+    <br>
+    Serial Code : <input type="text" name="productSerialCode" size="20"/>
+    <br>
+    Quantity : <input type="number" name="productQuantity" size="20"/>
+    <br>
+    Price : <input type="text" name="productPrice" size="20"/>
+    <br>
+    등록일자 : <input type="date" name="productRegisterDate" size="20"/>
+    <br>
+    <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
+    유통기간 : <select id="productPeriod" name="productPeriod">
+        <option value="1">1일</option>
+        <option value="7">7일</option>
+        <option value="14">14일</option>
+        <option value="30">30일</option>
+        <option value="60">60일</option>
+    </select>
+    <br>
+    유통기한: <input type="date" name="productExpiryDate" size="20"/>
+    <br>
 
   </li>
   <li class="nav-item">
