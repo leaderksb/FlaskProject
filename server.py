@@ -173,6 +173,21 @@ def managerMain():
 @app.route('/manager/product/register/', methods=['GET','POST'])  # 상품 등록
 def managerProductRegister():
     print('/manager/product/register/')
+
+    if request.method == 'POST':  # name 속성으로 전달 받음
+        productNameReceive = request.form.get('productNameGive')  # 제품명
+        productIdReceive = request.form.get('productIdGive')  # 제품 아이디
+        productSerialCodeReceive = request.form.get('productSerialCodeGive')  # 제품 시리얼 코드
+        productQuantityReceive = request.form.get('productQuantityGive')  # 수량
+        productPriceReceive = request.form.get('productPriceGive')  # 가격
+        productRegisterReceive = request.form.get('productRegisterDateGive')  # 등록일자
+        productPeriodReceive = request.form.get('productPeriodGive')  # 유통기간
+        productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
+
+        print("########################################")
+        print(productNameReceive, productIdReceive, productSerialCodeReceive, productQuantityReceive, productPriceReceive, productRegisterReceive, productPeriodReceive, productExpiryDateReceive)
+        print("########################################")
+
     return render_template('managerProductRegister.html')
     # return '/manager/product/register/'
 

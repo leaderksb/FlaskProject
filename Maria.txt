@@ -13,7 +13,7 @@ use [ 데이터베이스 사용자명 ];
 use intern;
 
 -- 경고문 발생시 경고내용 보기
-show warnings\g
+show warnings;
 
 -- 데이터베이스 생성
 create database [ 데이터베이스명 ];
@@ -69,7 +69,7 @@ create table expirydate(
 
 제품명
 제품 ID
-제품 시리얼 번호
+제품 시리얼 코드
 수량
 가격
 등록일자
@@ -95,8 +95,8 @@ where code = "sandwich220603062001")
 day);
 
 -- 유통기한 정보 삽입
-insert into expirydate values(
-code,
+insert into expirydate values (
+'[ code ]',
 (
 select date_add(
 
@@ -112,8 +112,8 @@ day)
 )
 );
 
-insert into expirydate values(
-code,
+insert into expirydate values (
+'sandwich220603062001',
 (
 select date_add(
 

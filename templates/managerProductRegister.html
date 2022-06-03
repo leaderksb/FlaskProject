@@ -1,7 +1,7 @@
 {% extends "base.html"  %}
 {% block content %}
 
-<form action="/manager/main/" method="post">
+<form action="/manager/product/register/" method="post">
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
 
 <div style='width:1000px; margin:0 auto; margin-top:25px;'>
@@ -16,16 +16,16 @@
     <br>
     Product ID : <input type="text" name="productIdGive" size="20"/>
     <br>
-    Serial Code : <input type="text" name="productSerialCode" size="20"/>
+    Serial Code : <input type="text" name="productSerialCodeGive" size="20"/>
     <br>
-    Quantity : <input type="number" name="productQuantity" size="20"/>
+    Quantity : <input type="number" name="productQuantityGive" size="20"/>
     <br>
-    Price : <input type="text" name="productPrice" size="20"/>
+    Price : <input type="text" name="productPriceGive" size="20"/>
     <br>
-    등록일자 : <input type="date" name="productRegisterDate" size="20"/>
+    등록일자 : <input type="date" name="productRegisterDateGive" size="20"/>
     <br>
     <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
-    유통기간 : <select id="productPeriod" name="productPeriod">
+    유통기간 : <select id="productPeriod" name="productPeriodGive">
         <option value="1">1일</option>
         <option value="7">7일</option>
         <option value="14">14일</option>
@@ -33,7 +33,9 @@
         <option value="60">60일</option>
     </select>
     <br>
-    유통기한: <input type="date" name="productExpiryDate" size="20"/>
+    유통기한: <input type="date" name="productExpiryDateGive" size="20"/>
+    <br>
+    <input type="submit" value="상품 등록"/>
     <br>
 
   </li>
@@ -59,4 +61,3 @@
 </form>
 
 {% endblock %}
-

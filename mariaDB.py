@@ -19,6 +19,7 @@ def informationSelect():
 
 informationSelect()
 
+
 def idChk(id):
     # # DB 연동
     # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
@@ -39,6 +40,7 @@ def idChk(id):
 
 # print(idChk("kimsubin"))
 # print(idChk(""))
+
 
 # 접속 속도 우선순위 : 1) 고객 2) 직원 3) 관리자
 def login(id, pw):
@@ -69,6 +71,7 @@ def login(id, pw):
 
 # login("kimsubin", "kimsubin")
 
+
 # 회원정보 삽입
 def signUpInsert(name, id, pw, phone, gender, age):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
@@ -79,6 +82,24 @@ def signUpInsert(name, id, pw, phone, gender, age):
         conn.commit()
     finally:
         conn.close()
+
+
+print("########################################")
+# 상품 등록
+def productInsert(name, id, code, quantity, price, period):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            # 제품명, 제품 ID, 제품 시리얼 코드, 수량, 가격, 등록일자 : now(), 유통기간
+            curs.execute("insert into product values ('" + name + "', '" + id + "', '" + code + "', " + quantity + ", '" + price + "', now(), " + period + " );", (quantity, period))
+            # TypeError: can only concatenate str (not "int") to str 문자열로 삽입
+        conn.commit()
+    finally:
+        conn.close()
+
+productInsert('name', 'id', 'code', 22, '1500', 88)
+print("########################################")
+
 
 # 문제 검색
 def questionSelect():
@@ -92,17 +113,6 @@ def questionSelect():
             quiz = rs[0][1]  # 문제 내용
             answer = rs[0][2]  # 정답
 
-    finally:
-        conn.close()
-
-
-# 점수 삽입
-def scoreInsert(nickname, score):
-    conn = pymysql.connect(host='localhost', user='root', passwd='11386013', db='tcpip', charset='utf8')
-    try:
-        with conn.cursor() as curs:
-            curs.execute("insert into score values ('" + nickname + "', '" + score + "');")  # 닉네임, 점수
-        conn.commit()
     finally:
         conn.close()
 
