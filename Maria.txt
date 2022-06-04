@@ -43,20 +43,20 @@ insert into information values ('staff', 'staff', 'staff', 'staff', '01011111111
 
 -- 회원정보 조회
 select * from information
-	where id = "id"
-	and pw = "pw";
+	where id = 'id'
+	and pw = 'pw';
 
 -- product 테이블 생성
 -- 시리얼 코드 : primary key
--- 제품 수량, 유통기간 : int Type
+-- 제품 수량, 유통기간 : server 처리 시 Type을 int로 변환해야 함
 create table product(
 	name varchar(50),
 	id varchar(50),
 	code varchar(50),
-	quantity int(10),
+	quantity varchar(50),
 	price varchar(50),
 	registerdate date,
-	period int(10),
+	period varchar(50),
 	primary key (code)
 );
 
@@ -85,28 +85,28 @@ insert into product values ('sandwich', 'sandwich', 'sandwich220603062001', 30, 
 select date_add(
 
 (select registerdate from product
-where code = "sandwich220603062001"),
+where code = 'code'),
 
 interval
 
 (select period from product
-where code = "sandwich220603062001")
+where code = 'code')
 
 day);
 
 -- 유통기한 정보 삽입
 insert into expirydate values (
-'[ code ]',
+'[ code 값 ]',
 (
 select date_add(
 
 (select registerdate from product
-where code = "sandwich220603062001"),
+where code = '[ code 값 ]'),
 
 interval
 
 (select period from product
-where code = "sandwich220603062001")
+where code = '[ code 값 ]')
 
 day)
 )
@@ -118,12 +118,12 @@ insert into expirydate values (
 select date_add(
 
 (select registerdate from product
-where code = "sandwich220603062001"),
+where code = 'sandwich220603062001'),
 
 interval
 
 (select period from product
-where code = "sandwich220603062001")
+where code = 'sandwich220603062001')
 
 day)
 )
@@ -135,10 +135,15 @@ select * from expirydate;
 
 create table productSale(
 	판매 타입 varchar(50),
-	판매 날짜 ,
+	판매 날짜,
 	제품 ID,
 	제품명,
 	제품 시리얼 번호,
 	가격,
 	성별
 );
+
+-- 권한 업데이트
+update information
+set power = '[ 바꿀 권한 ]'
+where id = '[ 회원 ID ]';

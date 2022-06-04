@@ -4,7 +4,11 @@
 {% for linkname, link in linkDataHtml.items() %}
 
 <form action="/" method="post">
-<p><a href="{{ link }}">{{ linkname }}</a></p>
+
+<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
+    <p><a href="{{ link }}">{{ linkname }}</a></p>
+</div>
+
 </form>
 
 {% endfor %}

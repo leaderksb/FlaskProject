@@ -1,37 +1,61 @@
 {% extends "base.html"  %}
 {% block content %}
 
-<form action="/manager/main/" method="post">
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+<form action="/manager/power/confer/" method="post">
 
 <div style='width:1000px; margin:0 auto; margin-top:25px;'>
-
 <ul class="nav nav-pills nav-justified">
-  <li class="nav-item">
-    <a class="nav-link" href="/manager/product/register/">상품 등록</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/manager/power/confer/">권한 부여</a>
-
-      [ 권한 부여 기능 구현 ]
-
-  </li>
-  <li class="nav-item">  <!-- 비활성화 -->
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-  </li>
+	<li class="nav-item">
+		<a class="nav-link" href="/manager/Inquiry/">상품 조회</a>
+	</li>
+  	<li class="nav-item">
+		<a class="nav-link" href="/manager/product/register/">상품 등록</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="/manager/power/confer/">권한 부여</a>
+	</li>
+	<li class="nav-item">  <!-- 비활성화 -->
+		<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+	</li>
 </ul>
-
-<!--	<ul class="nav nav-tabs">-->
-<!--		<li class='active'><a href="#tabmenu_01" data-toggle="tab">탭메뉴1</a></li>-->
-<!--		<li><a href="#tabmenu_02" data-toggle="tab">탭메뉴2</a></li>-->
-<!--		<li><a href="#tabmenu_03" data-toggle="tab">탭메뉴3</a></li>-->
-<!--	</ul>-->
-<!--	<div class="tab-content">-->
-<!--		<div class="tab-pane fade in active" id="tabmenu_01"><p>탭메뉴1 내용</p></div>-->
-<!--		<div class="tab-pane fade" id="tabmenu_02"><p>탭메뉴2 내용</p></div>-->
-<!--		<div class="tab-pane fade" id="tabmenu_03"><p>탭메뉴3 내용</p></div>-->
-<!--	</div>-->
 </div>
+
+<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
+	[ 권한 부여 기능 구현 ]
+	<table border = '5' class = "table">
+		<tr>
+<!--			<th>Check</th>-->
+			<th>Power</th>
+			<th>Name</th>
+			<th>ID</th>
+			<th>PW</th>
+			<th>Phone</th>
+			<th>Gender</th>
+			<th>Age</th>
+		<tr/>
+			{% for item in informationDataHtml %}
+		<tr>
+<!--			<td><input type="checkbox" name="powerGive"></td>-->
+				{% for i in item %}
+			<td>
+				<option>{{i}}</option>
+			</td>
+				{% endfor %}
+		</tr>
+			{% endfor %}
+      </table>
+</div>
+
+<div style='text-align: right; width:1000px; margin:0 auto; margin-top:25px;'>
+	<input type="text" name="informationIdGive" placeholder="ID" size="20">
+	<select id="informationPowerGive" name="informationPowerGive">
+        <option value="manager">Manager</option>
+        <option value="staff">Staff</option>
+        <option value="customer">Customer</option>
+	</select>
+	<input type="submit" value="권한 부여">
+</div>
+
 </form>
 
 {% endblock %}

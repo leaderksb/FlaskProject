@@ -1,15 +1,51 @@
 {% extends "base.html"  %}
 {% block content %}
 
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+<!--<script type="text/javascript">-->
+
+<!--$(document).ready(function(){-->
+<!--	// 이벤트 발생시 해당 내용을 동적으로 실시간 출력-->
+
+<!--	// 1. #productPeriodGive 공간에서 change이라는 이벤트가 발생했을 때-->
+<!--	$("#productPeriodGive").change(function(){-->
+<!--    // 2. #productExpiryDateGive 공간에 #productPeriodGive 내용이 출력된다.-->
+<!--    //$("#productExpiryDateGive").text($("#productPeriodGive").val());-->
+<!--    // $("#productExpiryDateGive").text($("#productPeriodGive").val());-->
+<!--    $("#productExpiryDateGive").text($("#productPeriodGive").val());-->
+
+<!--	// #out의 위치에 text로 데이터를 받는다.(setter)-->
+<!--	// 들어가는 데이터는 #data의 값(.val())이다. (getter)-->
+<!--	// 메서드 괄호 안에 아무것도 없으면 getter, 파라미터가 있으면 setter이다.-->
+
+<!--alert(document.getElementById('productPeriodGive').value);-->
+<!--	});-->
+
+<!--});-->
+
+<!--</script>-->
+
 <form action="/manager/product/register/" method="post">
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
 
-<div style='width:1000px; margin:0 auto; margin-top:25px;'>
-
+<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
 <ul class="nav nav-pills nav-justified">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/manager/product/register/">상품 등록</a>
+    <li class="nav-item">
+      <a class="nav-link" href="/manager/Inquiry/">상품 조회</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/manager/product/register/">상품 등록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
+    </li>
+    <li class="nav-item">  <!-- 비활성화 -->
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+    </li>
+</ul>
+</div>
 
+<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
     [ 상품 등록 기능 구현 ]
     <br>
     Product Name : <input type="text" name="productNameGive" size="20"/>
@@ -20,44 +56,27 @@
     <br>
     Quantity : <input type="number" name="productQuantityGive" size="20"/>
     <br>
-    Price : <input type="text" name="productPriceGive" size="20"/>
+    Price : <input type="number" name="productPriceGive" size="20"/>
     <br>
-    등록일자 : <input type="date" name="productRegisterDateGive" size="20"/>
+    등록일자 : <input type="date" name="productRegisterDateGive" id="productRegisterDateGive" size="20" readonly/>
+    <script>document.getElementById('productRegisterDateGive').valueAsDate = new Date();</script>
     <br>
     <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
-    유통기간 : <select id="productPeriod" name="productPeriodGive">
-        <option value="1">1일</option>
+    유통기간 : <select id="productPeriodGive" name="productPeriodGive">
+        <option value="1" selected>1일</option>
         <option value="7">7일</option>
         <option value="14">14일</option>
         <option value="30">30일</option>
         <option value="60">60일</option>
     </select>
     <br>
-    유통기한: <input type="date" name="productExpiryDateGive" size="20"/>
-    <br>
+    <!-- id로 값 받는 법 -->
+<!--    <script> period = document.getElementById('productPeriodGive');</script>-->
+<!--    유통기한: <input type="date" id="productExpiryDateGive" name="productExpiryDateGive" size="20" readonly/>-->
     <input type="submit" value="상품 등록"/>
     <br>
-
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
-  </li>
-  <li class="nav-item">  <!-- 비활성화 -->
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-  </li>
-</ul>
-
-<!--	<ul class="nav nav-tabs">-->
-<!--		<li class='active'><a href="#tabmenu_01" data-toggle="tab">탭메뉴1</a></li>-->
-<!--		<li><a href="#tabmenu_02" data-toggle="tab">탭메뉴2</a></li>-->
-<!--		<li><a href="#tabmenu_03" data-toggle="tab">탭메뉴3</a></li>-->
-<!--	</ul>-->
-<!--	<div class="tab-content">-->
-<!--		<div class="tab-pane fade in active" id="tabmenu_01"><p>탭메뉴1 내용</p></div>-->
-<!--		<div class="tab-pane fade" id="tabmenu_02"><p>탭메뉴2 내용</p></div>-->
-<!--		<div class="tab-pane fade" id="tabmenu_03"><p>탭메뉴3 내용</p></div>-->
-<!--	</div>-->
 </div>
+
 </form>
 
 {% endblock %}

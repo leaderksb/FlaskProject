@@ -53,19 +53,16 @@ def login():
 
         if loginIdReceive == "" or loginIdReceive.strip() == "":  # loginIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
-
             print("loginIdReceive == "" or loginIdReceive.strip() == """)
             return """
             <script type="text/javascript"> alert("ID를 입력해 주세요."); document.location.href="/login/";</script>
             """
         elif loginPwReceive == "" or loginPwReceive.strip() == "":  # loginPwReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginPwReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
-
             print("loginPwReceive == "" or loginPwReceive.strip() == ")
             return """
             <script type="text/javascript"> alert("PW를 입력해 주세요."); document.location.href="/login/";</script>
             """
-
         else:  # loginIdReceive, loginPwReceive 텍스트 필드에 입력된 문자열이 있으면
             print("로그인 시도 : ")
             # print(mongoDB.login(loginIdReceive, loginPwReceive))
@@ -133,7 +130,6 @@ def signup():
             return """
             <script type="text/javascript"> alert("PW가 일치하지 않습니다."); document.location.href="/signup/";</script>
             """
-
         elif signupPhoneReceive == "" or signupPhoneReceive.strip() == "":  # signupPhoneReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # signupPhoneReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /signup/ 페이지로 이동
             return """
@@ -144,12 +140,12 @@ def signup():
             print(mariaDB.idChk(signupIdReceive))
             # ID 중복 확인
             # if mongoDB.idChk(signupIdReceive) == 1:  # 존재하는 ID라면. 중복된 ID.
-            if mariaDB.idChk(signupIdReceive) == 1:  # 존재하는 ID라면. 중복된 ID.
+            if mariaDB.idChk(signupIdReceive.replace(" ", "")) == 1:  # 존재하는 ID라면. 중복된 ID.
                 return """
                 <script type="text/javascript"> alert("이미 사용 중인 ID입니다."), document.location.href="/signup/"; </script>
                 """
             # elif mongoDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
-            elif mariaDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
+            elif mariaDB.idChk(signupIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
                 print("존재하지 않는 ID라면")
 
                 print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
@@ -164,11 +160,14 @@ def signup():
     return render_template('signup.html')
     # return '/signup/'
 
-@app.route('/manager/main/', methods=['GET','POST'])  # 관리자 메인
+@app.route('/manager/Inquiry/', methods=['GET','POST'])  # 상품 조회
 def managerMain():
-    print('/manager/main/')
-    return render_template('managerMain.html')
-    # return '/manager/main/'
+    print('/manager/Inquiry/')
+
+    productList = mariaDB.productSelect()
+
+    return render_template('managerInquiry.html', productDataHtml=productList)
+    # return '/manager/Inquiry/'
 
 @app.route('/manager/product/register/', methods=['GET','POST'])  # 상품 등록
 def managerProductRegister():
@@ -185,8 +184,40 @@ def managerProductRegister():
         productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
 
         print("########################################")
-        print(productNameReceive, productIdReceive, productSerialCodeReceive, productQuantityReceive, productPriceReceive, productRegisterReceive, productPeriodReceive, productExpiryDateReceive)
+        print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
         print("########################################")
+
+        if productNameReceive == "" or productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif productIdReceive == "" or productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif productSerialCodeReceive == "" or productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif str(productQuantityReceive) == "" or str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif str(productPriceReceive) == "" or str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        else:
+            mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
+            mariaDB.expirydateInsert(productSerialCodeReceive)
+            return """
+            <script type="text/javascript"> alert(" """ + productNameReceive + """ 상품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
+            """
 
     return render_template('managerProductRegister.html')
     # return '/manager/product/register/'
@@ -194,7 +225,31 @@ def managerProductRegister():
 @app.route('/manager/power/confer/', methods=['GET','POST'])  # 권한 부여
 def managerPowerConfer():
     print('/manager/power/confer/')
-    return render_template('managerPowerConfer.html')
+
+    informationList = mariaDB.informationSelect()
+
+    if request.method == 'POST':  # name 속성으로 전달 받음
+        informationPowerReceive = request.form.get('informationPowerGive')  # 권한
+        informationIdReceive = request.form.get('informationIdGive')  # 아이디
+
+        if informationIdReceive == "" or informationIdReceive.strip() == "":  # informationIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # informationIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/power/confer/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("ID를 입력해 주세요."); document.location.href="/manager/power/confer/";</script>
+            """
+        else:  # informationIdReceive 텍스트 필드에 입력된 문자열이 있으면
+        # ID 존재 여부 확인
+            if mariaDB.idChk(informationIdReceive.replace(" ", "")) == 1:  # 존재하는 ID라면. 권한 부여.
+                mariaDB.powerUpdate(informationPowerReceive.replace(" ", ""), informationIdReceive.replace(" ", ""))
+                return """
+                <script type="text/javascript"> alert(" """ + informationIdReceive.replace(" ", "") + """ 님에게 """ + informationPowerReceive.replace(" ", "") + """ 권한을 부여했습니다." ), document.location.href="/manager/power/confer/"; </script>
+                """
+            elif mariaDB.idChk(informationIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
+                return """
+                <script type="text/javascript"> alert(" 존재하지 않는 ID입니다." ), document.location.href="/manager/power/confer/"; </script>
+                """
+
+    return render_template('managerPowerConfer.html', informationDataHtml=informationList)
     # return '/manager/product/register/'
 
 @app.route('/staff/main/', methods=['GET','POST'])

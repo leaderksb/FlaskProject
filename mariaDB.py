@@ -1,5 +1,6 @@
 import pymysql
 
+# 회원정보 조회
 def informationSelect():
     # # DB 연동
     # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
@@ -14,12 +15,15 @@ def informationSelect():
             curs.execute("select * from information;")
             rs = curs.fetchall()
             print(rs)
+            informationList = []
+            for row in rs:
+                informationList.append(row)
+            return informationList
     finally:
         conn.close()
 
-informationSelect()
 
-
+# id 존재 개수 조회
 def idChk(id):
     # # DB 연동
     # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
@@ -42,8 +46,36 @@ def idChk(id):
 # print(idChk(""))
 
 
+# 회원정보 조회
+def productSelect():
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select * from product;")
+            rs = curs.fetchall()
+            print(rs)
+            productList = []
+            for row in rs:
+                productList.append(row)
+            return productList
+    finally:
+        conn.close()
+
+
+# 권한 부여
+def powerUpdate(power, id):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("update information set power = '" + power + "' where id = '" + id + "';")
+            x = curs.rowcount  # 조회된 값 개수
+        conn.commit()
+    finally:
+        conn.close()  # DB 종료
+
+
 # 접속 속도 우선순위 : 1) 고객 2) 직원 3) 관리자
-def login(id, pw):
+def login(id, pw):  # 로그인
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
@@ -72,7 +104,7 @@ def login(id, pw):
 # login("kimsubin", "kimsubin")
 
 
-# 회원정보 삽입
+# 회원가입
 def signUpInsert(name, id, pw, phone, gender, age):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
@@ -84,37 +116,35 @@ def signUpInsert(name, id, pw, phone, gender, age):
         conn.close()
 
 
-print("########################################")
 # 상품 등록
 def productInsert(name, id, code, quantity, price, period):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
             # 제품명, 제품 ID, 제품 시리얼 코드, 수량, 가격, 등록일자 : now(), 유통기간
-            curs.execute("insert into product values ('" + name + "', '" + id + "', '" + code + "', " + quantity + ", '" + price + "', now(), " + period + " );", (quantity, period))
+            curs.execute("insert into product values ('" + name + "', '" + id + "', '" + code + "', '" + quantity + "', '" + price + "', now(), '" + period + "' );")
             # TypeError: can only concatenate str (not "int") to str 문자열로 삽입
         conn.commit()
     finally:
         conn.close()
 
-productInsert('name', 'id', 'code', 22, '1500', 88)
-print("########################################")
+# productInsert('name', 'id', 'code', '22', '1500', '88')
 
 
-# 문제 검색
-def questionSelect():
-    global qno, quiz, answer  # 전역변수 사용
-    conn = pymysql.connect(host='localhost', user='root', passwd='11386013', db='tcpip', charset='utf8')
+# 유통기한 등록
+def expirydateInsert(code):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            curs.execute("select * from question order by rand() limit 1;")
-            rs = curs.fetchall()
-            qno = rs[0][0]  # 문제 번호
-            quiz = rs[0][1]  # 문제 내용
-            answer = rs[0][2]  # 정답
-
+            # 제품 시리얼 코드로 해당하는 유통기간만큼을 더한 유통기한을 구해 등록
+            curs.execute("insert into expirydate values ('" + code + "', ( select date_add( (select registerdate from product where code = '" + code + "'), interval (select period from product where code = '" + code + "') day) ) );""")
+        conn.commit()
     finally:
         conn.close()
+
+# expirydateInsert("code")
+
+
 
 
 # 순위 검색
