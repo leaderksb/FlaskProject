@@ -160,9 +160,9 @@ def signup():
     return render_template('signup.html')
     # return '/signup/'
 
-@app.route('/manager/Inquiry/', methods=['GET','POST'])  # 상품 조회
+@app.route('/manager/product/Inquiry/', methods=['GET','POST'])  # 상품 조회
 def managerMain():
-    print('/manager/Inquiry/')
+    print('/manager/product/Inquiry/')
 
     productList = mariaDB.productSelect()
 
