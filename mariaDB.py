@@ -46,18 +46,50 @@ def idChk(id):
 # print(idChk(""))
 
 
-# 회원정보 조회
+# 제품 정보 조회
 def productSelect():
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
             curs.execute("select * from product;")
             rs = curs.fetchall()
-            print(rs)
+            # print(rs)
             productList = []
             for row in rs:
                 productList.append(row)
             return productList
+    finally:
+        conn.close()
+
+
+# 유통기한 정보 조회
+def expirydateSelect(code):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select expirydate from expirydate where code='" + code + "';")
+            rs = curs.fetchall()
+            # print(rs)
+            expirydateList = []
+            for row in rs:
+                expirydateList.append(row)
+            return expirydateList
+    finally:
+        conn.close()
+
+
+# 제품 정보와 유통기한 정보 조인 조회
+def productexpirydateSelect():
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select p.name, p.id, p.code, p.quantity, p.price, p.registerdate, p.period, e.expirydate from product as p inner join expirydate as e	on p.code = e.code;")
+            rs = curs.fetchall()
+            # print(rs)
+            productexpirydateList = []
+            for row in rs:
+                productexpirydateList.append(row)
+            return productexpirydateList
     finally:
         conn.close()
 
@@ -104,6 +136,21 @@ def login(id, pw):  # 로그인
 # login("kimsubin", "kimsubin")
 
 
+def genderSelect(id, pw):  # 성별 조회
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select gender from information where id='" + id + "' and pw='" + pw + "';")
+            rs = curs.fetchall()
+            # print(rs)
+            genderList = []
+            for row in rs:
+                genderList.append(row)
+            return genderList[0][0]
+    finally:
+        conn.close()  # DB 종료
+
+
 # 회원가입
 def signUpInsert(name, id, pw, phone, gender, age):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
@@ -116,7 +163,7 @@ def signUpInsert(name, id, pw, phone, gender, age):
         conn.close()
 
 
-# 상품 등록
+# 제품 등록
 def productInsert(name, id, code, quantity, price, period):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
@@ -143,6 +190,40 @@ def expirydateInsert(code):
         conn.close()
 
 # expirydateInsert("code")
+
+
+# <1> 매출 등록
+def productSaleInsert(name, quantity, price):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            # 직원 주문일 경우
+            curs.execute("insert into productSale values ('staff', now(), '" + name + "', '" + quantity + "', '" + price + "', 'None');")
+        conn.commit()
+    finally:
+        conn.close()
+
+
+# <2> 판매된 제품 유통기한 정보 삭제
+def expirydateDelete(code):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("delete from expirydate where code='" + code + "';")
+        conn.commit()
+    finally:
+        conn.close()
+
+
+# <3> 판매된 제품 정보 삭제
+def productSaleDelete(name, code, quantity):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("delete from product where name='" + name + "' and code='" + code + "' and quantity='" + quantity + "';")
+        conn.commit()
+    finally:
+        conn.close()
 
 
 

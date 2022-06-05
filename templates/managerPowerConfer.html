@@ -1,15 +1,15 @@
-{% extends "base.html"  %}
+{% extends "base.html" %}
 {% block content %}
 
 <form action="/manager/power/confer/" method="post">
 
-<div style='width:1000px; margin:0 auto; margin-top:25px;'>
+<div style='text-align: center; margin:50px; margin-top:25px;'>
 <ul class="nav nav-pills nav-justified">
 	<li class="nav-item">
-		<a class="nav-link" href="/manager/product/Inquiry/">상품 조회</a>
+		<a class="nav-link" href="/manager/product/Inquiry/">제품 조회</a>
 	</li>
   	<li class="nav-item">
-		<a class="nav-link" href="/manager/product/register/">상품 등록</a>
+		<a class="nav-link" href="/manager/product/register/">제품 등록</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link active" aria-current="page" href="/manager/power/confer/">권한 부여</a>
@@ -20,33 +20,37 @@
 </ul>
 </div>
 
-<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
+<div style='text-align: center; margin:50px; margin-top:25px;'>
 	[ 권한 부여 기능 구현 ]
 	<table border = '5' class = "table">
-		<tr>
-<!--			<th>Check</th>-->
-			<th>Power</th>
-			<th>Name</th>
-			<th>ID</th>
-			<th>PW</th>
-			<th>Phone</th>
-			<th>Gender</th>
-			<th>Age</th>
-		<tr/>
-			{% for item in informationDataHtml %}
-		<tr>
-<!--			<td><input type="checkbox" name="powerGive"></td>-->
+		<thead>
+			<tr>
+	<!--			<th>Check</th>-->
+				<th>Power</th>
+				<th>Name</th>
+				<th>ID</th>
+				<th>PW</th>
+				<th>Phone</th>
+				<th>Gender</th>
+				<th>Age</th>
+			<tr/>
+		</thead>
+		<tbody>
+		{% for item in informationDataHtml %}
+			<tr>
+<!--				<td><input type="checkbox" name="powerGive"></td>-->
 				{% for i in item %}
-			<td>
-				<option>{{i}}</option>
-			</td>
+				<td>
+					<option>{{i}}</option>
+				</td>
 				{% endfor %}
-		</tr>
+			</tr>
 			{% endfor %}
+		</tbody>
       </table>
 </div>
 
-<div style='text-align: right; width:1000px; margin:0 auto; margin-top:25px;'>
+<div style='text-align: center; margin:50px; margin-top:25px;'>
 	<input type="text" name="informationIdGive" placeholder="ID" size="20">
 	<select id="informationPowerGive" name="informationPowerGive">
         <option value="manager">Manager</option>

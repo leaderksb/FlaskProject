@@ -1,15 +1,16 @@
-{% extends "base.html"  %}
+{% extends "base.html" %}
 {% block content %}
 
 <form action="/login/" method="post">
 
-<div style='text-align: center; width:1000px; margin:0 auto; margin-top:25px;'>
+<div style='text-align: center; margin:50px; margin-top:25px;'>
     [ 이미지 로고 ]
     <p>
     ID : <input type="text" name="loginIdGive" id="loginIdGive" size="20"/>
         <br>
     PW : <input type="password" name="loginPwGive" id="loginPwGive" size="20"/>
         <br>
+        <input type="hidden" name="loginGenderGive" value="aaaaaaaaaaaa">
         <input type="submit" value="로그인"/>
         <br>
         <a href="/signup/">회원가입</a>

@@ -132,18 +132,36 @@ day)
 -- 유통기한 정보 조회
 select * from expirydate;
 
-
+-- productSale 테이블 생성
+-- 판매 정보
 create table productSale(
-	판매 타입 varchar(50),
-	판매 날짜,
-	제품 ID,
-	제품명,
-	제품 시리얼 번호,
-	가격,
-	성별
+	type varchar(50),
+	date date,
+	name varchar(50),
+	quantity varchar(50),
+	price varchar(50),
+	genber varchar(50)
 );
+
+판매 타입
+판매 날짜
+제품명
+수량
+가격
+성별
+
+-- 판매 정보 삽입
+-- 직원 주문일 경우
+insert into product values ('staff', now(), 'sandwich', 22, '2000', 'Male');
+-- 고객 주문일 경우
 
 -- 권한 업데이트
 update information
 set power = '[ 바꿀 권한 ]'
 where id = '[ 회원 ID ]';
+
+-- 제품 정보 테이블과 유통기한 테이블 조인 조회
+select p.name, p.id, p.code, p.quantity, p.price, p.registerdate, p.period, e.expirydate
+	from product as p
+	inner join expirydate as e
+	on p.code = e.code;

@@ -8,46 +8,25 @@ app = Flask(__name__)
 links = {
     '로그인 페이지':'/login/',
     '회원가입 페이지':'/signup/',
-    '관리자 메인페이지':'/manager/main/',
-    '직원 메인페이지':'/staff/main/'
+    '관리자 메인페이지':'/manager/product/Inquiry/',
+    '직원 메인페이지':'/staff/product/order/'
 }
 
 # print(type(links))
 
-# topics = [
-#     {'link':'/login/', 'title':'로그인 페이지', 'body':'로그인 페이지 내용'},
-#     {'link':'/signup/', 'title':'회원가입 페이지', 'body':'회원가입 페이지 내용'},
-#     {'link':'/manager/main/', 'title':'관리자 메인페이지', 'body':'관리자 메인페이지 내용'},
-#     {'link':'/staff/main/', 'title':'직원 메인페이지', 'body':'직원 메인페이지 내용'}
-# ]
-
-@app.route('/')
+@app.route('/')  # 개발용 페이지
 def index():
-    # return 'random : <strong>' + str(random.random()) + '</strong>'
-    # liTags = ''
-    # for topic in topics:
-    #     liTags = liTags +f'<li><a href="{topic["link"]}">{topic["title"]}</a></li>'
-
     return render_template('index.html', linkDataHtml=links)
 
-    # return f'''<!doctype html>
-    # <html>
-    #      <body>
-    #      <h1><a href="/">WEB</a></h1>
-    #      <ol>
-    #          {liTags}
-    #      </ol>
-    #      </body>
-    # </html>
-    # '''
-
-@app.route('/login/', methods=['GET','POST'])
+@app.route('/login/', methods=['GET','POST'])  # 로그인
 def login():
     print('/login/')
+    loginGenderReceive = ''
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
         loginPwReceive = request.form.get('loginPwGive')  # 비밀번호
+        loginGenderReceive = mariaDB.genderSelect(loginIdReceive, loginPwReceive)
 
         print("########################################")
 
@@ -72,19 +51,16 @@ def login():
                 return """
                 <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/main/";</script>
                 """
-                # return '/customer/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
                 return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/main/";</script>
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/product/order/";</script>
                 """
-                # return '/staff/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultManager":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultManager":
                 return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/main/";</script>
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/Inquiry/";</script>
                 """
-                # return '/manager/<main>/'
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "error":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultNone":
                 return """
@@ -93,7 +69,7 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/signup/', methods=['GET','POST'])
+@app.route('/signup/', methods=['GET','POST'])  # 회원가입
 def signup():
     print('/signup/')
 
@@ -160,64 +136,70 @@ def signup():
     return render_template('signup.html')
     # return '/signup/'
 
-@app.route('/manager/product/Inquiry/', methods=['GET','POST'])  # 상품 조회
-def managerMain():
+@app.route('/manager/product/Inquiry/', methods=['GET','POST'])  # 제품 조회
+def managerProductInquiry():
     print('/manager/product/Inquiry/')
 
     productList = mariaDB.productSelect()
 
-    return render_template('managerInquiry.html', productDataHtml=productList)
+    return render_template('managerProductInquiry.html', productDataHtml=productList)
     # return '/manager/Inquiry/'
 
-@app.route('/manager/product/register/', methods=['GET','POST'])  # 상품 등록
+@app.route('/manager/product/register/', methods=['GET','POST'])  # 제품 등록
 def managerProductRegister():
     print('/manager/product/register/')
 
-    if request.method == 'POST':  # name 속성으로 전달 받음
-        productNameReceive = request.form.get('productNameGive')  # 제품명
-        productIdReceive = request.form.get('productIdGive')  # 제품 아이디
-        productSerialCodeReceive = request.form.get('productSerialCodeGive')  # 제품 시리얼 코드
-        productQuantityReceive = request.form.get('productQuantityGive')  # 수량
-        productPriceReceive = request.form.get('productPriceGive')  # 가격
-        productRegisterReceive = request.form.get('productRegisterDateGive')  # 등록일자
-        productPeriodReceive = request.form.get('productPeriodGive')  # 유통기간
-        productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
+    try:
+        if request.method == 'POST':  # name 속성으로 전달 받음
+            productNameReceive = request.form.get('productNameGive')  # 제품명
+            productIdReceive = request.form.get('productIdGive')  # 제품 아이디
+            productSerialCodeReceive = request.form.get('productSerialCodeGive')  # 제품 시리얼 코드
+            productQuantityReceive = request.form.get('productQuantityGive')  # 수량
+            productPriceReceive = request.form.get('productPriceGive')  # 가격
+            productRegisterReceive = request.form.get('productRegisterDateGive')  # 등록일자
+            productPeriodReceive = request.form.get('productPeriodGive')  # 유통기간
+            productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
 
-        print("########################################")
-        print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
-        print("########################################")
+            print("########################################")
+            print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
+            print("########################################")
 
-        if productNameReceive == "" or productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-            # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-            return """
-            <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-            """
-        elif productIdReceive == "" or productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-            # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-            return """
-            <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-            """
-        elif productSerialCodeReceive == "" or productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-            # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-            return """
-            <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-            """
-        elif str(productQuantityReceive) == "" or str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-            # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-            return """
-            <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-            """
-        elif str(productPriceReceive) == "" or str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-            # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-            return """
-            <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-            """
-        else:
-            mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
-            mariaDB.expirydateInsert(productSerialCodeReceive)
-            return """
-            <script type="text/javascript"> alert(" """ + productNameReceive + """ 상품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
-            """
+            if productNameReceive == "" or productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+                # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+                return """
+                <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            elif productIdReceive == "" or productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+                # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+                return """
+                <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            elif productSerialCodeReceive == "" or productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+                # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+                return """
+                <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            elif str(productQuantityReceive) == "" or str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+                # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+                return """
+                <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            elif str(productPriceReceive) == "" or str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+                # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+                return """
+                <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            else:
+                mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
+                mariaDB.expirydateInsert(productSerialCodeReceive)
+                return """
+                <script type="text/javascript"> alert(" """ + productNameReceive + """ 제품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
+                """
+    except Exception as e:
+        print(e)
+        return """
+        <script type="text/javascript"> alert("제품 정보는 영문 및 숫자로 입력하세요."); document.location.href="/manager/product/register/";</script>
+        """
 
     return render_template('managerProductRegister.html')
     # return '/manager/product/register/'
@@ -246,17 +228,34 @@ def managerPowerConfer():
                 """
             elif mariaDB.idChk(informationIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
                 return """
-                <script type="text/javascript"> alert(" 존재하지 않는 ID입니다." ), document.location.href="/manager/power/confer/"; </script>
+                <script type="text/javascript"> alert("존재하지 않는 ID입니다."), document.location.href="/manager/power/confer/"; </script>
                 """
 
     return render_template('managerPowerConfer.html', informationDataHtml=informationList)
     # return '/manager/product/register/'
 
-@app.route('/staff/main/', methods=['GET','POST'])
-def staff():
-    print('/staff/main/')
-    return render_template('staff.html')
-    # return '/staff/main/'
+@app.route('/staff/product/order/', methods=['GET','POST'])  # 제품 발주
+def staffProductOrder():
+    print('/staff/product/order/')
+
+    productexpirydateList = mariaDB.productexpirydateSelect()
+
+    if request.method == 'POST':  # name 속성으로 전달 받음
+        productNameReceive = request.form.get('productNameGive').replace("\t", "")  # 제품명
+        productCodeReceive = request.form.get('productCodeGive').replace("\t", "")  # 제품 시리얼 코드
+        productQuantityReceive = request.form.get('productQuantityGive').replace("\t", "")  # 수량
+        productPriceReceive = request.form.get('productPriceGive').replace("\t", "")  # 가격
+
+        mariaDB.productSaleInsert(productNameReceive.strip(), productQuantityReceive.strip(), productPriceReceive.strip())  # <1> 매출 등록
+        mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
+        mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
+
+        return """
+        <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + productPriceReceive.strip() + """₩ 가격에 주문하였습니다."), document.location.href="/staff/product/order/"; </script>
+        """
+
+    return render_template('staffProductOrder.html', productexpirydateDataHtml=productexpirydateList)
+    # return '/staff/product/order/'
 
 @app.route('/customer/main/', methods=['GET','POST'])
 def customer():
