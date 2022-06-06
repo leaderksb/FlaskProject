@@ -94,13 +94,41 @@ def productexpirydateSelect():
         conn.close()
 
 
+# 해당 제품의 수량 조회
+def quantitySelect(name, code):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select quantity from product where name='" + name + "' and code='" + code + "';")
+            rs = curs.fetchall()
+            # print(rs)
+            quantitydateList = []
+            for row in rs:
+                quantitydateList.append(row)
+            return quantitydateList[0][0]
+    finally:
+        conn.close()
+
+# print(quantitySelect("sandwich", "sandwich220603062001"))
+
+
 # 권한 부여
 def powerUpdate(power, id):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
             curs.execute("update information set power = '" + power + "' where id = '" + id + "';")
-            x = curs.rowcount  # 조회된 값 개수
+        conn.commit()
+    finally:
+        conn.close()  # DB 종료
+
+
+# 판매된 제품 수량 업데이트
+def quantityUpdate(quantityBefore, quantityBuy, code):
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("update product set quantity = '" + str(int(quantityBefore)-int(quantityBuy)) + "' where code = '" + code + "';")
         conn.commit()
     finally:
         conn.close()  # DB 종료
@@ -193,12 +221,12 @@ def expirydateInsert(code):
 
 
 # <1> 매출 등록
-def productSaleInsert(name, quantity, price):
+def productSaleInsert(type, name, quantity, price):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            # 직원 주문일 경우
-            curs.execute("insert into productSale values ('staff', now(), '" + name + "', '" + quantity + "', '" + price + "', 'None');")
+            # type : 직원 주문일 경우 staff. 고객 주문일 경우 customer.
+            curs.execute("insert into productSale values ('" + type + "', now(), '" + name + "', '" + quantity + "', '" + price + "', 'None');")
         conn.commit()
     finally:
         conn.close()

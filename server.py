@@ -8,8 +8,9 @@ app = Flask(__name__)
 links = {
     '로그인 페이지':'/login/',
     '회원가입 페이지':'/signup/',
-    '관리자 메인페이지':'/manager/product/Inquiry/',
-    '직원 메인페이지':'/staff/product/order/'
+    '관리자 페이지':'/manager/product/Inquiry/',
+    '직원 페이지':'/staff/product/order/',
+    '고객 페이지':'/customer/product/order/'
 }
 
 # print(type(links))
@@ -49,7 +50,7 @@ def login():
             # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
             if mariaDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
                 return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/main/";</script>
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/product/order/";</script>
                 """
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
             elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
@@ -246,21 +247,74 @@ def staffProductOrder():
         productQuantityReceive = request.form.get('productQuantityGive').replace("\t", "")  # 수량
         productPriceReceive = request.form.get('productPriceGive').replace("\t", "")  # 가격
 
-        mariaDB.productSaleInsert(productNameReceive.strip(), productQuantityReceive.strip(), productPriceReceive.strip())  # <1> 매출 등록
+        mariaDB.productSaleInsert('staff', productNameReceive.strip(), productQuantityReceive.strip(), str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
         mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
         mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
 
         return """
-        <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + productPriceReceive.strip() + """₩ 가격에 주문하였습니다."), document.location.href="/staff/product/order/"; </script>
+        <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/staff/product/order/"; </script>
         """
 
     return render_template('staffProductOrder.html', productexpirydateDataHtml=productexpirydateList)
     # return '/staff/product/order/'
 
-@app.route('/customer/main/', methods=['GET','POST'])
+@app.route('/customer/product/order/', methods=['GET','POST'])  # 제품 주문
 def customer():
-    print('/customer/main/')
-    return render_template('customer.html')
+    print('/customer/product/order/')
+
+    productexpirydateList = mariaDB.productexpirydateSelect()
+
+    if request.method == 'POST':  # name 속성으로 전달 받음
+        productNameReceive = request.form.get('productNameGive').replace("\t", "")  # 제품명
+        productCodeReceive = request.form.get('productCodeGive').replace("\t", "")  # 제품 시리얼 코드
+        productQuantityReceive = request.form.get('productQuantityGive').replace("\t", "")  # 수량
+        productPriceReceive = request.form.get('productPriceGive').replace("\t", "")  # 가격
+        quantityBefore = mariaDB.quantitySelect(productNameReceive.strip(), productCodeReceive.strip())  # 선택한 제품 수량
+
+        if (productNameReceive.strip() == "") or (productCodeReceive.strip() == "") or (productPriceReceive.strip() == ""):  # 제품을 선택하지 않았다면
+            return """
+            <script type="text/javascript"> alert("제품을 선택하세요."), document.location.href="/customer/product/order/"; </script>
+            """
+        elif (productQuantityReceive.strip() == ""):  # 주문 수량을 기입하지 않았다면
+            return """
+            <script type="text/javascript"> alert("주문 수량을 입력하세요."), document.location.href="/customer/product/order/"; </script>
+            """
+        else:  # 제품을 선택하고 주문 수량을 기입했다면
+            if int(quantityBefore) < int(productQuantityReceive.strip()):  # 현재 product 제품 수량이 모자랄 경우
+                quantityIm = str(int(productQuantityReceive.strip()) - int(quantityBefore))  # 주문 불가한 제품 수량
+                quantityBuy = str(quantityBefore)  # 주문 가능한 제품 수량
+
+                print("int(quantityBefore) < int(productQuantityReceive.strip()) :", int(quantityBefore) < int(productQuantityReceive.strip()))
+
+                mariaDB.productSaleInsert('customer', productNameReceive.strip(), quantityBefore, str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
+
+                print("현재 product 제품 수량이 모자라다면 < ", str(int(productQuantityReceive.strip())-int(quantityBefore)), "개")
+                mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
+                mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), str(quantityBefore))  # <3> 판매된 제품 정보 삭제
+                return """
+                <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품 재고 부족으로 인해 """ + quantityIm + """개 외 """ + quantityBuy + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/customer/product/order/"; </script>
+                """
+            elif int(quantityBefore) == int(productQuantityReceive.strip()):  # 현재 product 제품 수량과 고객 주문 수량이 같을 경우
+
+                print("int(quantityBefore) == int(productQuantityReceive.strip()) :", int(quantityBefore) == int(productQuantityReceive.strip()))
+
+                mariaDB.productSaleInsert('customer', productNameReceive.strip(), productQuantityReceive.strip(), str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
+
+                mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
+                mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
+                return """
+                <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + quantityBefore + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/customer/product/order/"; </script>
+                """
+            elif int(quantityBefore) > int(productQuantityReceive.strip()):  # 현재 product 제품 수량이 충분할 경우
+                print("int(quantityBefore) > int(productQuantityReceive.strip()) :", int(quantityBefore) > int(productQuantityReceive.strip()))
+                mariaDB.productSaleInsert('customer', productNameReceive.strip(), productQuantityReceive.strip(), str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
+                mariaDB.quantityUpdate(quantityBefore, productQuantityReceive.strip(), productCodeReceive.strip()) # <2> 판매된 제품 수량 업데이트
+                mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
+                return """
+                <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/customer/product/order/"; </script>
+                """
+
+    return render_template('customerProductOrder.html', productexpirydateDataHtml=productexpirydateList)
 
 @app.route('/error/', methods=['GET','POST'])
 def error():

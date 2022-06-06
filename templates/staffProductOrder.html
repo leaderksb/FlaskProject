@@ -99,7 +99,7 @@ $("#productTable tr").click(function(){
 	document.staffProductOrder.productCodeGive.value = code;
 	document.staffProductOrder.productQuantityGive.value = quantity;
 	document.staffProductOrder.productPriceGive.value = price;
-	product += "제품명 : " + name + "수량 : " + quantity + "가격 : " + price;
+	product += "제품명 : " + name + "수량 : " + quantity + "가격 : " + (parseInt(price) * parseInt(quantity)).toString();
 
 	// $("#resultAll").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
 	// $("#resultData").html(str);

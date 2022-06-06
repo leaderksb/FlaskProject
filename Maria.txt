@@ -81,16 +81,20 @@ create table expirydate(
 -- 등록일자 : 현재 오늘 날짜
 insert into product values ('sandwich', 'sandwich', 'sandwich220603062001', 30, '2000', now(), 7 );
 
+-- 제품이 하나도 존재하지 않을 시 오류 발생
+-- product 테이블 초기 값 삽입
+insert into product values ('code', 'code', 'code', 2, '2022', now(), 365 );
+
 -- 유통기한 구하기
 select date_add(
 
 (select registerdate from product
-where code = 'code'),
+where code = '[ code 값 ]'),
 
 interval
 
 (select period from product
-where code = 'code')
+where code = '[ code 값 ]')
 
 day);
 
@@ -129,6 +133,25 @@ day)
 )
 );
 
+-- 제품이 하나도 존재하지 않을 시 오류 발생
+-- expirydate 테이블 초기 값 삽입
+insert into expirydate values (
+'code',
+(
+select date_add(
+
+(select registerdate from product
+where code = 'code'),
+
+interval
+
+(select period from product
+where code = 'code')
+
+day)
+)
+);
+
 -- 유통기한 정보 조회
 select * from expirydate;
 
@@ -154,6 +177,11 @@ create table productSale(
 -- 직원 주문일 경우
 insert into product values ('staff', now(), 'sandwich', 22, '2000', 'Male');
 -- 고객 주문일 경우
+
+-- 판매 제품 수량 업데이트
+update product
+set quantity = '[ 바꿀 수량 ]'
+where code = '[ code 값 ]';
 
 -- 권한 업데이트
 update information
