@@ -17,15 +17,15 @@
 <div style='text-align: center; margin:50px; margin-top:25px;'>
 	<table border = '5' id="productTable" class = "table">
 		<thead>
-			<tr>
-				<th>Name</th>
-				<th>ID</th>
-				<th>Code</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Registerdate</th>
-				<th>Period</th>
-				<th>Expirydate</th>
+			<tr> <!-- 속성 값은 눌리지 않게 설정 -->
+				<th onclick="event.stopPropagation()">Name</th>
+				<th onclick="event.stopPropagation()">ID</th>
+				<th onclick="event.stopPropagation()">Code</th>
+				<th onclick="event.stopPropagation()">Quantity</th>
+				<th onclick="event.stopPropagation()">Price</th>
+				<th onclick="event.stopPropagation()">Registerdate</th>
+				<th onclick="event.stopPropagation()">Period</th>
+				<th onclick="event.stopPropagation()">Expirydate</th>
 			<tr/>
 		</thead>
 		<tbody>
@@ -42,15 +42,17 @@
       </table>
 <!--	<div id="resultAll"></div>-->
 <!--	<div id="resultData"></div>-->
-<div id="resultProduct">제품을 선택하세요.
-		<br>
+<div id="resultProduct">
+	<p>제품을 선택하세요.</p>
 </div>
 <div>
+	<p>
 	<input type="hidden" name="productNameGive" value="">
 	<input type="hidden" name="productCodeGive" value="">
 	<input type="hidden" name="productQuantityGive" value="">
 	<input type="hidden" name="productPriceGive" value="">
 	<input type="submit" value="제품 발주">
+	</p>
 </div>
 </div>
 </div>

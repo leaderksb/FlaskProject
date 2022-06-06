@@ -17,15 +17,15 @@
 <div style='text-align: center; margin:50px; margin-top:25px;'>
 	<table border = '5' id="productTable" class = "table">
 		<thead>
-			<tr>
-				<th>Name</th>
-				<th>ID</th>
-				<th>Code</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Registerdate</th>
-				<th>Period</th>
-				<th>Expirydate</th>
+			<tr> <!-- 속성 값은 눌리지 않게 설정 -->
+				<th onclick="event.stopPropagation()">Name</th>
+				<th onclick="event.stopPropagation()">ID</th>
+				<th onclick="event.stopPropagation()">Code</th>
+				<th onclick="event.stopPropagation()">Quantity</th>
+				<th onclick="event.stopPropagation()">Price</th>
+				<th onclick="event.stopPropagation()">Registerdate</th>
+				<th onclick="event.stopPropagation()">Period</th>
+				<th onclick="event.stopPropagation()">Expirydate</th>
 			<tr/>
 		</thead>
 		<tbody>

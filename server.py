@@ -15,6 +15,10 @@ links = {
 
 # print(type(links))
 
+
+# AM 12:00마다 해당 일자를 확인한 뒤, 이전 일자 유통기한을 가진 제품 정보 삭제
+
+
 @app.route('/')  # 개발용 페이지
 def index():
     return render_template('index.html', linkDataHtml=links)
@@ -27,26 +31,22 @@ def login():
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
         loginPwReceive = request.form.get('loginPwGive')  # 비밀번호
-        loginGenderReceive = mariaDB.genderSelect(loginIdReceive, loginPwReceive)
 
         print("########################################")
 
-        if loginIdReceive == "" or loginIdReceive.strip() == "":  # loginIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        if loginIdReceive.strip() == "":  # loginIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
-            print("loginIdReceive == "" or loginIdReceive.strip() == """)
             return """
             <script type="text/javascript"> alert("ID를 입력해 주세요."); document.location.href="/login/";</script>
             """
-        elif loginPwReceive == "" or loginPwReceive.strip() == "":  # loginPwReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        elif loginPwReceive.strip() == "":  # loginPwReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginPwReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
-            print("loginPwReceive == "" or loginPwReceive.strip() == ")
             return """
             <script type="text/javascript"> alert("PW를 입력해 주세요."); document.location.href="/login/";</script>
             """
         else:  # loginIdReceive, loginPwReceive 텍스트 필드에 입력된 문자열이 있으면
-            print("로그인 시도 : ")
-            # print(mongoDB.login(loginIdReceive, loginPwReceive))
-            print(mariaDB.login(loginIdReceive, loginPwReceive))
+            # loginGenderReceive = mariaDB.genderSelect(loginIdReceive, loginPwReceive)
+
             # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
             if mariaDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
                 return """
@@ -87,17 +87,17 @@ def signup():
         print(signupNameReceive, signupIdReceive, signupPwReceive, signupPwCfReceive, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
         print("########################################")
 
-        if signupNameReceive == "" or signupNameReceive.strip() == "":  # signupNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        if signupNameReceive.strip() == "":  # signupNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # signupNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /signup/ 페이지로 이동
             return """
             <script type="text/javascript"> alert("Name을 입력해 주세요."); document.location.href="/signup/";</script>
             """
-        elif signupIdReceive == "" or signupIdReceive.strip() == "":  # signupIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        elif signupIdReceive.strip() == "":  # signupIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # signupIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /signup/ 페이지로 이동
             return """
             <script type="text/javascript"> alert("ID를 입력해 주세요."); document.location.href="/signup/";</script>
             """
-        elif signupPwReceive == "" or signupPwReceive.strip() == "":  # signupPwReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        elif signupPwReceive.strip() == "":  # signupPwReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # signupPwReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /signup/ 페이지로 이동
             return """
             <script type="text/javascript"> alert("PW를 입력해 주세요."); document.location.href="/signup/";</script>
@@ -107,7 +107,7 @@ def signup():
             return """
             <script type="text/javascript"> alert("PW가 일치하지 않습니다."); document.location.href="/signup/";</script>
             """
-        elif signupPhoneReceive == "" or signupPhoneReceive.strip() == "":  # signupPhoneReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        elif signupPhoneReceive.strip() == "":  # signupPhoneReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # signupPhoneReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /signup/ 페이지로 이동
             return """
             <script type="text/javascript"> alert("Phone를 입력해 주세요."); document.location.href="/signup/";</script>
@@ -141,7 +141,7 @@ def signup():
 def managerProductInquiry():
     print('/manager/product/Inquiry/')
 
-    productList = mariaDB.productSelect()
+    productList = mariaDB.productexpirydateSelect()
 
     return render_template('managerProductInquiry.html', productDataHtml=productList)
     # return '/manager/Inquiry/'
@@ -165,27 +165,27 @@ def managerProductRegister():
             print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
             print("########################################")
 
-            if productNameReceive == "" or productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            if productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
                 # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
                 return """
                 <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
                 """
-            elif productIdReceive == "" or productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            elif productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
                 # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
                 return """
                 <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
                 """
-            elif productSerialCodeReceive == "" or productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            elif productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
                 # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
                 return """
                 <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
                 """
-            elif str(productQuantityReceive) == "" or str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            elif str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
                 # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
                 return """
                 <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
                 """
-            elif str(productPriceReceive) == "" or str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            elif str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
                 # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
                 return """
                 <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
@@ -215,7 +215,7 @@ def managerPowerConfer():
         informationPowerReceive = request.form.get('informationPowerGive')  # 권한
         informationIdReceive = request.form.get('informationIdGive')  # 아이디
 
-        if informationIdReceive == "" or informationIdReceive.strip() == "":  # informationIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+        if informationIdReceive.strip() == "":  # informationIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # informationIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/power/confer/ 페이지로 이동
             return """
             <script type="text/javascript"> alert("ID를 입력해 주세요."); document.location.href="/manager/power/confer/";</script>
@@ -247,13 +247,18 @@ def staffProductOrder():
         productQuantityReceive = request.form.get('productQuantityGive').replace("\t", "")  # 수량
         productPriceReceive = request.form.get('productPriceGive').replace("\t", "")  # 가격
 
-        mariaDB.productSaleInsert('staff', productNameReceive.strip(), productQuantityReceive.strip(), str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
-        mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
-        mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
+        if productNameReceive.strip() == "" or productPriceReceive.strip() == "":  # 제품을 선택하지 않았다면
+            return """
+            <script type="text/javascript"> alert("제품을 선택하세요."), document.location.href="/customer/product/order/"; </script>
+            """
+        else:  # 제품을 선택했다면
+            mariaDB.productSaleInsert('staff', productNameReceive.strip(), productQuantityReceive.strip(), str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())))  # <1> 매출 등록
+            mariaDB.expirydateDelete(productCodeReceive.strip())  # <2> 판매된 제품 유통기한 정보 삭제
+            mariaDB.productSaleDelete(productNameReceive.strip(), productCodeReceive.strip(), productQuantityReceive.strip())  # <3> 판매된 제품 정보 삭제
 
-        return """
-        <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/staff/product/order/"; </script>
-        """
+            return """
+            <script type="text/javascript"> alert(" """ + productNameReceive.strip() + """ 제품, """ + productQuantityReceive.strip() + """개를 """ + str(int(productPriceReceive.strip()) * int(productQuantityReceive.strip())) + """₩ 가격에 주문하였습니다."), document.location.href="/staff/product/order/"; </script>
+            """
 
     return render_template('staffProductOrder.html', productexpirydateDataHtml=productexpirydateList)
     # return '/staff/product/order/'
@@ -269,17 +274,17 @@ def customer():
         productCodeReceive = request.form.get('productCodeGive').replace("\t", "")  # 제품 시리얼 코드
         productQuantityReceive = request.form.get('productQuantityGive').replace("\t", "")  # 수량
         productPriceReceive = request.form.get('productPriceGive').replace("\t", "")  # 가격
-        quantityBefore = mariaDB.quantitySelect(productNameReceive.strip(), productCodeReceive.strip())  # 선택한 제품 수량
 
-        if (productNameReceive.strip() == "") or (productCodeReceive.strip() == "") or (productPriceReceive.strip() == ""):  # 제품을 선택하지 않았다면
+        if productNameReceive.strip() == "" or productPriceReceive.strip() == "":  # 제품을 선택하지 않았다면
             return """
             <script type="text/javascript"> alert("제품을 선택하세요."), document.location.href="/customer/product/order/"; </script>
             """
-        elif (productQuantityReceive.strip() == ""):  # 주문 수량을 기입하지 않았다면
+        elif productQuantityReceive.strip() == "":  # 주문 수량을 기입하지 않았다면
             return """
             <script type="text/javascript"> alert("주문 수량을 입력하세요."), document.location.href="/customer/product/order/"; </script>
             """
         else:  # 제품을 선택하고 주문 수량을 기입했다면
+            quantityBefore = mariaDB.quantitySelect(productNameReceive.strip(), productCodeReceive.strip())  # 선택한 제품 수량
             if int(quantityBefore) < int(productQuantityReceive.strip()):  # 현재 product 제품 수량이 모자랄 경우
                 quantityIm = str(int(productQuantityReceive.strip()) - int(quantityBefore))  # 주문 불가한 제품 수량
                 quantityBuy = str(quantityBefore)  # 주문 가능한 제품 수량
