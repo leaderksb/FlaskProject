@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 import pymysql
 
 # 회원정보 조회

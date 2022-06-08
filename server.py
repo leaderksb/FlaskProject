@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 from flask import Flask, render_template, request
 import logging
 import mongoDB
@@ -150,57 +152,51 @@ def managerProductInquiry():
 def managerProductRegister():
     print('/manager/product/register/')
 
-    try:
-        if request.method == 'POST':  # name 속성으로 전달 받음
-            productNameReceive = request.form.get('productNameGive')  # 제품명
-            productIdReceive = request.form.get('productIdGive')  # 제품 아이디
-            productSerialCodeReceive = request.form.get('productSerialCodeGive')  # 제품 시리얼 코드
-            productQuantityReceive = request.form.get('productQuantityGive')  # 수량
-            productPriceReceive = request.form.get('productPriceGive')  # 가격
-            productRegisterReceive = request.form.get('productRegisterDateGive')  # 등록일자
-            productPeriodReceive = request.form.get('productPeriodGive')  # 유통기간
-            productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
+    if request.method == 'POST':  # name 속성으로 전달 받음
+        productNameReceive = request.form.get('productNameGive')  # 제품명
+        productIdReceive = request.form.get('productIdGive')  # 제품 아이디
+        productSerialCodeReceive = request.form.get('productSerialCodeGive')  # 제품 시리얼 코드
+        productQuantityReceive = request.form.get('productQuantityGive')  # 수량
+        productPriceReceive = request.form.get('productPriceGive')  # 가격
+        productRegisterReceive = request.form.get('productRegisterDateGive')  # 등록일자
+        productPeriodReceive = request.form.get('productPeriodGive')  # 유통기간
+        productExpiryDateReceive = request.form.get('productExpiryDateGive')  # 유통기한
 
-            print("########################################")
-            print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
-            print("########################################")
+        print("########################################")
+        print(productNameReceive, productIdReceive, productSerialCodeReceive, str(productQuantityReceive), productPriceReceive, productRegisterReceive, str(productPeriodReceive), productExpiryDateReceive)
+        print("########################################")
 
-            if productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-                # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-                return """
-                <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-                """
-            elif productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-                # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-                return """
-                <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-                """
-            elif productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-                # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-                return """
-                <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-                """
-            elif str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-                # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-                return """
-                <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-                """
-            elif str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
-                # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
-                return """
-                <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
-                """
-            else:
-                mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
-                mariaDB.expirydateInsert(productSerialCodeReceive)
-                return """
-                <script type="text/javascript"> alert(" """ + productNameReceive + """ 제품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
-                """
-    except Exception as e:
-        print(e)
-        return """
-        <script type="text/javascript"> alert("제품 정보는 영문 및 숫자로 입력하세요."); document.location.href="/manager/product/register/";</script>
-        """
+        if productNameReceive.strip() == "":  # productNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productNameReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Product Name을 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif productIdReceive.strip() == "":  # productIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Product ID를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif productSerialCodeReceive.strip() == "":  # productSerialCodeReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # productSerialCodeReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Serial Code를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif str(productQuantityReceive).strip() == "":  # str(productQuantityReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # str(productQuantityReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Quantity를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        elif str(productPriceReceive).strip() == "":  # str(productPriceReceive)에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
+            # str(productPriceReceive) 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /manager/product/register/ 페이지로 이동
+            return """
+            <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+            """
+        else:
+            mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
+            mariaDB.expirydateInsert(productSerialCodeReceive)
+            return """
+            <script type="text/javascript"> alert(" """ + productNameReceive + """ 제품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
+            """
 
     return render_template('managerProductRegister.html')
     # return '/manager/product/register/'
