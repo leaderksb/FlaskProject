@@ -11,6 +11,9 @@ alter database
     character set = utf8
     collate = utf8mb4_unicode_ci;
 
+alter database intern default character set utf8 collate utf8_general_ci;
+
+
 -- 서비스 중지
 net stop mariadb
 
@@ -58,8 +61,8 @@ create table information(
 	primary key (id) );
 
 -- 회원정보 삽입
-insert into information values ('manager', 'kimsubin', 'kimsubin', 'kimsubin', '01073676013', 'Female', 'Twenties');
-insert into information values ('staff', 'staff', 'staff', 'staff', '01011111111', 'Male', 'Twenties');
+insert into information values ('manager', 'kimsubin', 'kimsubin', 'kimsubin', '010-7367-6013', 'Female', 'Twenties');
+insert into information values ('staff', 'staff', 'staff', 'staff', '010-1111-1111', 'Male', 'Twenties');
 
 -- 회원정보 조회
 select * from information
@@ -100,7 +103,9 @@ create table expirydate(
 -- 제품 정보 삽입
 -- 등록일자 : 현재 오늘 날짜
 insert into product values ('sandwich', 'sandwich', 'sandwich220603062001', 30, '2000', now(), 7 );
-insert into product values ('wich', 'wich', 'wich220531052301', 30, '2000', '2020-02-22', 2 );
+insert into product values ('sandwich_v1', 'sandwich_v1', 'wich220531052301', 30, '1000', '2022-05-31', 1 );
+insert into product values ('sandwich_v2', 'sandwich_v2', 'wich220531052401', 30, '2000', '2022-05-31', 2 );
+insert into product values ('sandwich_v3', 'sandwich_v3', 'wich220531052501', 30, '3000', '2022-05-31', 3 );
 
 -- 제품이 하나도 존재하지 않을 시 오류 발생
 -- product 테이블 초기 값 삽입
@@ -120,7 +125,9 @@ where code = '[ code 값 ]')
 day);
 
 -- 유통기한 정보 삽입
-insert into expirydate values ('wich220531052301', '2020-02-24');
+insert into expirydate values ('wich220531052301', '2022-06-01');
+insert into expirydate values ('wich220531052401', '2022-06-02');
+insert into expirydate values ('wich220531052501', '2022-06-03');
 
 insert into expirydate values (
 '[ code 값 ]',

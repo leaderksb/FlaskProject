@@ -5,8 +5,6 @@
 import pymysql
 
 def expirydateChkSelect():  # 유통기한 지난 제품 코드 조회
-    global rsLen, expirydateChkList
-
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
@@ -17,17 +15,16 @@ def expirydateChkSelect():  # 유통기한 지난 제품 코드 조회
             for row in rs:
                 expirydateChkList.append(row)
             rsLen = len(rs)
+            # print("rsLen", rsLen)
             resultChkList = []
             for l in range(rsLen):
-                resultChkList.append(expirydateChkList[0][l])
+                # print(expirydateChkList[l][0])
+                resultChkList.append(expirydateChkList[l][0])
             return resultChkList
     finally:
         conn.close()  # DB 종료
 
-print(expirydateChkSelect())
-
-codeList = expirydateChkSelect()
-# code = expirydateChkSelect()
+codeList = expirydateChkSelect()  # 유통기한 지난 제품 코드 리스트
 
 def expirydateDelete():  # 지난 유통기한 삭제
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
@@ -38,14 +35,17 @@ def expirydateDelete():  # 지난 유통기한 삭제
     finally:
         conn.close()
 
-def productDelete(code):  # 유통기한 지난 제품 삭제
+def productDelete(codeList):  # 유통기한 지난 제품 삭제
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            for c in range(code):
-                curs.execute("delete from product where code = '" + c + "';")
+            print(codeList)
+            cLen = len(codeList)
+            for c in range(cLen):
+                curs.execute("delete from product where code = '" + codeList[c] + "';")
         conn.commit()
     finally:
         conn.close()
 
-# productDelete(codeList)
+expirydateDelete()
+productDelete(codeList)
