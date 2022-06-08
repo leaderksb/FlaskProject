@@ -100,6 +100,7 @@ create table expirydate(
 -- 제품 정보 삽입
 -- 등록일자 : 현재 오늘 날짜
 insert into product values ('sandwich', 'sandwich', 'sandwich220603062001', 30, '2000', now(), 7 );
+insert into product values ('wich', 'wich', 'wich220531052301', 30, '2000', '2020-02-22', 2 );
 
 -- 제품이 하나도 존재하지 않을 시 오류 발생
 -- product 테이블 초기 값 삽입
@@ -119,6 +120,8 @@ where code = '[ code 값 ]')
 day);
 
 -- 유통기한 정보 삽입
+insert into expirydate values ('wich220531052301', '2020-02-24');
+
 insert into expirydate values (
 '[ code 값 ]',
 (
@@ -152,6 +155,20 @@ where code = 'sandwich220603062001')
 day)
 )
 );
+
+-- 유통기한 지난 제품 코드 조회
+select code from expirydate
+where expirydate < now();
+
+-- 지난 유통기한 삭제
+delete from expirydate
+where expirydate < now();
+
+-- 유통기한 지난 제품 삭제
+delete from product
+where code =
+(select code from expirydate
+where expirydate < now());
 
 -- 제품이 하나도 존재하지 않을 시 오류 발생
 -- expirydate 테이블 초기 값 삽입

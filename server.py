@@ -17,10 +17,6 @@ links = {
 
 # print(type(links))
 
-
-# AM 12:00마다 해당 일자를 확인한 뒤, 이전 일자 유통기한을 가진 제품 정보 삭제
-
-
 @app.route('/')  # 개발용 페이지
 def index():
     return render_template('index.html', linkDataHtml=links)
@@ -29,6 +25,9 @@ def index():
 def login():
     print('/login/')
     loginGenderReceive = ''
+    # schedule.every().second.do(print("date"))
+    # schedule.run_pending()  # 대기 중인 작업이 있다면 처리
+    # time.sleep(1)
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
