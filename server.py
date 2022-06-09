@@ -219,7 +219,7 @@ def managerProductSaleInquiry():
     plt.xlabel('X - values')
     plt.ylabel('Y - values')
 
-    plt.savefig('./static/img/plot.png',
+    plt.savefig('./static/images/plot.png',
                 facecolor='#eeeeee',
                 edgecolor='black',
                 format='png', dpi=120)
