@@ -204,10 +204,6 @@ def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
     # mariaDB.
-    # s = pd.Series([1, 2, 3])
-    # fig, ax = plt.subplots()
-    # s.plot.bar()
-    # fig.savefig('.\images\plot.png')
 
     list_x_values = [1, 2, 3, 4, 5]
     list_y_values = [10, 30, 15, 20, 5]
@@ -223,11 +219,10 @@ def managerProductSaleInquiry():
     plt.xlabel('X - values')
     plt.ylabel('Y - values')
 
-    plt.savefig('images/plot.png',
+    plt.savefig('./static/img/plot.png',
                 facecolor='#eeeeee',
                 edgecolor='black',
-                format='png', dpi=200)
-
+                format='png', dpi=120)
 
     return render_template('managerProductSaleInquiry.html')
 
