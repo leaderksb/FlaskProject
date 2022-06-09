@@ -114,6 +114,22 @@ def quantitySelect(name, code):
 # print(quantitySelect("sandwich", "sandwich220603062001"))
 
 
+# # 수정 중
+# def productSaleSelect(name, code):
+#     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+#     try:
+#         with conn.cursor() as curs:
+#             curs.execute("select * from productSale;")
+#             rs = curs.fetchall()
+#             # print(rs)
+#             quantitydateList = []
+#             for row in rs:
+#                 quantitydateList.append(row)
+#             return quantitydateList[0][0]
+#     finally:
+#         conn.close()
+
+
 # 권한 부여
 def powerUpdate(power, id):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')

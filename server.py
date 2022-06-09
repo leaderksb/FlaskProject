@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 from flask import Flask, render_template, request
+import pandas as pd
+import matplotlib.pylab as plt
 import logging
 import mongoDB
 import mariaDB
@@ -10,7 +12,7 @@ app = Flask(__name__)
 links = {
     '로그인 페이지':'/login/',
     '회원가입 페이지':'/signup/',
-    '관리자 페이지':'/manager/product/Inquiry/',
+    '관리자 페이지':'/manager/product/inquiry/',
     '직원 페이지':'/staff/product/order/',
     '고객 페이지':'/customer/product/order/'
 }
@@ -136,16 +138,14 @@ def signup():
         print(signupNameReceive, signupIdReceive, signupPwReceive, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
 
     return render_template('signup.html')
-    # return '/signup/'
 
-@app.route('/manager/product/Inquiry/', methods=['GET','POST'])  # 제품 조회
+@app.route('/manager/product/inquiry/', methods=['GET','POST'])  # 제품 조회
 def managerProductInquiry():
-    print('/manager/product/Inquiry/')
+    print('/manager/product/inquiry/')
 
     productList = mariaDB.productexpirydateSelect()
 
     return render_template('managerProductInquiry.html', productDataHtml=productList)
-    # return '/manager/Inquiry/'
 
 @app.route('/manager/product/register/', methods=['GET','POST'])  # 제품 등록
 def managerProductRegister():
@@ -198,7 +198,38 @@ def managerProductRegister():
             """
 
     return render_template('managerProductRegister.html')
-    # return '/manager/product/register/'
+
+@app.route('/manager/product/sale/inquiry/', methods=['GET','POST'])  # 매출 조회
+def managerProductSaleInquiry():
+    print('/manager/product/sale/inquiry/')
+
+    # mariaDB.
+    # s = pd.Series([1, 2, 3])
+    # fig, ax = plt.subplots()
+    # s.plot.bar()
+    # fig.savefig('.\images\plot.png')
+
+    list_x_values = [1, 2, 3, 4, 5]
+    list_y_values = [10, 30, 15, 20, 5]
+
+    plt.figure(linewidth=5)
+
+    plt.plot(list_x_values, list_y_values,
+             color='skyblue',
+             marker='o', markerfacecolor='blue',
+             markersize=12)
+
+    plt.title('Test graph')
+    plt.xlabel('X - values')
+    plt.ylabel('Y - values')
+
+    plt.savefig('images/plot.png',
+                facecolor='#eeeeee',
+                edgecolor='black',
+                format='png', dpi=200)
+
+
+    return render_template('managerProductSaleInquiry.html')
 
 @app.route('/manager/power/confer/', methods=['GET','POST'])  # 권한 부여
 def managerPowerConfer():
@@ -228,7 +259,6 @@ def managerPowerConfer():
                 """
 
     return render_template('managerPowerConfer.html', informationDataHtml=informationList)
-    # return '/manager/product/register/'
 
 @app.route('/staff/product/order/', methods=['GET','POST'])  # 제품 발주
 def staffProductOrder():
@@ -256,7 +286,6 @@ def staffProductOrder():
             """
 
     return render_template('staffProductOrder.html', productexpirydateDataHtml=productexpirydateList)
-    # return '/staff/product/order/'
 
 @app.route('/customer/product/order/', methods=['GET','POST'])  # 제품 주문
 def customer():
