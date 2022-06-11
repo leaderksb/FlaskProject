@@ -27,15 +27,10 @@ def index():
 def login():
     print('/login/')
     loginGenderReceive = ''
-    # schedule.every().second.do(print("date"))
-    # schedule.run_pending()  # 대기 중인 작업이 있다면 처리
-    # time.sleep(1)
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
         loginPwReceive = request.form.get('loginPwGive')  # 비밀번호
-
-        print("########################################")
 
         if loginIdReceive.strip() == "":  # loginIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
@@ -135,8 +130,6 @@ def signup():
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
                 """
 
-        print(signupNameReceive, signupIdReceive, signupPwReceive, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-
     return render_template('signup.html')
 
 @app.route('/manager/product/inquiry/', methods=['GET','POST'])  # 제품 조회
@@ -203,28 +196,60 @@ def managerProductRegister():
 def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
-    # mariaDB.
+    if request.method == 'GET':
+        saleTypeReceive = request.args.get('type')  # 구매 유형
 
-    list_x_values = [1, 2, 3, 4, 5]
-    list_y_values = [10, 30, 15, 20, 5]
+        print("saleTypeReceive >>", saleTypeReceive)
 
-    plt.figure(linewidth=5)
+        contentsCnt = mariaDB.productSaleCnt(saleTypeReceive)
+        contentNames = mariaDB.productSaleNameSelect(saleTypeReceive)
+        contentsDF = mariaDB.productSaleSelect(saleTypeReceive)
+        contentsDF['quantity'] = pd.to_numeric(contentsDF['quantity'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
 
-    plt.plot(list_x_values, list_y_values,
-             color='skyblue',
-             marker='o', markerfacecolor='blue',
-             markersize=12)
+        # color = ['red', 'orange', 'yellow', 'green', 'cyan', 'navy', 'purple']
+        # mfColor = ['salmon', 'gold', 'lightyellow', 'lightgreen', 'lightcyan', 'royalblue', 'mediumorchid']
 
-    plt.title('Test graph')
-    plt.xlabel('X - values')
-    plt.ylabel('Y - values')
+        # aDF = pd.DataFrame({'date':['2022-01-20', '2022-02-20', '2022-03-20', '2022-04-20', '2022-05-20', '2022-06-20'], 'quantity':[1, 0, 1, 0, 1, 0]})
 
-    plt.savefig('./static/images/plot.png',
-                facecolor='#eeeeee',
-                edgecolor='black',
-                format='png', dpi=120)
+        # plt.figure(linewidth=2.5)
+        # duplicationDF = contentsDF.drop_duplicates(['name'], keep='first')  # 데이터프레임의 제품명 중복 제거. 첫번째만 남김.
+        # #
+        # print("duplicationDF['name'].cnt >>", duplicationDF['name'].count())
+        # print()
+        # print("duplicationDF >>", duplicationDF)
+        # print()
+        # duplicationDF.set_index('name')  # name을 인덱스로 지정
+        # print()
+        # print()
+        # for nameCnt in range(0, contentsCnt):
+        #     print()
+        #     print()
+        #     print(contentsDF)
+        #     print()
+        #     print()
+        #     plt.plot(contentsDF['date'], contentsDF['quantity'], label=nameCnt,
+        #     # plt.plot(list_x_values, list_y_values,
+        #              color=color[nameCnt],
+        #              marker='o', markerfacecolor=mfColor[nameCnt],
+        #              markersize=10)
 
-    return render_template('managerProductSaleInquiry.html')
+        plt.figure()  # 전체 그림 리셋
+
+        for name, size in zip(contentNames, contentsCnt):
+            long_df_sub = contentsDF[contentsDF['name'] == name]
+            plt.plot(long_df_sub.date, long_df_sub.quantity, marker='*', markersize=5, linewidth=1.5)
+
+        plt.legend(contentNames, fontsize=12, loc='best')
+        plt.title('Last 6 months sales to {0}s'.format(saleTypeReceive))
+        plt.xlabel('Month')
+        plt.ylabel('Quantity')
+
+        plt.savefig('./static/images/{0}Plot.png'.format(saleTypeReceive),
+                    facecolor='#D4F4FA',
+                    edgecolor='black',
+                    format='png', dpi=120)
+
+    return render_template('managerProductSaleInquiry.html', typeData=saleTypeReceive)
 
 @app.route('/manager/power/confer/', methods=['GET','POST'])  # 권한 부여
 def managerPowerConfer():

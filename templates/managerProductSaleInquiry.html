@@ -11,8 +11,16 @@
     <li class="nav-item">
         <a class="nav-link" href="/manager/product/register/">제품 등록</a>
     </li>
-	<li class="nav-item">
-        <a class="nav-link active" href="/manager/product/sale/inquiry/">매출 조회</a>
+    <li class="nav-item dropdown">
+        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="/manager/product/sale/inquiry/?type=customer" role="button" aria-expanded="false">매출 조회</a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=staff">직원 매출 조회</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=customer">고객 매출 조회</a>
+        </li>
+    </ul>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
@@ -24,7 +32,14 @@
 </div>
 
 <div style='text-align: center;'>
-    <img src="{{ url_for('static', filename='images/plot.png')}}" alt="매출 그래프"/>
+    <p>
+    [ {{typeData}} 매출 조회 ]
+    </p>
+    {% if typeData == 'staff' %}
+        <img src="{{ url_for('static', filename='images/staffPlot.png')}}" alt="직원 매출 그래프"/>
+    {% elif typeData == 'customer' %}
+        <img src="{{ url_for('static', filename='images/customerPlot.png')}}" alt="고객 매출 그래프"/>
+    {% endif %}
 </div>
 
 <!--<div style='text-align: center; margin:50px; margin-top:25px;'>-->

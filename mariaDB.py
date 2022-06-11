@@ -1,6 +1,9 @@
 #-*- coding: utf-8 -*-
 
 import pymysql
+from sqlalchemy import create_engine
+import pandas as pd
+from pandas import DataFrame
 
 # 회원정보 조회
 def informationSelect():
@@ -39,10 +42,9 @@ def idChk(id):
         with conn.cursor() as curs:
             curs.execute("select * from information where id = '" + id + "';")
             x = curs.rowcount  # 조회된 값 개수
+            return x
     finally:
         conn.close()  # DB 종료
-
-    return x
 
 # print(idChk("kimsubin"))
 # print(idChk(""))
@@ -114,20 +116,43 @@ def quantitySelect(name, code):
 # print(quantitySelect("sandwich", "sandwich220603062001"))
 
 
-# # 수정 중
-# def productSaleSelect(name, code):
-#     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
-#     try:
-#         with conn.cursor() as curs:
-#             curs.execute("select * from productSale;")
-#             rs = curs.fetchall()
-#             # print(rs)
-#             quantitydateList = []
-#             for row in rs:
-#                 quantitydateList.append(row)
-#             return quantitydateList[0][0]
-#     finally:
-#         conn.close()
+def productSaleNameSelect(type):  # 상품명 존재 개수 조회
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select distinct name from productSale where type='" + type + "';")  # 조회된 상품명
+            rs = curs.fetchall()
+            # print(rs)
+            productSaleNameList = []
+            for row in rs:
+                productSaleNameList.append(row[0])
+            return productSaleNameList
+    finally:
+        conn.close()  # DB 종료
+
+
+def productSaleCnt(type):  # 상품명 중복 제거 조회
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select distinct name from productSale where type='" + type + "';")
+            xList = []
+            for i in range(1, curs.rowcount+1):  # 조회된 값 개수 + 1
+                xList.append(i)
+            return xList
+    finally:
+        conn.close()  # DB 종료
+
+
+def productSaleSelect(type):
+    engine = create_engine('mysql+pymysql://root:maria@localhost:3306/intern', encoding='utf8')  # Pandas 사용을 위한 SQLAlchemy 이용
+    conn = engine.connect()
+
+    contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='" + type + "';", conn)
+    contentsDF = DataFrame(contents)
+    contentsDF.set_index('type', inplace=True)
+
+    return contentsDF
 
 
 # 권한 부여
@@ -244,7 +269,7 @@ def productSaleInsert(type, name, quantity, price):
     try:
         with conn.cursor() as curs:
             # type : 직원 주문일 경우 staff. 고객 주문일 경우 customer.
-            curs.execute("insert into productSale values ('" + type + "', now(), '" + name + "', '" + quantity + "', '" + price + "', 'None');")
+            curs.execute("insert into productSale values ('" + type + "', now(), '" + name + "', '" + quantity + "', '" + price + "', 'None', 'None');")
         conn.commit()
     finally:
         conn.close()
