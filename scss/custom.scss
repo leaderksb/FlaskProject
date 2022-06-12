@@ -1,0 +1,29 @@
+// custom.scss
+$light: #999999;
+
+// import the functions & variables
+// 색상에 액세스 및 재정의를 위함
+@import "../node_modules/bootstrap/scss/_functions";
+@import "../node_modules/bootstrap/scss/_variables";
+
+// Include any default variable overrides here (though functions won't be available)
+$custom-theme-colors: (  // 사용자 정의 테마 색상
+  "altlight":   #f2ebfa,
+  "altdark":    #522192,
+  "teal":       #20c997,
+  "teal-100":   #D2F5EB,
+  "teal-200":   #A5EAD7,
+  "teal-300":   #77E0C3,
+  "teal-400":   #49D6AF,
+  "teal-500":   #10CB9B,
+  "teal-600":   #0FA27C,
+  "teal-700":   #0C7A5D,
+  "teal-800":   #09513E,
+  "teal-900":   #05281F
+);
+
+// 맵을 병합. 매개변수 순서는 중요하지 않음.
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+// import bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";

@@ -120,7 +120,10 @@ def productSaleNameSelect(type):  # 상품명 존재 개수 조회
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            curs.execute("select distinct name from productSale where type='" + type + "';")  # 조회된 상품명
+            if type == 'all':
+                curs.execute("select distinct name from productSale;")  # 전체 조회된 상품명
+            else:
+                curs.execute("select distinct name from productSale where type='" + type + "';")  # 구매 유형별 조회된 상품명
             rs = curs.fetchall()
             # print(rs)
             productSaleNameList = []
@@ -135,7 +138,10 @@ def productSaleCnt(type):  # 상품명 중복 제거 조회
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            curs.execute("select distinct name from productSale where type='" + type + "';")
+            if type == 'all':  # 전체
+                curs.execute("select distinct DATE_FORMAT(date, '%Y-%m') as date, name from productSale;")
+            else:  # 구매 유형별
+                curs.execute("select distinct DATE_FORMAT(date, '%Y-%m') as date, name from productSale where type='" + type + "';")
             xList = []
             for i in range(1, curs.rowcount+1):  # 조회된 값 개수 + 1
                 xList.append(i)
@@ -148,7 +154,10 @@ def productSaleSelect(type):
     engine = create_engine('mysql+pymysql://root:maria@localhost:3306/intern', encoding='utf8')  # Pandas 사용을 위한 SQLAlchemy 이용
     conn = engine.connect()
 
-    contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='" + type + "';", conn)
+    if type == 'all':  # 전체
+        contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) group by DATE_FORMAT(date, '%%Y-%%m'), name;", conn)
+    else:  # 구매 유형별
+        contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='" + type + "' group by DATE_FORMAT(date, '%%Y-%%m'), name;", conn)
     contentsDF = DataFrame(contents)
     contentsDF.set_index('type', inplace=True)
 

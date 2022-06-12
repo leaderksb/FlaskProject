@@ -204,7 +204,18 @@ def managerProductSaleInquiry():
         contentsCnt = mariaDB.productSaleCnt(saleTypeReceive)
         contentNames = mariaDB.productSaleNameSelect(saleTypeReceive)
         contentsDF = mariaDB.productSaleSelect(saleTypeReceive)
-        contentsDF['quantity'] = pd.to_numeric(contentsDF['quantity'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
+        contentsDF['date'] = pd.to_datetime(contentsDF['date'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
+        contentsDF['sum_quantity'] = pd.to_numeric(contentsDF['sum_quantity'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
+
+        print()
+        print()
+
+        print("contentsCnt *", contentsCnt)
+        print("contentNames *", contentNames)
+        print("contentsDF['sum_quantity'] *", contentsDF['sum_quantity'])
+
+        print()
+        print()
 
         # color = ['red', 'orange', 'yellow', 'green', 'cyan', 'navy', 'purple']
         # mfColor = ['salmon', 'gold', 'lightyellow', 'lightgreen', 'lightcyan', 'royalblue', 'mediumorchid']
@@ -237,10 +248,10 @@ def managerProductSaleInquiry():
 
         for name, size in zip(contentNames, contentsCnt):
             long_df_sub = contentsDF[contentsDF['name'] == name]
-            plt.plot(long_df_sub.date, long_df_sub.quantity, marker='*', markersize=5, linewidth=1.5)
+            plt.plot(long_df_sub.date, long_df_sub.sum_quantity, marker='*', markersize=5, linewidth=1.5)
 
         plt.legend(contentNames, fontsize=12, loc='best')
-        plt.title('Last 6 months sales to {0}s'.format(saleTypeReceive))
+        plt.title('Last 6 months sales to {0}'.format(saleTypeReceive))
         plt.xlabel('Month')
         plt.ylabel('Quantity')
 

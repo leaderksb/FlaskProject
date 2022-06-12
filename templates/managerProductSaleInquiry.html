@@ -12,8 +12,12 @@
         <a class="nav-link" href="/manager/product/register/">제품 등록</a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="/manager/product/sale/inquiry/?type=customer" role="button" aria-expanded="false">매출 조회</a>
+        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="/manager/product/sale/inquiry/?type=all" role="button" aria-expanded="false">매출 조회</a>
+<!--        <a class="nav-link active dropdown-toggle bg-success" data-bs-toggle="dropdown" href="/manager/product/sale/inquiry/?type=all" role="button" aria-expanded="false">매출 조회</a>-->
     <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=all">전체 매출 조회</a>
+        </li>
         <li>
             <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=staff">직원 매출 조회</a>
         </li>
@@ -35,7 +39,9 @@
     <p>
     [ {{typeData}} 매출 조회 ]
     </p>
-    {% if typeData == 'staff' %}
+    {% if typeData == 'all' %}
+        <img src="{{ url_for('static', filename='images/allPlot.png')}}" alt="전체 매출 그래프"/>
+    {% elif typeData == 'staff' %}
         <img src="{{ url_for('static', filename='images/staffPlot.png')}}" alt="직원 매출 그래프"/>
     {% elif typeData == 'customer' %}
         <img src="{{ url_for('static', filename='images/customerPlot.png')}}" alt="고객 매출 그래프"/>

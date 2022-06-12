@@ -1,3 +1,10 @@
-# 라이브러리 설치 준비
-
+1. 라이브러리 설치 준비
 pip install pymysql
+
+2. https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
+방법0) 재부팅
+방법1) 파이참 메뉴 바에서 파일 → 설정 → 플러그인 → Node.js 설치
+방법2) 환경변수 확인 → 재부팅
+npm install bootstrap
+npm install -g sass
+
