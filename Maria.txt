@@ -54,14 +54,16 @@ create table information(
 	power varchar(50),
 	name varchar(50) not null,
 	id varchar(50),
-	pw varchar(50) not null,
+	pw varchar(64) not null,
+    salt varchar(10) not null,
 	phone varchar(50) not null,
 	gender varchar(50) not null,
 	age varchar(50) not null,
 	primary key (id) );
 
 -- 회원정보 삽입
-insert into information values ('manager', 'kimsubin', 'kimsubin', 'kimsubin', '010-7367-6013', 'Female', 'Twenties');
+insert into information values ('manager', 'kimsubin', 'kimsubin', 'FD3677F8E4CC79C7EF722975449E2EB858BA75ABCF7C3A2A85C98585D5486ED5', '0', '010-7367-6013', 'Female', 'Twenties');
+insert into information values ('manager', 'kimsubin', 'kimsubin', 'fd3677f8e4cc79c7ef722975449e2eb858ba75abcf7c3a2a85c98585d5486ed5', '0', '010-7367-6013', 'Female', 'Twenties');
 insert into information values ('staff', 'staff', 'staff', 'staff', '010-1111-1111', 'Male', 'Twenties');
 
 -- 회원정보 조회
@@ -272,8 +274,6 @@ insert into productSale values ('customer', '2022-03-10', 'Apple', '6', '6000', 
 insert into productSale values ('customer', '2022-04-10', 'Apple', '7', '70000', 'None', 'None');
 insert into productSale values ('customer', '2022-05-10', 'Apple', '2', '2000', 'None', 'None');
 insert into productSale values ('customer', '2022-06-10', 'Apple', '1', '1000', 'None', 'None');
-
-
 
 판매 타입
 판매 날짜

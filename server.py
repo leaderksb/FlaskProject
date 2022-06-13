@@ -2,10 +2,18 @@
 
 from flask import Flask, render_template, request
 import pandas as pd
-import matplotlib.pylab as plt
-import logging
+import matplotlib
+import matplotlib.font_manager as fm
+import matplotlib.pyplot as plt
+# import matplotlib.pylab as plt  사용 지양
+import hashlib  # 단방향 해시 암호화
+import random
 import mongoDB
 import mariaDB
+
+font_location = './static/fonts/NanumGothic.ttf' # For Windows
+font_name = fm.FontProperties(fname=font_location).get_name()
+matplotlib.rc('font', family=font_name)
 
 app = Flask(__name__)
 
@@ -44,24 +52,29 @@ def login():
             """
         else:  # loginIdReceive, loginPwReceive 텍스트 필드에 입력된 문자열이 있으면
             # loginGenderReceive = mariaDB.genderSelect(loginIdReceive, loginPwReceive)
+            salt = mariaDB.saltSelect(loginIdReceive)
+            print("salt", salt)
+            salting = loginPwReceive + str(salt)
+            password = hashlib.sha256(salting.encode()).hexdigest()
+            print("password", password)
 
             # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
-            if mariaDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
+            if mariaDB.login(loginIdReceive, password) == "resultCustomer":
                 return """
                 <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/product/order/";</script>
                 """
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
-            elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
+            elif mariaDB.login(loginIdReceive, password) == "resultStaff":
                 return """
                 <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/product/order/";</script>
                 """
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultManager":
-            elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultManager":
+            elif mariaDB.login(loginIdReceive, password) == "resultManager":
                 return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/Inquiry/";</script>
+                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/inquiry/";</script>
                 """
             # elif mongoDB.login(loginIdReceive, loginPwReceive) == "error":
-            elif mariaDB.login(loginIdReceive, loginPwReceive) == "resultNone":
+            elif mariaDB.login(loginIdReceive, password) == "resultNone":
                 return """
                 <script type="text/javascript"> alert("ID 또는 PW가 존재하지 않습니다. 회원가입해 주세요."); document.location.href="/signup/";</script>
                 """
@@ -81,8 +94,14 @@ def signup():
         signupGenderReceive = request.form.get('signupGenderGive')  # 성별
         signupAgeReceive = request.form.get('signupAgeGive')  # 나이대
 
+        salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
+
+        salting = signupPwReceive + str(salt)
+
+        password = hashlib.sha256(salting.encode()).hexdigest()
+
         print("########################################")
-        print(signupNameReceive, signupIdReceive, signupPwReceive, signupPwCfReceive, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+        print(signupNameReceive, signupIdReceive, password, salt, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
         print("########################################")
 
         if signupNameReceive.strip() == "":  # signupNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
@@ -125,7 +144,7 @@ def signup():
 
                 print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), password, str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 return """
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
                 """
@@ -256,7 +275,8 @@ def managerProductSaleInquiry():
         plt.ylabel('Quantity')
 
         plt.savefig('./static/images/{0}Plot.png'.format(saleTypeReceive),
-                    facecolor='#D4F4FA',
+                    # facecolor='#D4F4FA',
+                    facecolor='#A5EAD7',
                     edgecolor='black',
                     format='png', dpi=120)
 

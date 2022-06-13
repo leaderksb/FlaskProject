@@ -1,5 +1,6 @@
 1. 라이브러리 설치 준비
 pip install pymysql
+pip install sqlalchemy
 
 2. https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅

@@ -215,6 +215,20 @@ def login(id, pw):  # 로그인
 
 # login("kimsubin", "kimsubin")
 
+def saltSelect(id):  # salt 조회
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select salt from information where id='" + id + "';")
+            rs = curs.fetchall()
+            # print(rs)
+            saltList = []
+            for row in rs:
+                saltList.append(row)
+            return saltList[0][0]
+    finally:
+        conn.close()  # DB 종료
+
 
 def genderSelect(id, pw):  # 성별 조회
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
@@ -232,12 +246,12 @@ def genderSelect(id, pw):  # 성별 조회
 
 
 # 회원가입
-def signUpInsert(name, id, pw, phone, gender, age):
+def signUpInsert(name, id, pw, salt, phone, gender, age):
     conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
-            curs.execute("insert into information values ('customer', '" + name + "', '" + id + "', '" + pw + "', '" + phone
-                         + "', '" + gender  + "', '" + age + "');")  # 기본 권한 customer
+            curs.execute("insert into information values ('customer', '" + name + "', '" + id + "', '" + pw + "', '" + salt + "', '"
+                         + phone + "', '" + gender  + "', '" + age + "');")  # 기본 권한 customer
         conn.commit()
     finally:
         conn.close()
