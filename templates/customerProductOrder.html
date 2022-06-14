@@ -3,63 +3,63 @@
 
 <form action="/customer/product/order/" method="post" name="customerProductOrder">
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-	<ul class="nav nav-pills nav-justified">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/customer/product/order/">제품 주문</a>
-    </li>
-    <li class="nav-item">  <!-- 비활성화 -->
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-    </li>
-</ul>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/customer/product/order/">제품 주문</a>
+            </li>
+            <li class="nav-item">  <!-- 비활성화 -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+            </li>
+        </ul>
+    </div>
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-	<table border = '5' id="productTable" class = "table">
-		<thead>
-			<tr> <!-- 속성 값은 눌리지 않게 설정 -->
-				<th onclick="event.stopPropagation()">Name</th>
-				<th onclick="event.stopPropagation()">ID</th>
-				<th onclick="event.stopPropagation()">Code</th>
-				<th onclick="event.stopPropagation()">Quantity</th>
-				<th onclick="event.stopPropagation()">Price</th>
-				<th onclick="event.stopPropagation()">Registerdate</th>
-				<th onclick="event.stopPropagation()">Period</th>
-				<th onclick="event.stopPropagation()">Expirydate</th>
-			<tr/>
-		</thead>
-		<tbody>
-			{% for item in productexpirydateDataHtml %}
-			<tr>
-				{% for i in item %}
-				<td>
-					<option>{{i}}</option>
-				</td>
-				{% endfor %}
-			</tr>
-			{% endfor %}
-		</tbody>
-      </table>
-<!--	<div id="resultAll"></div>-->
-<!--	<div id="resultData"></div>-->
-<div id="resultProduct">제품을 선택하세요.
-		<br>
-</div>
-<div>
-	<input type="hidden" name="productNameGive" value="">
-	<input type="hidden" name="productCodeGive" value="">
-	<input type="hidden" name="productPriceGive" value="">
-		<br>
-	<input type="text" name="productQuantityGive" placeholder="주문 수량" size="20">
-	<input type="submit" value="제품 주문">
-</div>
-</div>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <table border='5' id="productTable" class="table">
+            <thead>
+            <tr> <!-- 속성 값은 눌리지 않게 설정 -->
+                <th onclick="event.stopPropagation()">Name</th>
+                <th onclick="event.stopPropagation()">ID</th>
+                <th onclick="event.stopPropagation()">Code</th>
+                <th onclick="event.stopPropagation()">Quantity</th>
+                <th onclick="event.stopPropagation()">Price</th>
+                <th onclick="event.stopPropagation()">Registerdate</th>
+                <th onclick="event.stopPropagation()">Period</th>
+                <th onclick="event.stopPropagation()">Expirydate</th>
+            <tr/>
+            </thead>
+            <tbody>
+            {% for item in productexpirydateDataHtml %}
+            <tr>
+                {% for i in item %}
+                <td>
+                    <option>{{i}}</option>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!--	<div id="resultAll"></div>-->
+        <!--	<div id="resultData"></div>-->
+        <div id="resultProduct">제품을 선택하세요.
+            <br>
+        </div>
+        <div>
+            <input type="hidden" name="productNameGive" value="">
+            <input type="hidden" name="productCodeGive" value="">
+            <input type="hidden" name="productPriceGive" value="">
+            <br>
+            <input class="input_box" type="text" name="productQuantityGive" placeholder="주문 수량" size="20">
+            <input class="submit_basic" type="submit" value="제품 주문">
+        </div>
+    </div>
+    </div>
 </form>
 
 <script>
     // 테이블의 Row 클릭시 값 가져오기
-    $("#productTable tr").click(function(){
+    $("#productTable tr").click(function () {
 
         var str = ""
         var product = ""
@@ -70,14 +70,14 @@
         var td = tr.children();
 
         // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-        console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+        console.log("클릭한 Row의 모든 데이터 : " + tr.text());
 
         // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-        td.each(function(i){
+        td.each(function (i) {
             tdArr.push(td.eq(i).text());
         });
 
-        console.log("배열에 담긴 값 : "+tdArr);
+        console.log("배열에 담긴 값 : " + tdArr);
 
         // td.eq(index)를 통해 값을 가져올 수도 있다.
         var name = td.eq(0).text();
@@ -88,7 +88,7 @@
         var registerdate = td.eq(5).text();
         var period = td.eq(6).text();
 
-        str +=	" * 클릭한 Row의 td 데이터 값 = Name. : <font color='red'>" + name + "</font>" +
+        str += " * 클릭한 Row의 td 데이터 값 = Name. : <font color='red'>" + name + "</font>" +
             ", ID : <font color='red'>" + id + "</font>" +
             ", Code : <font color='red'>" + code + "</font>" +
             ", Quantity : <font color='red'>" + quantity + "</font>" +

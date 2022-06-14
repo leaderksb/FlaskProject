@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div style="padding-top: 200px">
+    <div>
+        <h1 class="h_index">개발용 페이지</h1>
+    </div>
+</div>
+
 {% for linkname, link in linkDataHtml.items() %}
 
 <form action="/" method="post">
-
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-    <p><a href="{{ link }}">{{ linkname }}</a></p>
-</div>
+    <div style="text-align: center; margin-top: 30px; padding: 10px">
+        <a href="{{ link }}">{{ linkname }}</a>
+    </div>
 
 </form>
 

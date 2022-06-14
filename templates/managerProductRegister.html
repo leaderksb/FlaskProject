@@ -28,57 +28,58 @@
 
 <form action="/manager/product/register/" method="post">
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-<ul class="nav nav-pills nav-justified">
-    <li class="nav-item">
-      <a class="nav-link" href="/manager/product/inquiry/">제품 조회</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/manager/product/register/">제품 등록</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/manager/product/sale/inquiry/?type=all">매출 조회</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
-    </li>
-    <li class="nav-item">  <!-- 비활성화 -->
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-    </li>
-</ul>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/inquiry/">제품 조회</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/manager/product/register/">제품 등록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/sale/inquiry/?type=all">매출 조회</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
+            </li>
+            <li class="nav-item">  <!-- 비활성화 -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+            </li>
+        </ul>
+    </div>
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-    [ 제품 등록 기능 구현 ]
-    <br>
-    Product Name : <input type="text" name="productNameGive" size="20"/>
-    <br>
-    Product ID : <input type="text" name="productIdGive" size="20"/>
-    <br>
-    Serial Code : <input type="text" name="productSerialCodeGive" size="20"/>
-    <br>
-    Quantity : <input type="number" name="productQuantityGive" size="20"/>
-    <br>
-    Price : <input type="number" name="productPriceGive" size="20"/>
-    <br>
-    등록일자 : <input type="date" name="productRegisterDateGive" id="productRegisterDateGive" size="20" readonly/>
-    <script>document.getElementById('productRegisterDateGive').valueAsDate = new Date();</script>
-    <br>
-    <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
-    유통기간 : <select id="productPeriodGive" name="productPeriodGive">
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <br>
+        <h6 class="h_info">Product Name </h6><input class="input_box" type="text" name="productNameGive" size="20"/>
+        <br>
+        <h6 class="h_info">Product ID </h6><input class="input_box" type="text" name="productIdGive" size="20"/>
+        <br>
+        <h6 class="h_info">Serial Code </h6><input class="input_box" type="text" name="productSerialCodeGive"
+                                                   size="20"/>
+        <br>
+        <h6 class="h_info">Quantity </h6><input class="input_box" type="number" name="productQuantityGive" size="20"/>
+        <br>
+        <h6 class="h_info">Price </h6><input class="input_box" type="number" name="productPriceGive" size="20"/>
+        <br>
+        <h6 class="h_info">등록일자 </h6><input class="input_date" type="date" name="productRegisterDateGive" id="productRegisterDateGive"
+                                            size="20" readonly/>
+        <script>document.getElementById('productRegisterDateGive').valueAsDate = new Date();</script>
+        <br>
+        <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
+        <h6 class="h_info">유통기간 </h6><select id="productPeriodGive" name="productPeriodGive">
         <option value="1" selected>1일</option>
         <option value="7">7일</option>
         <option value="14">14일</option>
         <option value="30">30일</option>
         <option value="60">60일</option>
     </select>
-    <br>
-    <!-- id로 값 받는 법 -->
-<!--    <script> period = document.getElementById('productPeriodGive');</script>-->
-<!--    유통기한: <input type="date" id="productExpiryDateGive" name="productExpiryDateGive" size="20" readonly/>-->
-    <input type="submit" value="제품 등록"/>
-    <br>
-</div>
+        <br>
+        <!-- id로 값 받는 법 -->
+        <!--    <script> period = document.getElementById('productPeriodGive');</script>-->
+        <!--    유통기한: <input type="date" id="productExpiryDateGive" name="productExpiryDateGive" size="20" readonly/>-->
+        <input class="submit_basic" type="submit" value="제품 등록"/>
+        <br>
+    </div>
 
 </form>
 

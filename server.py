@@ -73,7 +73,6 @@ def login():
                 return """
                 <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/inquiry/";</script>
                 """
-            # elif mongoDB.login(loginIdReceive, loginPwReceive) == "error":
             elif mariaDB.login(loginIdReceive, password) == "resultNone":
                 return """
                 <script type="text/javascript"> alert("ID 또는 PW가 존재하지 않습니다. 회원가입해 주세요."); document.location.href="/signup/";</script>
@@ -395,11 +394,6 @@ def customer():
                 """
 
     return render_template('customerProductOrder.html', productexpirydateDataHtml=productexpirydateList)
-
-@app.route('/error/', methods=['GET','POST'])
-def error():
-    print('/error/')
-    return render_template('error.html')
 
 # app.run(port=5001, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
 app.run(debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.

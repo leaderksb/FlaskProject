@@ -150,7 +150,7 @@ def productSaleCnt(type):  # 상품명 중복 제거 조회
         conn.close()  # DB 종료
 
 
-def productSaleSelect(type):
+def productSaleSelect(type):  # 구매 유형별 매출 조회
     engine = create_engine('mysql+pymysql://root:maria@localhost:3306/intern', encoding='utf8')  # Pandas 사용을 위한 SQLAlchemy 이용
     conn = engine.connect()
 

@@ -1,6 +1,7 @@
 -- cmd에서 MariaDB 접속
 mysql -uroot -p
-[ pw 입력 ]
+-- pw 입력
+maria
 
 -- 인코딩 확인
 status
@@ -12,7 +13,6 @@ alter database
     collate = utf8mb4_unicode_ci;
 
 alter database intern default character set utf8 collate utf8_general_ci;
-
 
 -- 서비스 중지
 net stop mariadb
@@ -62,9 +62,8 @@ create table information(
 	primary key (id) );
 
 -- 회원정보 삽입
-insert into information values ('manager', 'kimsubin', 'kimsubin', 'FD3677F8E4CC79C7EF722975449E2EB858BA75ABCF7C3A2A85C98585D5486ED5', '0', '010-7367-6013', 'Female', 'Twenties');
+-- 샘플 회원 정보 id와 pw는 동일
 insert into information values ('manager', 'kimsubin', 'kimsubin', 'fd3677f8e4cc79c7ef722975449e2eb858ba75abcf7c3a2a85c98585d5486ed5', '0', '010-7367-6013', 'Female', 'Twenties');
-insert into information values ('staff', 'staff', 'staff', 'staff', '010-1111-1111', 'Male', 'Twenties');
 
 -- 회원정보 조회
 select * from information
@@ -100,8 +99,6 @@ create table expirydate(
 등록일자
 유통기간
 
-유통기한
-
 -- 제품 정보 삽입
 -- 등록일자 : 현재 오늘 날짜
 insert into product values ('sandwich', 'sandwich', 'sandwich220603062001', 30, '2000', now(), 7 );
@@ -109,8 +106,8 @@ insert into product values ('sandwich_v1', 'sandwich_v1', 'wich220531052301', 30
 insert into product values ('sandwich_v2', 'sandwich_v2', 'wich220531052401', 30, '2000', '2022-05-31', 2 );
 insert into product values ('sandwich_v3', 'sandwich_v3', 'wich220531052501', 30, '3000', '2022-05-31', 3 );
 
--- 제품이 하나도 존재하지 않을 시 오류 발생
--- product 테이블 초기 값 삽입
+-- 제품이 하나도 존재하지 않을 시 오류 발생한 적 있음
+-- product 테이블 샘플 값 삽입
 insert into product values ('code', 'code', 'code', 2, '2022', now(), 365 );
 
 -- 유통기한 구하기
@@ -126,7 +123,7 @@ where code = '[ code 값 ]')
 
 day);
 
--- 유통기한 정보 삽입
+-- 유통기한 샘플 데이터
 insert into expirydate values ('wich220531052301', '2022-06-01');
 insert into expirydate values ('wich220531052401', '2022-06-02');
 insert into expirydate values ('wich220531052501', '2022-06-03');
@@ -179,8 +176,8 @@ where code =
 (select code from expirydate
 where expirydate < now());
 
--- 제품이 하나도 존재하지 않을 시 오류 발생
--- expirydate 테이블 초기 값 삽입
+-- 제품이 하나도 존재하지 않을 시 오류 발생한 적 있음
+-- expirydate 테이블 샘플 값 삽입
 insert into expirydate values (
 'code',
 (
@@ -201,6 +198,12 @@ day)
 -- 유통기한 정보 조회
 select * from expirydate;
 
+-- 제품 정보 테이블과 유통기한 테이블 조인 조회
+select p.name, p.id, p.code, p.quantity, p.price, p.registerdate, p.period, e.expirydate
+	from product as p
+	inner join expirydate as e
+	on p.code = e.code;
+
 -- productSale 테이블 생성
 -- 판매 정보
 create table productSale(
@@ -217,14 +220,14 @@ create table productSale(
 select * from productSale where type='staff';
 
 -- 직원 판매 정보 이번달 포함 6개월 이전 내역만 조회
-select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='staff';
 select type, DATE_FORMAT(date, '%Y-%m') as date, name, quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='staff';
 
+-- 직원 판매 정보 이번달 포함 6개월 이전 내역 중 같은 개월 수에 판매된 같은 제품 내역 조회
 select type, DATE_FORMAT(date, '%Y-%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale
 where month(date)<=month(now()) and month(date)+6>month(now()) and type='staff'
 group by DATE_FORMAT(date, '%Y-%m'), name;
 
--- 직원 판매 정보 데이터
+-- 직원 판매 정보 샘플 데이터
 insert into productSale values ('staff', '2022-01-10', 'Sandwich', '5', '10000', 'None', 'None');
 insert into productSale values ('staff', '2022-02-10', 'Sandwich', '10', '50000', 'None', 'None');
 insert into productSale values ('staff', '2022-03-10', 'Sandwich', '5', '10000', 'None', 'None');
@@ -251,9 +254,11 @@ select * from productSale where type='customer';
 
 -- 고객 판매 정보 이번달 포함 6개월 이전 내역만 조회
 select * from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='customer';
+
+-- 파이썬에서 SQLAlchemy 이용 시 DATE_FORMAT 쿼리 %%로 작성
 select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='customer';
 
--- 고객 판매 정보 데이터
+-- 고객 판매 정보 샘플 데이터
 insert into productSale values ('customer', '2022-01-10', 'Sandwich', '5', '10000', 'None', 'None');
 insert into productSale values ('customer', '2022-02-10', 'Sandwich', '10', '50000', 'None', 'None');
 insert into productSale values ('customer', '2022-03-10', 'Sandwich', '5', '10000', 'None', 'None');
@@ -283,11 +288,6 @@ insert into productSale values ('customer', '2022-06-10', 'Apple', '1', '1000', 
 성별
 나이대
 
--- 판매 정보 삽입
--- 직원 주문일 경우
-insert into product values ('staff', now(), 'sandwich', 22, '2000', 'Male');
--- 고객 주문일 경우
-
 -- 판매 제품 수량 업데이트
 update product
 set quantity = '[ 바꿀 수량 ]'
@@ -297,9 +297,3 @@ where code = '[ code 값 ]';
 update information
 set power = '[ 바꿀 권한 ]'
 where id = '[ 회원 ID ]';
-
--- 제품 정보 테이블과 유통기한 테이블 조인 조회
-select p.name, p.id, p.code, p.quantity, p.price, p.registerdate, p.period, e.expirydate
-	from product as p
-	inner join expirydate as e
-	on p.code = e.code;

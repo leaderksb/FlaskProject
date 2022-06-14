@@ -3,65 +3,64 @@
 
 <form action="/manager/power/confer/" method="post">
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-<ul class="nav nav-pills nav-justified">
-	<li class="nav-item">
-		<a class="nav-link" href="/manager/product/inquiry/">제품 조회</a>
-	</li>
-  	<li class="nav-item">
-		<a class="nav-link" href="/manager/product/register/">제품 등록</a>
-	</li>
-	<li class="nav-item">
-        <a class="nav-link" href="/manager/product/sale/inquiry/?type=all">매출 조회</a>
-    </li>
-	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" href="/manager/power/confer/">권한 부여</a>
-	</li>
-	<li class="nav-item">  <!-- 비활성화 -->
-		<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-	</li>
-</ul>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/inquiry/">제품 조회</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/register/">제품 등록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/sale/inquiry/?type=all">매출 조회</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/manager/power/confer/">권한 부여</a>
+            </li>
+            <li class="nav-item">  <!-- 비활성화 -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+            </li>
+        </ul>
+    </div>
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-	[ 권한 부여 기능 구현 ]
-	<table border = '5' class = "table">
-		<thead>
-			<tr>
-	<!--			<th>Check</th>-->
-				<th>Power</th>
-				<th>Name</th>
-				<th>ID</th>
-				<th>PW</th>
-				<th>Phone</th>
-				<th>Gender</th>
-				<th>Age</th>
-			<tr/>
-		</thead>
-		<tbody>
-		{% for item in informationDataHtml %}
-			<tr>
-<!--				<td><input type="checkbox" name="powerGive"></td>-->
-				{% for i in item %}
-				<td>
-					<option>{{i}}</option>
-				</td>
-				{% endfor %}
-			</tr>
-			{% endfor %}
-		</tbody>
-      </table>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <table border='5' class="table">
+            <thead>
+            <tr>
+                <!--			<th>Check</th>-->
+                <th>Power</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>PW</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Age</th>
+            <tr/>
+            </thead>
+            <tbody>
+            {% for item in informationDataHtml %}
+            <tr>
+                <!--				<td><input type="checkbox" name="powerGive"></td>-->
+                {% for i in item %}
+                <td>
+                    <option>{{i}}</option>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-	<input type="text" name="informationIdGive" placeholder="ID" size="20">
-	<select id="informationPowerGive" name="informationPowerGive">
-        <option value="manager">Manager</option>
-        <option value="staff">Staff</option>
-        <option value="customer">Customer</option>
-	</select>
-	<input type="submit" value="권한 부여">
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <input class="input_box" type="text" name="informationIdGive" placeholder="ID" size="20">
+        <select id="informationPowerGive" name="informationPowerGive">
+            <option value="manager">Manager</option>
+            <option value="staff">Staff</option>
+            <option value="customer">Customer</option>
+        </select>
+        <input class="submit_basic" type="submit" value="권한 부여">
+    </div>
 
 </form>
 

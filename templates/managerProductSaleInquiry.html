@@ -3,78 +3,85 @@
 
 <form action="/manager/product/sale/inquiry/" method="post">
 
-<div style='text-align: center; margin:50px; margin-top:25px;'>
-<ul class="nav nav-pills nav-justified">
-    <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="/manager/product/inquiry/">제품 조회</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/manager/product/register/">제품 등록</a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="/manager/product/sale/inquiry/?type=all" role="button" aria-expanded="false">매출 조회</a>
-    <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=all">전체 매출 조회</a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=staff">직원 매출 조회</a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=customer">고객 매출 조회</a>
-        </li>
-    </ul>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
-    </li>
-    <li class="nav-item">  <!-- 비활성화 -->
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
-    </li>
-</ul>
-</div>
+    <div style='text-align: center; margin:50px; margin-top:25px;'>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/manager/product/inquiry/">제품 조회</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/product/register/">제품 등록</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown"
+                   href="/manager/product/sale/inquiry/?type=all" role="button" aria-expanded="false">매출 조회</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=all">전체 매출 조회</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=staff">직원 매출 조회</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/manager/product/sale/inquiry/?type=customer">고객 매출 조회</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/manager/power/confer/">권한 부여</a>
+            </li>
+            <li class="nav-item">  <!-- 비활성화 -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">준비 중...</a>
+            </li>
+        </ul>
+    </div>
 
-<div style='text-align: center;'>
-    <p>
-    [ {{typeData}} 매출 조회 ]
-    </p>
-    {% if typeData == 'all' %}
+    <div style='text-align: center;'>
+        {% if typeData == 'all' %}
+        <p>
+        <h6 class="h_info"> 전체 매출 조회</h6>
+        </p>
         <img src="{{ url_for('static', filename='images/allPlot.png')}}" alt="전체 매출 그래프"/>
-    {% elif typeData == 'staff' %}
+        {% elif typeData == 'staff' %}
+        <p>
+        <h6 class="h_info"> 직원 매출 조회</h6>
+        </p>
         <img src="{{ url_for('static', filename='images/staffPlot.png')}}" alt="직원 매출 그래프"/>
-    {% elif typeData == 'customer' %}
+        {% elif typeData == 'customer' %}
+        <p>
+        <h6 class="h_info"> 고객 매출 조회</h6>
+        </p>
         <img src="{{ url_for('static', filename='images/customerPlot.png')}}" alt="고객 매출 그래프"/>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 
-<!--<div style='text-align: center; margin:50px; margin-top:25px;'>-->
-<!--	[ 제품 조회 기능 구현 ]-->
-<!--	<table border = '5' class = "table">-->
-<!--		<thead>-->
-<!--			<tr>-->
-<!--				<th>Name</th>-->
-<!--				<th>ID</th>-->
-<!--				<th>Code</th>-->
-<!--				<th>Quantity</th>-->
-<!--				<th>Price</th>-->
-<!--				<th>Registerdate</th>-->
-<!--				<th>Period</th>-->
-<!--				<th>Expirydate</th>-->
-<!--			<tr/>-->
-<!--		</thead>-->
-<!--		<tbody>-->
-<!--			{% for item in productDataHtml %}-->
-<!--			<tr>-->
-<!--				{% for i in item %}-->
-<!--				<td>-->
-<!--					<option>{{i}}</option>-->
-<!--				</td>-->
-<!--				{% endfor %}-->
-<!--			</tr>-->
-<!--			{% endfor %}-->
-<!--		</tbody>-->
-<!--      </table>-->
-<!--</div>-->
+    <!--<div style='text-align: center; margin:50px; margin-top:25px;'>-->
+    <!--	[ 제품 조회 기능 구현 ]-->
+    <!--	<table border = '5' class = "table">-->
+    <!--		<thead>-->
+    <!--			<tr>-->
+    <!--				<th>Name</th>-->
+    <!--				<th>ID</th>-->
+    <!--				<th>Code</th>-->
+    <!--				<th>Quantity</th>-->
+    <!--				<th>Price</th>-->
+    <!--				<th>Registerdate</th>-->
+    <!--				<th>Period</th>-->
+    <!--				<th>Expirydate</th>-->
+    <!--			<tr/>-->
+    <!--		</thead>-->
+    <!--		<tbody>-->
+    <!--			{% for item in productDataHtml %}-->
+    <!--			<tr>-->
+    <!--				{% for i in item %}-->
+    <!--				<td>-->
+    <!--					<option>{{i}}</option>-->
+    <!--				</td>-->
+    <!--				{% endfor %}-->
+    <!--			</tr>-->
+    <!--			{% endfor %}-->
+    <!--		</tbody>-->
+    <!--      </table>-->
+    <!--</div>-->
 
 </form>
 
