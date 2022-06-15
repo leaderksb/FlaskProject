@@ -18,21 +18,21 @@
         <table border='5' id="productTable" class="table">
             <thead>
             <tr> <!-- 속성 값은 눌리지 않게 설정 -->
-                <th onclick="event.stopPropagation()">Name</th>
-                <th onclick="event.stopPropagation()">ID</th>
-                <th onclick="event.stopPropagation()">Code</th>
-                <th onclick="event.stopPropagation()">Quantity</th>
-                <th onclick="event.stopPropagation()">Price</th>
-                <th onclick="event.stopPropagation()">Registerdate</th>
-                <th onclick="event.stopPropagation()">Period</th>
-                <th onclick="event.stopPropagation()">Expirydate</th>
+                <th class="t_title" onclick="event.stopPropagation()">Name</th>
+                <th class="t_title" onclick="event.stopPropagation()">ID</th>
+                <th class="t_title" onclick="event.stopPropagation()">Code</th>
+                <th class="t_title" onclick="event.stopPropagation()">Quantity</th>
+                <th class="t_title" onclick="event.stopPropagation()">Price</th>
+                <th class="t_title" onclick="event.stopPropagation()">Registerdate</th>
+                <th class="t_title" onclick="event.stopPropagation()">Period</th>
+                <th class="t_title" onclick="event.stopPropagation()">Expirydate</th>
             <tr/>
             </thead>
             <tbody>
             {% for item in productexpirydateDataHtml %}
             <tr>
                 {% for i in item %}
-                <td>
+                <td class="t_info">
                     <option>{{i}}</option>
                 </td>
                 {% endfor %}
@@ -43,7 +43,7 @@
         <!--	<div id="resultAll"></div>-->
         <!--	<div id="resultData"></div>-->
         <div id="resultProduct">
-            <p>제품을 선택하세요.</p>
+            <p class="h_av">제품을 선택하세요.</p>
         </div>
         <div>
             <p>

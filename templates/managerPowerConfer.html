@@ -28,13 +28,13 @@
             <thead>
             <tr>
                 <!--			<th>Check</th>-->
-                <th>Power</th>
-                <th>Name</th>
-                <th>ID</th>
-                <th>PW</th>
-                <th>Phone</th>
-                <th>Gender</th>
-                <th>Age</th>
+                <th class="t_title">Power</th>
+                <th class="t_title">Name</th>
+                <th class="t_title">ID</th>
+                <th class="t_title">PW</th>
+                <th class="t_title">Phone</th>
+                <th class="t_title">Gender</th>
+                <th class="t_title">Age</th>
             <tr/>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
             <tr>
                 <!--				<td><input type="checkbox" name="powerGive"></td>-->
                 {% for i in item %}
-                <td>
+                <td class="t_info">
                     <option>{{i}}</option>
                 </td>
                 {% endfor %}

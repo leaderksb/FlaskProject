@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="/manager/product/sale/inquiry/" method="post">
+<form action="/manager/product/sale/inquiry/" method="post" xmlns="http://www.w3.org/1999/html">
 
     <div style='text-align: center; margin:50px; margin-top:25px;'>
         <ul class="nav nav-pills nav-justified">
@@ -38,20 +38,23 @@
     <div style='text-align: center;'>
         {% if typeData == 'all' %}
         <p>
-        <h6 class="h_info"> 전체 매출 조회</h6>
+        <h6 class="h_info">전체 매출 조회</h6>
         </p>
         <img src="{{ url_for('static', filename='images/allPlot.png')}}" alt="전체 매출 그래프"/>
         {% elif typeData == 'staff' %}
         <p>
-        <h6 class="h_info"> 직원 매출 조회</h6>
+        <h6 class="h_info">직원 매출 조회</h6>
         </p>
         <img src="{{ url_for('static', filename='images/staffPlot.png')}}" alt="직원 매출 그래프"/>
         {% elif typeData == 'customer' %}
         <p>
-        <h6 class="h_info"> 고객 매출 조회</h6>
+        <h6 class="h_info">고객 매출 조회</h6>
         </p>
         <img src="{{ url_for('static', filename='images/customerPlot.png')}}" alt="고객 매출 그래프"/>
         {% endif %}
+        <p>
+        <h6 class="h_av">매출은 이전 6개월 내역만 조회됩니다.</h6>
+        </p>
     </div>
 
     <!--<div style='text-align: center; margin:50px; margin-top:25px;'>-->

@@ -27,21 +27,21 @@
         <table border='5' class="table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>ID</th>
-                <th>Code</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Registerdate</th>
-                <th>Period</th>
-                <th>Expirydate</th>
+                <th class="t_title">Name</th>
+                <th class="t_title">ID</th>
+                <th class="t_title">Code</th>
+                <th class="t_title">Quantity</th>
+                <th class="t_title">Price</th>
+                <th class="t_title">Registerdate</th>
+                <th class="t_title">Period</th>
+                <th class="t_title">Expirydate</th>
             <tr/>
             </thead>
             <tbody>
             {% for item in productDataHtml %}
             <tr>
                 {% for i in item %}
-                <td>
+                <td class="t_info">
                     <option>{{i}}</option>
                 </td>
                 {% endfor %}
