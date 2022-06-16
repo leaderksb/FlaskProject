@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # import matplotlib.pylab as plt  사용 지양
 import hashlib  # 단방향 해시 암호화
 import random
-import mongoDB
+# import mongoDB
 import mariaDB
 
 font_location = './static/fonts/NanumGothic.ttf' # For Windows
