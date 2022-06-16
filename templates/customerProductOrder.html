@@ -15,24 +15,24 @@
     </div>
 
     <div style='text-align: center; margin:50px; margin-top:25px;'>
-        <table border='5' id="productTable" class="table">
+        <table border='8' id="productTable" class="table">
             <thead>
             <tr> <!-- 속성 값은 눌리지 않게 설정 -->
-                <th onclick="event.stopPropagation()">Name</th>
-                <th onclick="event.stopPropagation()">ID</th>
-                <th onclick="event.stopPropagation()">Code</th>
-                <th onclick="event.stopPropagation()">Quantity</th>
-                <th onclick="event.stopPropagation()">Price</th>
-                <th onclick="event.stopPropagation()">Registerdate</th>
-                <th onclick="event.stopPropagation()">Period</th>
-                <th onclick="event.stopPropagation()">Expirydate</th>
+                <th class="t_title" onclick="event.stopPropagation()">Name</th>
+                <th class="t_title" onclick="event.stopPropagation()">ID</th>
+                <th class="t_title" onclick="event.stopPropagation()">Code</th>
+                <th class="t_title" onclick="event.stopPropagation()">Quantity</th>
+                <th class="t_title" onclick="event.stopPropagation()">Price</th>
+                <th class="t_title" onclick="event.stopPropagation()">Registerdate</th>
+                <th class="t_title" onclick="event.stopPropagation()">Period</th>
+                <th class="t_title" onclick="event.stopPropagation()">Expirydate</th>
             <tr/>
             </thead>
             <tbody>
             {% for item in productexpirydateDataHtml %}
             <tr>
                 {% for i in item %}
-                <td>
+                <td class="t_info">
                     <option>{{i}}</option>
                 </td>
                 {% endfor %}
@@ -42,8 +42,8 @@
         </table>
         <!--	<div id="resultAll"></div>-->
         <!--	<div id="resultData"></div>-->
-        <div id="resultProduct">제품을 선택하세요.
-            <br>
+        <div class="h_av" id="resultProduct">
+            <p class="h_av">제품을 선택하세요.<br>제품 주문 가격은 (수량)×(가격)입니다.</p>
         </div>
         <div>
             <input type="hidden" name="productNameGive" value="">
@@ -99,7 +99,7 @@
         document.customerProductOrder.productNameGive.value = name;
         document.customerProductOrder.productCodeGive.value = code;
         document.customerProductOrder.productPriceGive.value = price;
-        product += "제품명 : " + name + "수량 : " + quantity + "가격 : " + (parseInt(price) * parseInt(quantity)).toString();
+        product += "<p>" + "제품명 : [" + name + "] 수량 : [" + quantity + "] 주문 가격 : [ " + (parseInt(price) * parseInt(quantity)).toString() + " ]</p>";
 
         // $("#resultAll").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
         // $("#resultData").html(str);

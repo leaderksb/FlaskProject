@@ -20,18 +20,21 @@
     <!--    <title></title>-->
     <style>
         .nav-pills > .nav-item > .nav-link {
-            font-weight: bold;
+            src: url("../static/fonts/NanumGothicExtraBold.ttf");
+            font-family: NanumGothicExtraBold;
             color: #09513E;
         }
 
         .nav-pills > .nav-item > .disabled {
-            font-weight: bold;
+            src: url("../static/fonts/NanumGothicExtraBold.ttf");
+            font-family: NanumGothicExtraBold;
             color: #999999;
         }
 
         .nav-pills > .nav-item > .active {
+            src: url("../static/fonts/NanumGothicExtraBold.ttf");
+            font-family: NanumGothicExtraBold;
             font-size: large;
-            font-weight: bold;
             color: #FFFFFF;
             background-color: #0FA27C;
         }
@@ -58,10 +61,13 @@
         }
 
         select {
+            src: url("../static/fonts/NanumGothicBold.ttf");
+            font-family: NanumGothicBold;
+            font-size: 20px;
             color: #05281F;
             background-color: #FFFFFF;
             border-color: #09513E;
-            width: 150px;
+            width: 200px;
             height: 40px;
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
@@ -72,11 +78,10 @@
         .h_fresh {
             src: url("../static/fonts/tway_fly.ttf");
             font-family: tway_fly;
-            font-size: 44pt;
+            font-size: 80pt;
             font-weight: bold;
+            text-align: center;
             color: #05281F;
-            width: 250px;
-            height: 400px;
             margin: auto;
             padding-top: 300px;
         }
@@ -121,9 +126,12 @@
         }
 
         .input_date {
+            src: url("../static/fonts/NanumGothicBold.ttf");
+            font-family: NanumGothicBold;
             font-size: 20px;
+            color: #05281F;
             border-color: #09513E;
-            width: 150px;
+            width: 200px;
             height: 40px;
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
@@ -171,12 +179,25 @@
             font-size: 20px;
         }
 
-        .div_login {
-            width: 300px;
-            height: 250px;
-            margin: auto;
-            margin: auto;
-            padding-top: 30px;
+        .div_login_right {
+            width: 2%;
+            text-align: right;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .div_info_left {
+            width: 10%;
+            text-align: left;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .div_info_right {
+            width: 10%;
+            text-align: right;
+            white-space: nowrap;
+            display: inline-block;
         }
 
         .submit_dark {

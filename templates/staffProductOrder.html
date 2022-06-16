@@ -15,7 +15,7 @@
     </div>
 
     <div style='text-align: center; margin:50px; margin-top:25px;'>
-        <table border='5' id="productTable" class="table">
+        <table border='8' id="productTable" class="table">
             <thead>
             <tr> <!-- 속성 값은 눌리지 않게 설정 -->
                 <th class="t_title" onclick="event.stopPropagation()">Name</th>
@@ -42,17 +42,15 @@
         </table>
         <!--	<div id="resultAll"></div>-->
         <!--	<div id="resultData"></div>-->
-        <div id="resultProduct">
-            <p class="h_av">제품을 선택하세요.</p>
+        <div class="h_av" id="resultProduct">
+            <p class="h_av">제품을 선택하세요.<br>제품 주문 가격은 (수량)×(가격)입니다.</p>
         </div>
         <div>
-            <p>
-                <input type="hidden" name="productNameGive" value="">
-                <input type="hidden" name="productCodeGive" value="">
-                <input type="hidden" name="productQuantityGive" value="">
-                <input type="hidden" name="productPriceGive" value="">
-                <input class="submit_basic" type="submit" value="제품 발주">
-            </p>
+            <input type="hidden" name="productNameGive" value="">
+            <input type="hidden" name="productCodeGive" value="">
+            <input type="hidden" name="productQuantityGive" value="">
+            <input type="hidden" name="productPriceGive" value="">
+            <input class="submit_basic" type="submit" value="제품 발주">
         </div>
     </div>
     </div>
@@ -101,7 +99,7 @@
         document.staffProductOrder.productCodeGive.value = code;
         document.staffProductOrder.productQuantityGive.value = quantity;
         document.staffProductOrder.productPriceGive.value = price;
-        product += "제품명 : " + name + "수량 : " + quantity + "가격 : " + (parseInt(price) * parseInt(quantity)).toString();
+        product += "<p>" + "제품명 : [" + name + "] 수량 : [" + quantity + "] 주문 가격 : [ " + (parseInt(price) * parseInt(quantity)).toString() + " ]</p>";
 
         // $("#resultAll").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());
         // $("#resultData").html(str);

@@ -48,37 +48,58 @@
         </ul>
     </div>
 
-    <div style='text-align: center; margin:50px; margin-top:25px;'>
+    <div style='text-align: center; margin:50px; margin-top:50px;'>
+        <p>
+        <div class="div_info_right">
+            <h6 class="h_info">Product Name</h6>
+        </div>
+        <input class="input_box" type="text" name="productNameGive" size="20"/>
         <br>
-        <h6 class="h_info">Product Name </h6><input class="input_box" type="text" name="productNameGive" size="20"/>
+        <div class="div_info_right">
+            <h6 class="h_info">Product ID</h6>
+        </div>
+        <input class="input_box" type="text" name="productIdGive" size="20"/>
         <br>
-        <h6 class="h_info">Product ID </h6><input class="input_box" type="text" name="productIdGive" size="20"/>
+        <div class="div_info_right">
+            <h6 class="h_info">Serial Code</h6>
+        </div>
+        <input class="input_box" type="text" name="productSerialCodeGive"
+               size="20"/>
         <br>
-        <h6 class="h_info">Serial Code </h6><input class="input_box" type="text" name="productSerialCodeGive"
-                                                   size="20"/>
+        <div class="div_info_right">
+            <h6 class="h_info">Quantity</h6>
+        </div>
+        <input class="input_box" type="number" name="productQuantityGive" size="20"/>
         <br>
-        <h6 class="h_info">Quantity </h6><input class="input_box" type="number" name="productQuantityGive" size="20"/>
+        <div class="div_info_right">
+            <h6 class="h_info">Price</h6>
+        </div>
+        <input class="input_box" type="number" name="productPriceGive" size="20"/>
         <br>
-        <h6 class="h_info">Price </h6><input class="input_box" type="number" name="productPriceGive" size="20"/>
-        <br>
-        <h6 class="h_info">등록일자 </h6><input class="input_date" type="date" name="productRegisterDateGive" id="productRegisterDateGive"
-                                            size="20" readonly/>
+        <div class="div_info_right">
+            <h6 class="h_info">등록일자</h6>
+        </div>
+        <input class="input_date" type="date" name="productRegisterDateGive" id="productRegisterDateGive" size="20"
+               readonly/>
         <script>document.getElementById('productRegisterDateGive').valueAsDate = new Date();</script>
         <br>
-        <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
-        <h6 class="h_info">유통기간 </h6><select id="productPeriodGive" name="productPeriodGive">
-        <option value="1" selected>1일</option>
-        <option value="7">7일</option>
-        <option value="14">14일</option>
-        <option value="30">30일</option>
-        <option value="60">60일</option>
-    </select>
-        <br>
+        <div class="div_info_right">
+            <h6 class="h_info">유통기간</h6>  <!-- value 값을 전송 해서 날짜에 더해 유통기한을 구함-->
+        </div>
+        <select id="productPeriodGive" name="productPeriodGive">
+            <option value="1" selected>1일</option>
+            <option value="7">7일</option>
+            <option value="14">14일</option>
+            <option value="30">30일</option>
+            <option value="60">60일</option>
+        </select>
+        </p>
         <!-- id로 값 받는 법 -->
         <!--    <script> period = document.getElementById('productPeriodGive');</script>-->
         <!--    유통기한: <input type="date" id="productExpiryDateGive" name="productExpiryDateGive" size="20" readonly/>-->
-        <input class="submit_basic" type="submit" value="제품 등록"/>
-        <br>
+        <p>
+            <input class="submit_basic" type="submit" value="제품 등록"/>
+        </p>
     </div>
 
 </form>
