@@ -1,7 +1,20 @@
 AWS 리전 : 아시아 태평양 (뭄바이)
 Key 파일 비밀번호 힌트 : 인턴 교육 프로그램명 참고
 
+▶ 서버 OS에서 venv 가상환경 설치
+python3 -m venv ./venv
+source ./venv/bin/activate
+
+▶ pip 업그레이드
+pip install --upgrade pip
+
+▶ 서버 실행
+python FlaskProject/server.py
+
 ▶ 라이브러리 설치 준비
+pip install flask
+pip install pandas
+pip install matplotlib
 pip install pymysql
 pip install sqlalchemy
 
@@ -11,4 +24,3 @@ pip install sqlalchemy
 방법2) 환경변수 확인 → 재부팅
 npm install bootstrap
 npm install -g sass
-

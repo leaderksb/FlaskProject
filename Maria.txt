@@ -1,3 +1,11 @@
+-- MariaDB Version
+개발용 : 10.6.8
+서버용 : 10.6.7
+
+-- Amazon RDS
+-- 마스터 사용자 이름 : admin
+-- 마스터 암호 : fresh-maria
+
 -- cmd에서 MariaDB 접속
 mysql -uroot -p
 -- pw 입력
