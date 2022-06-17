@@ -3,8 +3,10 @@ Key 파일 비밀번호 힌트 : 인턴 교육 프로그램명 참고
 
 ▶ 서버 OS에서 venv 가상환경 설치
 python3 -m venv ./venv
+
 ▶ 가상환경 활성화
 source ~/git/FlaskProject/venv/bin/activate
+
 ▶ 가상환경 비활성화
 deactivate
 
@@ -24,8 +26,8 @@ pip install matplotlib
 pip install pymysql
 pip install sqlalchemy
 
-sudo mv /home/centos/git/FlaskProject/static/fonts/* /usr/share
-
+▶ 폰트 설치
+sudo copy /home/centos/git/FlaskProject/static/fonts/* /usr/share/fonts
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅

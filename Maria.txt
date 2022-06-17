@@ -6,10 +6,14 @@
 -- 마스터 사용자 이름 : admin
 -- 마스터 암호 : fresh-maria
 
--- cmd에서 MariaDB 접속
+-- cmd에서 로컬 MariaDB 접속
 mysql -uroot -p
 -- pw 입력
 maria
+
+-- cmd에서 RDS MariaDB 접속
+mysql -h <endpoint> -P 3306 -u <mymasteruser>  -p
+mysql -h 172.30.0.137 -P 3306 -u admin -p
 
 -- 인코딩 확인
 status
