@@ -99,14 +99,8 @@ def signup():
         signupGenderReceive = request.form.get('signupGenderGive')  # 성별
         signupAgeReceive = request.form.get('signupAgeGive')  # 나이대
 
-        salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
-
-        salting = signupPwReceive + str(salt)
-
-        password = hashlib.sha256(salting.encode()).hexdigest()
-
         print("########################################")
-        print(signupNameReceive, signupIdReceive, password, salt, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+        # print(signupNameReceive, signupIdReceive, password, salt, signupPhoneReceive, signupGenderReceive, signupAgeReceive)
         print("########################################")
 
         if signupNameReceive.strip() == "":  # signupNameReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
@@ -146,6 +140,9 @@ def signup():
             # elif mongoDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
             elif mariaDB.idChk(signupIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
                 print("존재하지 않는 ID라면")
+                salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
+                salting = signupPwReceive + str(salt)
+                password = hashlib.sha256(salting.encode()).hexdigest()
 
                 print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
