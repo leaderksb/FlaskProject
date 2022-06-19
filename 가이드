@@ -1,6 +1,9 @@
 AWS 리전 : 아시아 태평양 (뭄바이)
 Key 파일 비밀번호 힌트 : 인턴 교육 프로그램명 참고
 
+- 깃 PULL
+git pull origin master
+
 ▶ 서버 OS에서 venv 가상환경 설치
 python3 -m venv ./venv
 
@@ -9,9 +12,6 @@ source ~/git/FlaskProject/venv/bin/activate
 
 ▶ 가상환경 비활성화
 deactivate
-
-- 깃 PULL
-git pull origin master
 
 ▶ pip 업그레이드
 pip install --upgrade pip
@@ -26,7 +26,7 @@ pip install matplotlib
 pip install pymysql
 pip install sqlalchemy
 
-▶ 폰트 설치
+▶ 리눅스 폰트 설치
 sudo copy /home/centos/git/FlaskProject/static/fonts/* /usr/share/fonts
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크

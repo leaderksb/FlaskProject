@@ -52,28 +52,34 @@ def login():
             """
         else:  # loginIdReceive, loginPwReceive 텍스트 필드에 입력된 문자열이 있으면
             # loginGenderReceive = mariaDB.genderSelect(loginIdReceive, loginPwReceive)
-            salt = mariaDB.saltSelect(loginIdReceive)
-            print("salt", salt)
-            salting = loginPwReceive + str(salt)
-            password = hashlib.sha256(salting.encode()).hexdigest()
-            print("password", password)
 
-            # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
-            if mariaDB.login(loginIdReceive, password) == "resultCustomer":
-                return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/product/order/";</script>
-                """
-            # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
-            elif mariaDB.login(loginIdReceive, password) == "resultStaff":
-                return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/product/order/";</script>
-                """
-            # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultManager":
-            elif mariaDB.login(loginIdReceive, password) == "resultManager":
-                return """
-                <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/inquiry/";</script>
-                """
-            elif mariaDB.login(loginIdReceive, password) == "resultNone":
+            if mariaDB.idChk(loginIdReceive.replace(" ", "")) == 1:  # 존재하는 ID라면
+                salt = mariaDB.saltSelect(loginIdReceive)
+                print("salt", salt)
+                salting = loginPwReceive + str(salt)
+                password = hashlib.sha256(salting.encode()).hexdigest()
+                print("password", password)
+
+                # if mongoDB.login(loginIdReceive, loginPwReceive) == "resultCustomer":
+                if mariaDB.login(loginIdReceive, password) == "resultCustomer":
+                    return """
+                    <script type="text/javascript"> alert(" """ + loginIdReceive + """ 고객님 로그인 되었습니다."); document.location.href="/customer/product/order/";</script>
+                    """
+                # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultStaff":
+                elif mariaDB.login(loginIdReceive, password) == "resultStaff":
+                    return """
+                    <script type="text/javascript"> alert(" """ + loginIdReceive + """님 직원 로그인 되었습니다."); document.location.href="/staff/product/order/";</script>
+                    """
+                # elif mongoDB.login(loginIdReceive, loginPwReceive) == "resultManager":
+                elif mariaDB.login(loginIdReceive, password) == "resultManager":
+                    return """
+                    <script type="text/javascript"> alert(" """ + loginIdReceive + """님 관리자 로그인 되었습니다."); document.location.href="/manager/product/inquiry/";</script>
+                    """
+                elif mariaDB.login(loginIdReceive, password) == "resultNone":
+                    return """
+                    <script type="text/javascript"> alert("올바른 PW를 입력해 주세요."); document.location.href="/login/";</script>
+                    """
+            elif mariaDB.idChk(loginIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
                 return """
                 <script type="text/javascript"> alert("ID 또는 PW가 존재하지 않습니다. 회원가입해 주세요."); document.location.href="/signup/";</script>
                 """
@@ -396,4 +402,5 @@ def customer():
     return render_template('customerProductOrder.html', productexpirydateDataHtml=productexpirydateList)
 
 # app.run(port=5001, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
-app.run(host="172.31.13.193", port=5000, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
+# app.run(host="172.31.13.193", port=5000, debug=True)  # 공인 IP로 접속 시 연결되는 사설 IP
+app.run(host="127.0.0.1", port=5000, debug=True)  # 로컬 IP
