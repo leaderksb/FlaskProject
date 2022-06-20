@@ -16,8 +16,8 @@ deactivate
 ▶ pip 업그레이드
 pip install --upgrade pip
 
-▶ 서버 실행
-python ~/git/FlaskProject/server.py
+▶ 서버 실행 : 폴더 경로 잘 보시길 아니면 폰트 오류 남
+python ./server.py
 
 ▶ 라이브러리 설치 준비
 pip install flask
@@ -27,7 +27,7 @@ pip install pymysql
 pip install sqlalchemy
 
 ▶ 리눅스 폰트 설치
-sudo copy /home/centos/git/FlaskProject/static/fonts/* /usr/share/fonts
+sudo cp /home/centos/git/FlaskProject/static/fonts/* /usr/share/fonts
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅
