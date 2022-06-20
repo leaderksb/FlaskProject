@@ -12,8 +12,8 @@ mysql -uroot -p
 maria
 
 -- cmd에서 RDS MariaDB 접속
-mysql -h <endpoint> -P 3306 -u <mymasteruser>  -p
-mysql -h 172.30.0.137 -P 3306 -u admin -p
+mysql -h <endpoint> -P 3306 -u <mymasteruser> -p
+mysql -h 10.0.155.2 -u admin -p
 
 -- 인코딩 확인
 status
@@ -248,14 +248,14 @@ insert into productSale values ('staff', '2022-05-10', 'Sandwich', '5', '10000',
 insert into productSale values ('staff', '2022-06-10', 'Sandwich', '10', '50000', 'None', 'None');
 
 insert into productSale values ('staff', '2022-01-10', 'Milk', '2', '3000', 'None', 'None');
-insert into productSale values ('staff', '2022-02-10', 'Milk', '1' '1500', 'None', 'None');
+insert into productSale values ('staff', '2022-02-10', 'Milk', '1', '1500', 'None', 'None');
 insert into productSale values ('staff', '2022-03-10', 'Milk', '3', '4500', 'None', 'None');
 insert into productSale values ('staff', '2022-04-10', 'Milk', '10', '15000', 'None', 'None');
-insert into productSale values ('staff', '2022-05-10', 'Milk', '1', '1500', 'None', 'None');
+insert into productSale values ('staff', '2022-05-10', 'Milk', '4', '6000', 'None', 'None');
 insert into productSale values ('staff', '2022-06-10', 'Milk', '1', '1500', 'None', 'None');
 
 insert into productSale values ('staff', '2022-01-11', 'Milk', '1', '1500', 'None', 'None');
-insert into productSale values ('staff', '2022-02-12', 'Milk', '1' '1500', 'None', 'None');
+insert into productSale values ('staff', '2022-02-12', 'Milk', '1', '1500', 'None', 'None');
 insert into productSale values ('staff', '2022-03-13', 'Milk', '1', '1500', 'None', 'None');
 insert into productSale values ('staff', '2022-04-12', 'Milk', '1', '1500', 'None', 'None');
 insert into productSale values ('staff', '2022-05-11', 'Milk', '1', '1500', 'None', 'None');
