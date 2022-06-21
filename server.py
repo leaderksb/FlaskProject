@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 # import matplotlib.pylab as plt  사용 지양
 import hashlib  # 단방향 해시 암호화
 import random
+import logging
+import logging.handlers
 # import mongoDB
 import mariaDB
 
@@ -27,18 +29,46 @@ links = {
 
 # print(type(links))
 
+def log(clientIP):
+    print(clientIP)
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    # formatter = logging.Formatter('%(clientIP)s' %clientIP)
+    formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(pathname)s %(processName)s %(thread)d %(funcName)s %(name)s %(message)s')
+
+    streamhandler = logging.StreamHandler()
+    streamhandler.setFormatter(formatter)
+    logger.addHandler(streamhandler)
+
+    logger.debug("DEBUG 모드")
+    # logger.info("INFO 모드")
+    # logger.warn("WARN 모드")
+
+    timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='M', interval=1, encoding='utf-8')
+    # timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='midnight', interval=1, encoding='utf-8')
+    timedfilehandler.setFormatter(formatter)
+    timedfilehandler.suffix = "%Y%m%d"
+
+    logger.addHandler(timedfilehandler)
+
 @app.route('/')  # 개발용 페이지
 def index():
+    # d = { 'clientIP' : request.environ['REMOTE_ADDR'] }
+    # log(d)
+    logging.basicConfig(filename = "./logs/all", level=logging.DEBUG, encoding='utf-8')
+
     return render_template('index.html', linkDataHtml=links)
 
 @app.route('/login/', methods=['GET','POST'])  # 로그인
 def login():
     print('/login/')
-    loginGenderReceive = ''
+
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
         loginPwReceive = request.form.get('loginPwGive')  # 비밀번호
+        # loginGenderReceive = ''
 
         if loginIdReceive.strip() == "":  # loginIdReceive에 문자열이 없거나 입력된 문자열이 처음부터 끝까지 공백일 시
             # loginIdReceive 텍스트 필드에 입력된 문자열이 없으면 팝업창 띄우고 /login/ 페이지로 이동
@@ -89,6 +119,8 @@ def login():
 @app.route('/signup/', methods=['GET','POST'])  # 회원가입
 def signup():
     print('/signup/')
+
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         signupNameReceive = request.form.get('signupNameGive')  # 이름
@@ -157,6 +189,8 @@ def signup():
 def managerProductInquiry():
     print('/manager/product/inquiry/')
 
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+
     productList = mariaDB.productexpirydateSelect()
 
     return render_template('managerProductInquiry.html', productDataHtml=productList)
@@ -164,6 +198,8 @@ def managerProductInquiry():
 @app.route('/manager/product/register/', methods=['GET','POST'])  # 제품 등록
 def managerProductRegister():
     print('/manager/product/register/')
+
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         productNameReceive = request.form.get('productNameGive')  # 제품명
@@ -216,6 +252,8 @@ def managerProductRegister():
 @app.route('/manager/product/sale/inquiry/', methods=['GET','POST'])  # 매출 조회
 def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
+
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'GET':
         saleTypeReceive = request.args.get('type')  # 구매 유형
@@ -288,6 +326,8 @@ def managerProductSaleInquiry():
 def managerPowerConfer():
     print('/manager/power/confer/')
 
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+
     informationList = mariaDB.informationSelect()
 
     if request.method == 'POST':  # name 속성으로 전달 받음
@@ -317,6 +357,8 @@ def managerPowerConfer():
 def staffProductOrder():
     print('/staff/product/order/')
 
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+
     productexpirydateList = mariaDB.productexpirydateSelect()
 
     if request.method == 'POST':  # name 속성으로 전달 받음
@@ -343,6 +385,8 @@ def staffProductOrder():
 @app.route('/customer/product/order/', methods=['GET','POST'])  # 제품 주문
 def customer():
     print('/customer/product/order/')
+
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productexpirydateList = mariaDB.productexpirydateSelect()
 
