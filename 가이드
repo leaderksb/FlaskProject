@@ -4,6 +4,9 @@ Key 파일 비밀번호 힌트 : 인턴 교육 프로그램명 참고
 - 깃 PULL
 git pull origin master
 
+▶ SSH에서 Web Server 접속
+sudo ssh -i Fresh_Key.pem ubuntu@10.0.6.11
+
 ▶ 서버 OS에서 venv 가상환경 설치
 python3 -m venv ./venv
 
