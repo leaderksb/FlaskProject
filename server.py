@@ -443,5 +443,5 @@ def customer():
     return render_template('customerProductOrder.html', productexpirydateDataHtml=productexpirydateList)
 
 # app.run(port=5001, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
-app.run(host="10.0.4.120", port=5000, debug=True)  # 공인 IP로 접속 시 연결되는 사설 IP
+app.run(host="10.0.4.120", port=5000)  # 공인 IP로 접속 시 연결되는 사설 IP
 # app.run(host="127.0.0.1", port=5000, debug=True)  # 로컬 IP

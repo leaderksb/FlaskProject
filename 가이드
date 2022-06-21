@@ -21,7 +21,7 @@ pip install --upgrade pip
 
 ▶ 서버 실행 : 폴더 경로 잘 보시길 아니면 폰트 오류 남
 cd git/FlaskProject/
-python ./server.py
+nohup python ./server.py &
 
 ▶ 라이브러리 설치 준비
 pip install flask
