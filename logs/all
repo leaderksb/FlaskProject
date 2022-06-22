@@ -2313,3 +2313,66 @@ INFO:werkzeug:127.0.0.1 - - [22/Jun/2022 16:15:08] "GET /manager/product/sale/in
 INFO:werkzeug:127.0.0.1 - - [22/Jun/2022 16:15:08] "[36mGET /static/css/standard.css HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [22/Jun/2022 16:15:08] "GET /static/images/allPlot.png HTTP/1.1" 200 -
 INFO:werkzeug: * Detected change in 'C:\\Users\\user\\PycharmProjects\\FlaskProject\\server.py', reloading
+ERROR:server:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "./server.py", line 58, in index
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+  File "/usr/lib64/python3.6/logging/__init__.py", line 1829, in basicConfig
+    raise ValueError('Unrecognised argument(s): %s' % keys)
+ValueError: Unrecognised argument(s): encoding
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:34:53] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:34:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:08] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:08] "GET /static/css/standard.css HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:09] "GET /static/images/background.jpg HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:10] "GET /static/images/favicon.ico HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:12] "GET /signup/ HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:13] "[36mGET /static/css/standard.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:13] "GET /static/images/background.jpg HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:17] "GET /static/images/background.jpg HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:18] "GET /login/ HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:18] "[36mGET /static/css/standard.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:19] "GET /static/images/background.jpg HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:34] "[35m[1mPOST /login/ HTTP/1.1[0m" 500 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:38] "GET /login/ HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:39] "GET /static/images/background.jpg HTTP/1.1" 200 -
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:35:54] "[35m[1mPOST /login/ HTTP/1.1[0m" 500 -
+ERROR:server:Exception on /manager/product/inquiry/ [GET]
+Traceback (most recent call last):
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/pymysql/connections.py", line 614, in connect
+    (self.host, self.port), self.connect_timeout, **kwargs
+  File "/usr/lib64/python3.6/socket.py", line 724, in create_connection
+    raise err
+  File "/usr/lib64/python3.6/socket.py", line 713, in create_connection
+    sock.connect(sa)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "./server.py", line 196, in managerProductInquiry
+    productList = mariaDB.productexpirydateSelect()
+  File "/home/centos/git/FlaskProject/mariaDB.py", line 99, in productexpirydateSelect
+    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/pymysql/connections.py", line 353, in __init__
+    self.connect()
+  File "/home/centos/git/FlaskProject/venv/lib/python3.6/site-packages/pymysql/connections.py", line 664, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '10.0.155.2' (timed out)")
+INFO:werkzeug:121.142.63.15 - - [22/Jun/2022 13:36:01] "[35m[1mGET /manager/product/inquiry/ HTTP/1.1[0m" 500 -
