@@ -177,10 +177,14 @@ def productSaleSelect(type):  # 구매 유형별 매출 조회
     conn = engine.connect()
 
     if type == 'all':  # 전체
+        # Local DB
         # contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) group by DATE_FORMAT(date, '%%Y-%%m'), name;", conn)
+        # RDS
         contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%Y-%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) group by DATE_FORMAT(date, '%Y-%m'), name;", conn)
     else:  # 구매 유형별
+        # Local DB
         # contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%%Y-%%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='" + type + "' group by DATE_FORMAT(date, '%%Y-%%m'), name;", conn)
+        # RDS
         contents = pd.read_sql_query("select type, DATE_FORMAT(date, '%Y-%m') as date, name, quantity, cast(sum(quantity) as signed integer) as sum_quantity from productSale where month(date)<=month(now()) and month(date)+6>month(now()) and type='" + type + "' group by DATE_FORMAT(date, '%Y-%m'), name;", conn)
     contentsDF = DataFrame(contents)
     contentsDF.set_index('type', inplace=True)
