@@ -174,9 +174,10 @@ def signup():
                 print("존재하지 않는 ID라면")
                 salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
                 salting = signupPwReceive + str(salt)
-                password = hashlib.sha256(salting.encode()).hexdigest()
-
-                print(password)
+                print(salting)
+                # password = hashlib.sha256(salting.encode()).hexdigest()
+                #
+                # print(password)
 
                 # print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 # # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
