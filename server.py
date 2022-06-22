@@ -254,7 +254,7 @@ def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
     if request.method == 'GET':
-        logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+        # logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
         saleTypeReceive = request.args.get('type')  # 구매 유형
 
