@@ -266,7 +266,7 @@ def managerProductSaleInquiry():
 
         print("saleTypeReceive >>", saleTypeReceive)
 
-        # contentsCnt = mariaDB.productSaleCnt(saleTypeReceive)
+        contentsCnt = mariaDB.productSaleCnt(saleTypeReceive)
         # contentNames = mariaDB.productSaleNameSelect(saleTypeReceive)
         # contentsDF = mariaDB.productSaleSelect(saleTypeReceive)
         # contentsDF['date'] = pd.to_datetime(contentsDF['date'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
@@ -275,9 +275,9 @@ def managerProductSaleInquiry():
         print()
         print()
 
-        # print("contentsCnt *", contentsCnt)
-        # print("contentNames *", contentNames)
-        # print("contentsDF['sum_quantity'] *", contentsDF['sum_quantity'])
+        print("contentsCnt *", contentsCnt)
+        print("contentNames *", contentNames)
+        print("contentsDF['sum_quantity'] *", contentsDF['sum_quantity'])
 
         print()
         print()
