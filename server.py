@@ -173,14 +173,14 @@ def signup():
             elif mariaDB.idChk(signupIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
                 print("존재하지 않는 ID라면")
                 salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
-                # salting = signupPwReceive + str(salt)
-                salting = signupPwReceive + "0"
+                salting = signupPwReceive + str(salt)
                 password = hashlib.sha256(salting.encode()).hexdigest()
 
-                print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                print(password)
+
+                # print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                # # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 # mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), str(password), str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), str(password), "0", signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 return """
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
                 """
