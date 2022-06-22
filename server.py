@@ -178,7 +178,7 @@ def signup():
 
                 print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), password, str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), str(password), str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 return """
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
                 """
@@ -269,17 +269,6 @@ def managerProductSaleInquiry():
         contentsCnt = mariaDB.productSaleCnt(saleTypeReceive)
         contentNames = mariaDB.productSaleNameSelect(saleTypeReceive)
         contentsDF = mariaDB.productSaleSelect(saleTypeReceive)
-
-        # 문제 #
-        print()
-        print()
-        print()
-        print()
-        print(contentsDF['date'])
-        print()
-        print()
-        print()
-        print()
         contentsDF['date'] = pd.to_datetime(contentsDF['date'])  # 데이터프레임 문자열 칼럼 날짜형으로 변환
         contentsDF['sum_quantity'] = pd.to_numeric(contentsDF['sum_quantity'])  # 데이터프레임 문자열 칼럼 숫자형으로 변환
 
