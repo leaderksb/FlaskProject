@@ -171,7 +171,6 @@ def signup():
                 """
             # elif mongoDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
             elif mariaDB.idChk(signupIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
-                # print("존재하지 않는 ID라면")
                 salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
                 salting = signupPwReceive + str(salt)
                 print(salting)
