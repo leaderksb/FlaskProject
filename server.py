@@ -171,17 +171,17 @@ def signup():
                 """
             # elif mongoDB.idChk(signupIdReceive) == 0:  # 존재하지 않는 ID라면
             elif mariaDB.idChk(signupIdReceive.replace(" ", "")) == 0:  # 존재하지 않는 ID라면
-                print("존재하지 않는 ID라면")
+                # print("존재하지 않는 ID라면")
                 salt = random.randint(0, 100000000)  # 0~100000000 사이의 랜덤한 정수
                 salting = signupPwReceive + str(salt)
                 print(salting)
-                # password = hashlib.sha256(salting.encode()).hexdigest()
-                #
-                # print(password)
+                password = hashlib.sha256(salting.encode()).hexdigest()
 
-                # print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                # # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
-                # mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), str(password), str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                print(password)
+
+                print(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                # mongoDB.signupInsert(signupNameReceive, signupIdReceive.replace(" ", ""), signupPwReceive.replace(" ", ""), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
+                mariaDB.signUpInsert(signupNameReceive, signupIdReceive.replace(" ", ""), str(password), str(salt), signupPhoneReceive, signupGenderReceive, signupAgeReceive)
                 return """
                 <script type="text/javascript"> alert("회원가입이 완료되었습니다."), document.location.href="/login/"; </script>
                 """
