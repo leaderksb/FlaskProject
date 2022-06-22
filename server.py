@@ -8,12 +8,12 @@ import matplotlib.pyplot as plt
 # import matplotlib.pylab as plt  사용 지양
 import hashlib  # 단방향 해시 암호화
 import random
-import logging
-import logging.handlers
+# import logging
+# import logging.handlers
 # import mongoDB
 import mariaDB
 
-font_location = './static/fonts/NanumGothic.ttf' # For Windows
+font_location = './static/fonts/NanumGothic.ttf'  # For Windows
 font_name = fm.FontProperties(fname=font_location).get_name()
 matplotlib.rc('font', family=font_name)
 
@@ -55,7 +55,7 @@ links = {
 def index():
     # d = { 'clientIP' : request.environ['REMOTE_ADDR'] }
     # log(d)
-    logging.basicConfig(filename = "./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     return render_template('index.html', linkDataHtml=links)
 
