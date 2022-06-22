@@ -29,27 +29,27 @@ links = {
 
 # print(type(links))
 
-def log(clientIP):
-    print(clientIP)
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-    # formatter = logging.Formatter('%(clientIP)s' %clientIP)
-    formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(pathname)s %(processName)s %(thread)d %(funcName)s %(name)s %(message)s')
-
-    streamhandler = logging.StreamHandler()
-    streamhandler.setFormatter(formatter)
-    logger.addHandler(streamhandler)
-
-    logger.debug("DEBUG 모드")
-    # logger.info("INFO 모드")
-    # logger.warn("WARN 모드")
-
-    timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='M', interval=1, encoding='utf-8')
-    # timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='midnight', interval=1, encoding='utf-8')
-    timedfilehandler.setFormatter(formatter)
-    timedfilehandler.suffix = "%Y%m%d"
-
-    logger.addHandler(timedfilehandler)
+# def log(clientIP):
+#     print(clientIP)
+#     logger = logging.getLogger(__name__)
+#     logger.setLevel(logging.DEBUG)
+#     # formatter = logging.Formatter('%(clientIP)s' %clientIP)
+#     formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(pathname)s %(processName)s %(thread)d %(funcName)s %(name)s %(message)s')
+#
+#     streamhandler = logging.StreamHandler()
+#     streamhandler.setFormatter(formatter)
+#     logger.addHandler(streamhandler)
+#
+#     logger.debug("DEBUG 모드")
+#     # logger.info("INFO 모드")
+#     # logger.warn("WARN 모드")
+#
+#     timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='M', interval=1, encoding='utf-8')
+#     # timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/logfile', when='midnight', interval=1, encoding='utf-8')
+#     timedfilehandler.setFormatter(formatter)
+#     timedfilehandler.suffix = "%Y%m%d"
+#
+#     logger.addHandler(timedfilehandler)
 
 @app.route('/')  # 개발용 페이지
 def index():
@@ -254,7 +254,7 @@ def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
     if request.method == 'GET':
-        # logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+        logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
         saleTypeReceive = request.args.get('type')  # 구매 유형
 
