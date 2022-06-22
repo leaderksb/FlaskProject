@@ -45,10 +45,14 @@ sudo which python
 
 ▶ cron 설정
 crontab -e
+sudo vi /etc/crontab
 
 ▶ cron 설정 파일
 [시간 설정] [파이썬이 설치된 절대 경로] [실행할 파이썬의 절대 경로]
 0 0 0 * * /bin/python /home/centos/git/FlaskProject/expirydateChkProcess.py
+
+▶ cron 재시작
+sudo /bin/systemctl restart crond.service
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅
