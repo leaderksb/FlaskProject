@@ -54,3 +54,5 @@ def productDelete(codeList):  # 유통기한 지난 제품 삭제
 
 expirydateDelete()
 productDelete(codeList)
+
+print("Crond Test")

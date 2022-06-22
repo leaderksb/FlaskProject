@@ -13,7 +13,6 @@ python3 -m venv ./venv
 
 ▶ 가상환경 활성화
 source ~/git/FlaskProject/venv/bin/activate
-source ./venv/bin/activate
 
 ▶ 가상환경 비활성화
 deactivate
@@ -49,9 +48,7 @@ crontab -e
 
 ▶ cron 설정 파일
 [시간 설정] [파이썬이 설치된 절대 경로] [실행할 파이썬의 절대 경로]
-0 0 0 * ㄴ* /bin/python /home/centos/git/FlaskProject/expirydateChkProcess.py
-
-
+0 0 0 * * /bin/python /home/centos/git/FlaskProject/expirydateChkProcess.py
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅
