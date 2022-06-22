@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # import matplotlib.pylab as plt  사용 지양
 import hashlib  # 단방향 해시 암호화
 import random
-# import logging
+import logging
 # import logging.handlers
 # import mongoDB
 import mariaDB
@@ -55,7 +55,7 @@ links = {
 def index():
     # d = { 'clientIP' : request.environ['REMOTE_ADDR'] }
     # log(d)
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     return render_template('index.html', linkDataHtml=links)
 
@@ -63,7 +63,7 @@ def index():
 def login():
     print('/login/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
@@ -120,7 +120,7 @@ def login():
 def signup():
     print('/signup/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         signupNameReceive = request.form.get('signupNameGive')  # 이름
@@ -191,7 +191,7 @@ def signup():
 def managerProductInquiry():
     print('/manager/product/inquiry/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productList = mariaDB.productexpirydateSelect()
 
@@ -201,7 +201,7 @@ def managerProductInquiry():
 def managerProductRegister():
     print('/manager/product/register/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         productNameReceive = request.form.get('productNameGive')  # 제품명
@@ -260,7 +260,7 @@ def managerProductRegister():
 def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'GET':
 
@@ -334,7 +334,7 @@ def managerProductSaleInquiry():
 def managerPowerConfer():
     print('/manager/power/confer/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     informationList = mariaDB.informationSelect()
 
@@ -365,7 +365,7 @@ def managerPowerConfer():
 def staffProductOrder():
     print('/staff/product/order/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productexpirydateList = mariaDB.productexpirydateSelect()
 
@@ -394,7 +394,7 @@ def staffProductOrder():
 def customer():
     print('/customer/product/order/')
 
-    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productexpirydateList = mariaDB.productexpirydateSelect()
 
@@ -451,5 +451,5 @@ def customer():
     return render_template('customerProductOrder.html', productexpirydateDataHtml=productexpirydateList)
 
 # app.run(port=5001, debug=True)  # debug 모드로 실행 가능. 실제 서비스 할 때는 사용 X. 편의를 위함.
-app.run(host="10.0.4.120", port=5000)  # 공인 IP로 접속 시 연결되는 사설 IP
+app.run(host="10.0.13.14", port=5000)  # 공인 IP로 접속 시 연결되는 사설 IP
 # app.run(host="127.0.0.1", port=5000, debug=True)  # 로컬 IP

@@ -5,7 +5,9 @@
 import pymysql
 
 def expirydateChkSelect():  # 유통기한 지난 제품 코드 조회
-    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select code from expirydate where expirydate < now();")
@@ -27,7 +29,9 @@ def expirydateChkSelect():  # 유통기한 지난 제품 코드 조회
 codeList = expirydateChkSelect()  # 유통기한 지난 제품 코드 리스트
 
 def expirydateDelete():  # 지난 유통기한 삭제
-    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("delete from expirydate where expirydate < now();")
@@ -36,7 +40,8 @@ def expirydateDelete():  # 지난 유통기한 삭제
         conn.close()
 
 def productDelete(codeList):  # 유통기한 지난 제품 삭제
-    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
             print(codeList)
