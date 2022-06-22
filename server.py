@@ -63,7 +63,7 @@ def index():
 def login():
     print('/login/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':
         loginIdReceive = request.form.get('loginIdGive')  # 아이디
@@ -120,7 +120,7 @@ def login():
 def signup():
     print('/signup/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         signupNameReceive = request.form.get('signupNameGive')  # 이름
@@ -189,7 +189,7 @@ def signup():
 def managerProductInquiry():
     print('/manager/product/inquiry/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productList = mariaDB.productexpirydateSelect()
 
@@ -199,7 +199,7 @@ def managerProductInquiry():
 def managerProductRegister():
     print('/manager/product/register/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'POST':  # name 속성으로 전달 받음
         productNameReceive = request.form.get('productNameGive')  # 제품명
@@ -258,7 +258,7 @@ def managerProductRegister():
 def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     if request.method == 'GET':
 
@@ -332,7 +332,7 @@ def managerProductSaleInquiry():
 def managerPowerConfer():
     print('/manager/power/confer/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     informationList = mariaDB.informationSelect()
 
@@ -363,7 +363,7 @@ def managerPowerConfer():
 def staffProductOrder():
     print('/staff/product/order/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productexpirydateList = mariaDB.productexpirydateSelect()
 
@@ -392,7 +392,7 @@ def staffProductOrder():
 def customer():
     print('/customer/product/order/')
 
-    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+    #logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
     productexpirydateList = mariaDB.productexpirydateSelect()
 
