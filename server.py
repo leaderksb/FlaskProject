@@ -240,12 +240,17 @@ def managerProductRegister():
             return """
             <script type="text/javascript"> alert("Price를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
             """
-        else:
-            mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
-            mariaDB.expirydateInsert(productSerialCodeReceive)
-            return """
-            <script type="text/javascript"> alert(" """ + productNameReceive + """ 제품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
-            """
+        else:  # 모든 제품 정보 기입 시 productSerialCodeReceive
+            if mariaDB.codeChk(productSerialCodeReceive.replace(" ", "")) == 1:  # 존재하는 Code라면
+                return """
+                <script type="text/javascript"> alert(" """ + productSerialCodeReceive + """ 코드는 이미 사용 중인 코드입니다.\\n 올바른 코드를 입력해 주세요."); document.location.href="/manager/product/register/";</script>
+                """
+            else:  # 존재하지 않는 Code라면
+                mariaDB.productInsert(productNameReceive, productIdReceive.replace(" ", ""), productSerialCodeReceive.replace(" ", ""), productQuantityReceive.replace(" ", ""), productPriceReceive.replace(" ", ""), productPeriodReceive)
+                mariaDB.expirydateInsert(productSerialCodeReceive)
+                return """
+                <script type="text/javascript"> alert(" """ + productNameReceive + """ 제품 등록 되었습니다."); document.location.href="/manager/product/register/";</script>
+                """
 
     return render_template('managerProductRegister.html')
 
@@ -253,8 +258,9 @@ def managerProductRegister():
 def managerProductSaleInquiry():
     print('/manager/product/sale/inquiry/')
 
+    logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
+
     if request.method == 'GET':
-        logging.basicConfig(filename="./logs/all", level=logging.DEBUG, encoding='utf-8')
 
         saleTypeReceive = request.args.get('type')  # 구매 유형
 

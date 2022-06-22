@@ -15,6 +15,8 @@ def informationSelect():
     # x = informationDB.information.count_documents( {"id":id} )
 
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select * from information;")
@@ -31,6 +33,8 @@ def informationSelect():
 # id 존재 개수 조회
 def idChk(id):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select * from information where id = '" + id + "';")
@@ -43,6 +47,8 @@ def idChk(id):
 # code 존재 개수 조회
 def codeChk(code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select * from product where code = '" + code + "';")
@@ -55,6 +61,8 @@ def codeChk(code):
 # 제품 정보 조회
 def productSelect():
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select * from product;")
@@ -71,6 +79,8 @@ def productSelect():
 # 유통기한 정보 조회
 def expirydateSelect(code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select expirydate from expirydate where code='" + code + "';")
@@ -87,6 +97,8 @@ def expirydateSelect(code):
 # 제품 정보와 유통기한 정보 조인 조회
 def productexpirydateSelect():
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select p.name, p.id, p.code, p.quantity, p.price, p.registerdate, p.period, e.expirydate from product as p inner join expirydate as e	on p.code = e.code;")
@@ -103,6 +115,8 @@ def productexpirydateSelect():
 # 해당 제품의 수량 조회
 def quantitySelect(name, code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select quantity from product where name='" + name + "' and code='" + code + "';")
@@ -120,6 +134,8 @@ def quantitySelect(name, code):
 
 def productSaleNameSelect(type):  # 상품명 존재 개수 조회
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             if type == 'all':
@@ -138,6 +154,8 @@ def productSaleNameSelect(type):  # 상품명 존재 개수 조회
 
 def productSaleCnt(type):  # 상품명 중복 제거 조회
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             if type == 'all':  # 전체
@@ -154,6 +172,8 @@ def productSaleCnt(type):  # 상품명 중복 제거 조회
 
 def productSaleSelect(type):  # 구매 유형별 매출 조회
     engine = create_engine('mysql+pymysql://admin:fresh-maria@10.0.155.2:3306/intern', encoding='utf8')  # Pandas 사용을 위한 SQLAlchemy 이용
+    # engine = create_engine('mysql+pymysql://root:maria@localhost:3306/intern', encoding='utf8')  # Pandas 사용을 위한 SQLAlchemy 이용
+
     conn = engine.connect()
 
     if type == 'all':  # 전체
@@ -169,6 +189,8 @@ def productSaleSelect(type):  # 구매 유형별 매출 조회
 # 권한 부여
 def powerUpdate(power, id):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("update information set power = '" + power + "' where id = '" + id + "';")
@@ -180,6 +202,8 @@ def powerUpdate(power, id):
 # 판매된 제품 수량 업데이트
 def quantityUpdate(quantityBefore, quantityBuy, code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("update product set quantity = '" + str(int(quantityBefore)-int(quantityBuy)) + "' where code = '" + code + "';")
@@ -191,6 +215,8 @@ def quantityUpdate(quantityBefore, quantityBuy, code):
 # 접속 속도 우선순위 : 1) 고객 2) 직원 3) 관리자
 def login(id, pw):  # 로그인
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select * from information where power = 'customer' and id = '" + id + "' and pw='" + pw + "';")
@@ -219,6 +245,8 @@ def login(id, pw):  # 로그인
 
 def saltSelect(id):  # salt 조회
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select salt from information where id='" + id + "';")
@@ -234,6 +262,8 @@ def saltSelect(id):  # salt 조회
 
 def genderSelect(id, pw):  # 성별 조회
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("select gender from information where id='" + id + "' and pw='" + pw + "';")
@@ -250,6 +280,8 @@ def genderSelect(id, pw):  # 성별 조회
 # 회원가입
 def signUpInsert(name, id, pw, salt, phone, gender, age):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("insert into information values ('customer', '" + name + "', '" + id + "', '" + pw + "', '" + salt + "', '"
@@ -262,6 +294,8 @@ def signUpInsert(name, id, pw, salt, phone, gender, age):
 # 제품 등록
 def productInsert(name, id, code, quantity, price, period):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             # 제품명, 제품 ID, 제품 시리얼 코드, 수량, 가격, 등록일자 : now(), 유통기간
@@ -277,6 +311,8 @@ def productInsert(name, id, code, quantity, price, period):
 # 유통기한 등록
 def expirydateInsert(code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             # 제품 시리얼 코드로 해당하는 유통기간만큼을 더한 유통기한을 구해 등록
@@ -291,6 +327,8 @@ def expirydateInsert(code):
 # <1> 매출 등록
 def productSaleInsert(type, name, quantity, price):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             # type : 직원 주문일 경우 staff. 고객 주문일 경우 customer.
@@ -303,6 +341,8 @@ def productSaleInsert(type, name, quantity, price):
 # <2> 판매된 제품 유통기한 정보 삭제
 def expirydateDelete(code):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("delete from expirydate where code='" + code + "';")
@@ -314,6 +354,8 @@ def expirydateDelete(code):
 # <3> 판매된 제품 정보 삭제
 def productSaleDelete(name, code, quantity):
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+
     try:
         with conn.cursor() as curs:
             curs.execute("delete from product where name='" + name + "' and code='" + code + "' and quantity='" + quantity + "';")

@@ -4,66 +4,68 @@
 <!--<form action="/signup/" method="post" id="signupForm">-->
 <form action="/signup/" method="post" xmlns="http://www.w3.org/1999/html">
 
-    <div style="text-align: center; padding-top: 220px;">
-        <div>
-            <h1 class="h_signup">회원가입</h1>
-        </div>
+    <div class="div_bg_img">
+        <div style="text-align: center; padding-top: 220px;">
+            <div>
+                <h1 class="h_signup">회원가입</h1>
+            </div>
 
-        <p>
-            <!--    Name : <input class="input_box" type="text" name="signupNameGive" id="signupNameGive" size="20" onkeyup='saveValue(this);'/>-->
-        <div class="div_info_right">
-            <h6 class="h_info">Name</h6>
+            <p>
+                <!--    Name : <input class="input_box" type="text" name="signupNameGive" id="signupNameGive" size="20" onkeyup='saveValue(this);'/>-->
+            <div class="div_info_right">
+                <h6 class="h_info">Name</h6>
+            </div>
+            <input class="input_box" type="text" name="signupNameGive" size="20"/>
+            <br>
+            <div class="div_info_right">
+                <h6 class="h_info">ID</h6>
+            </div>
+            <input class="input_box" type="text" name="signupIdGive" size="20"/>
+            <br>
+            <!--        <input type="submit" value="ID 중복 확인"/>-->
+            <!--        <br>-->
+            <div class="div_info_right">
+                <h6 class="h_info">PW</h6>
+            </div>
+            <input class="input_box" type="password" name="signupPwGive" size="20"/>
+            <br>
+            <div class="div_info_right">
+                <h6 class="h_info">PW Confirm</h6>
+            </div>
+            <input class="input_box" type="password" name="signupPwCfGive" size="20"/>
+            <br>
+            <div class="div_info_right">
+                <h6 class="h_info">Phone Number</h6>
+            </div>
+            <input class="input_box" type="tel" name="signupPhoneGive" size="20"/>
+            <br>
+            <div class="div_info_right">
+                <h6 class="h_info">Gender </h6>
+            </div>
+            <div class="div_info_left">
+                <input type="radio" name="signupGenderGive" value="Male" checked/><h6 class="h_rd">Male</h6>
+                <input type="radio" name="signupGenderGive" value="Female"/><h6 class="h_rd">Female</h6>
+            </div>
+            <br>
+            <div class="div_info_right">
+                <h6 class="h_info">Age</h6>
+            </div>
+            <select id="signupAgeGive" name="signupAgeGive">
+                <option value="Teens">Teens</option>
+                <option value="Twenties">Twenties</option>
+                <option value="Thirties">Thirties</option>
+                <option value="Forties">Forties</option>
+                <option value="Fifties">Fifties</option>
+                <option value="Sixties">Sixties</option>
+                <option value="Seventies">Seventies</option>
+                <option value="Eighties">Eighties</option>
+                <option value="Nineties">Nineties</option>
+            </select>
+            </p>
+            <p>
+                <input class="submit_dark" type="submit" value="회원가입"/>
+            </p>
         </div>
-        <input class="input_box" type="text" name="signupNameGive" size="20"/>
-        <br>
-        <div class="div_info_right">
-            <h6 class="h_info">ID</h6>
-        </div>
-        <input class="input_box" type="text" name="signupIdGive" size="20"/>
-        <br>
-        <!--        <input type="submit" value="ID 중복 확인"/>-->
-        <!--        <br>-->
-        <div class="div_info_right">
-            <h6 class="h_info">PW</h6>
-        </div>
-        <input class="input_box" type="password" name="signupPwGive" size="20"/>
-        <br>
-        <div class="div_info_right">
-            <h6 class="h_info">PW Confirm</h6>
-        </div>
-        <input class="input_box" type="password" name="signupPwCfGive" size="20"/>
-        <br>
-        <div class="div_info_right">
-            <h6 class="h_info">Phone Number</h6>
-        </div>
-        <input class="input_box" type="tel" name="signupPhoneGive" size="20"/>
-        <br>
-        <div class="div_info_right">
-            <h6 class="h_info">Gender </h6>
-        </div>
-        <div class="div_info_left">
-            <input type="radio" name="signupGenderGive" value="Male" checked/><h6 class="h_rd">Male</h6>
-            <input type="radio" name="signupGenderGive" value="Female"/><h6 class="h_rd">Female</h6>
-        </div>
-        <br>
-        <div class="div_info_right">
-            <h6 class="h_info">Age</h6>
-        </div>
-        <select id="signupAgeGive" name="signupAgeGive">
-            <option value="Teens">Teens</option>
-            <option value="Twenties">Twenties</option>
-            <option value="Thirties">Thirties</option>
-            <option value="Forties">Forties</option>
-            <option value="Fifties">Fifties</option>
-            <option value="Sixties">Sixties</option>
-            <option value="Seventies">Seventies</option>
-            <option value="Eighties">Eighties</option>
-            <option value="Nineties">Nineties</option>
-        </select>
-        </p>
-        <p>
-            <input class="submit_dark" type="submit" value="회원가입"/>
-        </p>
     </div>
 
 </form>

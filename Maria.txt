@@ -19,11 +19,6 @@ mysql -h 10.0.155.2 -u admin -p
 status
 
 -- 데이터베이스 내 인코딩 설정
-alter database
-    intern
-    character set = utf8
-    collate = utf8mb4_unicode_ci;
-
 alter database intern default character set utf8 collate utf8_general_ci;
 
 -- 서비스 중지

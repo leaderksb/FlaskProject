@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div style="padding-top: 200px">
-    <div>
-        <h1 class="h_index">개발용<br>페이지</h1>
-    </div>
-</div>
-
-{% for linkname, link in linkDataHtml.items() %}
-
 <form action="/" method="post">
-    <div style="text-align: center; margin-top: 30px; padding: 10px">
-        <a href="{{ link }}">{{ linkname }}</a>
+
+    <div class="div_bg_img" style="padding-top: 200px">
+        <div>
+            <h1 class="h_index">개발용<br>페이지</h1>
+        </div>
+
+        {% for linkname, link in linkDataHtml.items() %}
+
+        <div style="text-align: center; margin-top: 30px; padding: 10px">
+            <a href="{{ link }}">{{ linkname }}</a>
+        </div>
+        {% endfor %}
     </div>
 
 </form>
 
-{% endfor %}
+
 {% endblock %}
