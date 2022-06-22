@@ -30,13 +30,6 @@ def informationSelect():
 
 # id 존재 개수 조회
 def idChk(id):
-    # # DB 연동
-    # conn = MongoClient('mongodb://localhost:27017/')  # MongoDB IP : 127.0.0.1, PORT : 27017, use information
-    # # DB 생성
-    # informationDB = conn['information']
-    # global idChkDictionary
-    # x = informationDB.information.count_documents( {"id":id} )
-
     conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
@@ -46,8 +39,17 @@ def idChk(id):
     finally:
         conn.close()  # DB 종료
 
-# print(idChk("kimsubin"))
-# print(idChk(""))
+
+# code 존재 개수 조회
+def codeChk(code):
+    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    try:
+        with conn.cursor() as curs:
+            curs.execute("select * from product where code = '" + code + "';")
+            x = curs.rowcount  # 조회된 값 개수
+            return x
+    finally:
+        conn.close()  # DB 종료
 
 
 # 제품 정보 조회
