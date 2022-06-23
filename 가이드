@@ -39,19 +39,24 @@ pip install sqlalchemy
 ▶ 리눅스 폰트 설치
 sudo cp /home/centos/git/FlaskProject/static/fonts/* /usr/share/fonts
 
+▶ 가상환경 구동을 위한 쉘 스크립트
+< expirydateCron.sh >
+source ~/git/FlaskProject/venv/bin/activate
+python /home/centos/git/FlaskProject/expirydateChkProcess.py
+deactivate
+
 ▶ python 설치 위치 검색
 sudo which python
 
-▶ cron 설정
+▶ cron 현재 사용자 설정
 crontab -e
 
-▶ cron 설정 파일
+▶ cron 현재 사용자 변경
 [시간 설정] [파이썬이 설치된 절대 경로] [실행할 파이썬의 절대 경로]
-0 0 0 * * /bin/python /home/centos/git/FlaskProject/expirydateChkProcess.py
-
-* * * * * /home/centos/script/expirydateCron.sh >> /home/centos/cron/cron.log > /dev/null 2>&1
-
-▶ cron 쉘 스크립트 파일
+- 우리나라 기준 자정
+0 0 * * * /home/centos/script/expirydateCron.sh >> /home/centos/cron/cron.log 2>&1
+- UTC 기준 자정
+0 15 * * * /home/centos/script/expirydateCron.sh >> /home/centos/cron/cron.log 2>&1
 
 ▶ cron 재시작
 sudo systemctl restart crond.service
