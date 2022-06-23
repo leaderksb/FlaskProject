@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 
+import sys
 from flask import Flask, render_template, request
 import pandas as pd
 import matplotlib
@@ -50,6 +51,8 @@ links = {
 #     timedfilehandler.suffix = "%Y%m%d"
 #
 #     logger.addHandler(timedfilehandler)
+
+print(sys.version)
 
 @app.route('/')  # 개발용 페이지
 def index():

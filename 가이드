@@ -5,7 +5,6 @@ Key 파일 비밀번호 힌트 : 인턴 교육 프로그램명 참고
 git pull origin master
 
 ▶ SSH에서 Web Server 접속
-sudo ssh -i Fresh_Key.pem centos@10.0.4.120
 sudo ssh -i Fresh_Key.pem centos@10.0.13.14
 
 ▶ 서버 OS에서 venv 가상환경 설치
