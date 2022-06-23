@@ -43,7 +43,7 @@ def log(codeList):  # 로그
     # logger.info("INFO 모드")
     # logger.warn("WARN 모드")
 
-    timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/cron', when='midnight', interval=1, encoding='utf-8')
+    timedfilehandler = logging.handlers.TimedRotatingFileHandler(filename='./logs/cron.log', when='midnight', interval=1, encoding='utf-8')
     timedfilehandler.setFormatter(formatter)
     timedfilehandler.suffix = "%Y%m%d"
 
