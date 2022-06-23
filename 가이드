@@ -58,6 +58,13 @@ sudo systemctl restart crond.service
 
 ▶ cron 확인
 sudo cat /var/spool/mail/root
+sudo tail /var/spool/mail/centos
+
+▶ cron 메일 안 보내게 설정
+< /etc/crontab >
+sudo vi /etc/crontab
+#MAILTO="root"
+MAILTO=""
 
 보류> https://nodejs.org/에서 node.js 설치 → 설치 중 체크 박스 체크
 방법0) 재부팅
