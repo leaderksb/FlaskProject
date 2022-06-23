@@ -7,8 +7,8 @@ import logging
 import logging.handlers
 
 def expirydateChkSelect():  # 유통기한 지난 제품 코드 조회
-    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
-    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
 
     try:
         with conn.cursor() as curs:
@@ -49,11 +49,11 @@ def log(codeList):  # 로그
 
     logger.addHandler(timedfilehandler)
 
-log(codeList)
+# log(codeList)
 
 def expirydateDelete():  # 지난 유통기한 삭제
-    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
-    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
 
     try:
         with conn.cursor() as curs:
@@ -63,8 +63,8 @@ def expirydateDelete():  # 지난 유통기한 삭제
         conn.close()
 
 def productDelete(codeList):  # 유통기한 지난 제품 삭제
-    conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
-    # conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
+    # conn = pymysql.connect(host='10.0.155.2', user='admin', passwd='fresh-maria', db='intern', charset='utf8')
+    conn = pymysql.connect(host='localhost', user='root', passwd='maria', db='intern', charset='utf8')
     try:
         with conn.cursor() as curs:
             #print(codeList)
